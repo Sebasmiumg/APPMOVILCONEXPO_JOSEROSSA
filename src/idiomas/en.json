@@ -1,0 +1,494 @@
+{
+  "idioma": {
+    "nombreNativo": "English",
+    "es": "Spanish",
+    "en": "English",
+    "zh": "Simplified Chinese",
+    "hi": "Hindi",
+    "ar": "Arabic"
+  },
+  "comun": {
+    "continuar": "Continue",
+    "atras": "Back",
+    "cancelar": "Cancel",
+    "guardar": "Save",
+    "eliminar": "Delete",
+    "editar": "Edit",
+    "cerrar": "Close",
+    "cargando": "Loading…",
+    "reintentar": "Retry",
+    "aceptar": "Accept",
+    "opcional": "Optional",
+    "buscar": "Search",
+    "verTodo": "See all",
+    "confirmar": "Confirm",
+    "proximamente": "Available in an upcoming phase"
+  },
+  "splash": {
+    "eslogan": "Your money, with clarity"
+  },
+  "bienvenida": {
+    "titulo": "Control, save, and invest in your future",
+    "resumen": "Track your movements, understand your habits, and reach your financial goals from one place.",
+    "crearCuenta": "Create account",
+    "iniciarSesion": "Sign in"
+  },
+  "autenticacion": {
+    "registro": {
+      "titulo": "Create your account",
+      "subtitulo": "Start managing your finances in minutes",
+      "nombreCompleto": "Full name",
+      "correo": "Email address",
+      "contrasena": "Password",
+      "confirmarContrasena": "Confirm password",
+      "aceptoTerminos": "I accept the terms and privacy policy",
+      "boton": "Create account",
+      "yaTienesCuenta": "Already have an account?",
+      "irAIniciarSesion": "Sign in"
+    },
+    "iniciarSesion": {
+      "titulo": "Welcome back",
+      "subtitulo": "Sign in to continue",
+      "correo": "Email address",
+      "contrasena": "Password",
+      "boton": "Sign in",
+      "olvidasteContrasena": "Forgot your password?",
+      "noTienesCuenta": "Don't have an account?",
+      "irARegistro": "Sign up"
+    },
+    "recuperarContrasena": {
+      "titulo": "Reset password",
+      "subtitulo": "We'll send a link to your email",
+      "correo": "Email address",
+      "boton": "Send link",
+      "volverAIniciarSesion": "Back to sign in"
+    },
+    "verificarCorreo": {
+      "titulo": "Verify your email",
+      "descripcion": "We sent a verification link to",
+      "reenviar": "Resend email",
+      "reenviarEn": "Resend in {{segundos}}s",
+      "continuarDemostracion": "Continue in demo mode",
+      "yaVerifique": "I already verified my email"
+    },
+    "tipoCorreo": {
+      "titulo": "Detected email type",
+      "personal": "Personal",
+      "institucional": "Institutional",
+      "organizacional": "Organizational",
+      "dominioDetectado": "Domain: {{dominio}}",
+      "aviso": "This classification is informational only and grants no special permissions."
+    }
+  },
+  "validaciones": {
+    "campoRequerido": "This field is required",
+    "correoInvalido": "Enter a valid email address",
+    "correoYaRegistrado": "This email is already registered",
+    "contrasenaCorta": "Must be at least 8 characters",
+    "contrasenaDebil": "Must include an uppercase letter, lowercase letter, number, and symbol",
+    "confirmacionNoCoincide": "Passwords do not match",
+    "debesAceptarTerminos": "You must accept the terms to continue",
+    "montoInvalido": "Enter a valid amount greater than zero"
+  },
+  "configuracionInicial": {
+    "idioma": {
+      "titulo": "Choose your language",
+      "subtitulo": "You can change it anytime"
+    },
+    "apariencia": {
+      "titulo": "Choose your theme",
+      "subtitulo": "Preview both before continuing",
+      "claro": "Light",
+      "oscuro": "Dark"
+    },
+    "finanzas": {
+      "titulo": "Set up your finances",
+      "subtitulo": "Create your first account to get started",
+      "moneda": "Main currency",
+      "nombreCuenta": "Account name",
+      "tipoCuenta": "Account type",
+      "saldoInicial": "Initial balance",
+      "metaAhorroOpcional": "Savings goal (optional)",
+      "fechaObjetivoOpcional": "Target date (optional)",
+      "metaInicialNombre": "My first goal",
+      "finalizar": "Finish setup",
+      "tiposCuenta": {
+        "efectivo": "Cash",
+        "cuentaBancaria": "Bank account",
+        "cuentaAhorro": "Savings account",
+        "tarjetaCredito": "Credit card",
+        "negocio": "Business",
+        "billeteraDigital": "Digital wallet"
+      }
+    }
+  },
+  "navegacion": {
+    "inicio": "Home",
+    "movimientos": "Transactions",
+    "agregar": "Add",
+    "asistente": "Assistant",
+    "perfil": "Profile",
+    "analisis": "Analysis",
+    "metas": "Goals",
+    "reinversion": "Reinvestment"
+  },
+  "pantallas": {
+    "inicio": {
+      "saludo": "Hi, {{nombre}}",
+      "saldoDisponible": "Available balance",
+      "ingresosDelMes": "Income this month",
+      "gastosDelMes": "Expenses this month",
+      "ahorroNeto": "Net savings",
+      "tasaAhorro": "Savings rate",
+      "movimientosRecientes": "Recent transactions",
+      "progresoMetas": "Goal progress",
+      "verReporte": "View monthly report"
+    },
+    "movimientos": {
+      "titulo": "Transactions",
+      "buscarPlaceholder": "Search transaction",
+      "sinMovimientos": "You don't have any transactions yet"
+    },
+    "movimientoNuevo": {
+      "titulo": "New transaction",
+      "tipo": "Transaction type",
+      "ingreso": "Income",
+      "gasto": "Expense",
+      "transferencia": "Transfer",
+      "ajuste": "Balance adjustment",
+      "monto": "Amount",
+      "descripcion": "Description",
+      "categoria": "Category",
+      "cuenta": "Account",
+      "fecha": "Date",
+      "nota": "Note",
+      "comprobante": "Receipt (optional)",
+      "agregarFoto": "Add photo",
+      "cambiarFoto": "Change photo",
+      "quitarFoto": "Remove photo",
+      "permisoGaleria": "We need access to your photos to attach the receipt.",
+      "esRecurrente": "Repeat every month",
+      "guardarMovimiento": "Save transaction"
+    },
+    "asistente": {
+      "titulo": "Financial assistant",
+      "placeholder": "Ask about your finances",
+      "preguntasSugeridas": "Suggested questions",
+      "escribiendo": "Typing…",
+      "borrarConversacion": "Clear conversation",
+      "hablanteUsuario": "You",
+      "hablanteAsistente": "Assistant",
+      "datosUtilizados": "Data used for this answer",
+      "respuestaProximamente": "I couldn't understand your question. AI support for more complex questions is coming in an upcoming phase.",
+      "sugerencias": [
+        "How much did I spend this month?",
+        "Which category did I spend the most on?",
+        "Show me my last five transactions",
+        "How much have I saved?"
+      ],
+      "datosUtilizadosPeriodo": "Transactions from {{periodo}}",
+      "datosUtilizadosMesActual": "This month's transactions",
+      "datosUtilizadosDosMeses": "This month's and last month's transactions",
+      "datosUtilizadosMetas": "Your savings goals",
+      "datosUtilizadosMovimientos": "Your recorded transactions",
+      "periodoMesActual": "the current month",
+      "respuestas": {
+        "gastoMes": "You spent {{monto}} in {{periodo}}.",
+        "ingresoMes": "You received {{monto}} in income in {{periodo}}.",
+        "categoriaMayorGasto": "Your top spending category this month is {{categoria}}, at {{monto}}.",
+        "categoriaMayorGastoSinDatos": "You don't have categorized expenses this month yet.",
+        "sugerenciaReduccion": "You could review {{categoria}}: it's {{monto}} ({{porcentaje}}% of this month's expenses).",
+        "sugerenciaReduccionSinDatos": "You don't have enough categorized expenses yet to suggest a cut.",
+        "comparacionMas": "Yes, you spent {{porcentaje}}% more than last month ({{montoActual}} vs {{montoAnterior}}).",
+        "comparacionMenos": "No, you spent {{porcentaje}}% less than last month ({{montoActual}} vs {{montoAnterior}}).",
+        "comparacionSinDatosAnterior": "I don't have last month's transactions to compare.",
+        "ahorroTotal": "Your net savings this month is {{monto}} ({{tasa}}% of your income).",
+        "progresoMetaSinMetas": "You haven't created any savings goals yet.",
+        "progresoMetaVarias": "You have {{cantidad}} active goals. Ask me about a specific one by name, or check the Goals tab.",
+        "progresoMetaUna": "You're at {{porcentaje}}% of your goal \"{{nombre}}\". {{restante}} left to go.",
+        "progresoMetaSugerido": "Save {{monto}} per week to reach it on time.",
+        "ultimosMovimientosEncabezado": "Here are your last {{cantidad}} transactions:",
+        "ultimosMovimientosSinDatos": "You don't have any transactions yet.",
+        "noEntendido": "I didn't understand your question. Try one of the suggested ones or be more specific."
+      }
+    },
+    "analisis": {
+      "titulo": "Financial analysis",
+      "saludFinanciera": "Financial health",
+      "comparacionMesAnterior": "Comparison with last month",
+      "categoriaMayorGasto": "Category with highest spending",
+      "promedioDiario": "Average daily spending",
+      "proyeccionSaldo": "Projected balance at month end",
+      "gastosPorCategoria": "Spending by category",
+      "presupuestos": "This month's budgets",
+      "nuevoPresupuesto": "New budget",
+      "sinPresupuestos": "You haven't created any budgets yet",
+      "sinGastosCategoria": "You don't have categorized expenses this month yet",
+      "recomendaciones": "Recommendations",
+      "masQueElMesPasado": "{{porcentaje}}% more than last month",
+      "menosQueElMesPasado": "{{porcentaje}}% less than last month",
+      "salud": {
+        "verde": {
+          "titulo": "Healthy finances",
+          "descripcion": "Your savings rate is {{tasa}}%. You're saving at least 20% of your income."
+        },
+        "amarillo": {
+          "titulo": "Finances could improve",
+          "descripcion": "Your savings rate is {{tasa}}%. Aim for 20% to strengthen your finances."
+        },
+        "rojo": {
+          "titulo": "Your finances need attention",
+          "descripcion": "You're spending more than you earn this month ({{tasa}}%)."
+        }
+      },
+      "recomendacionCategoria": "Your spending on {{categoria}} was {{monto}} this month, your top spending category.",
+      "recomendacionAhorro": "Cutting {{categoria}} by 25% would free up about {{monto}} per month.",
+      "sinRecomendaciones": "Log more transactions to get personalized recommendations."
+    },
+    "metas": {
+      "titulo": "Savings goals",
+      "nuevaMeta": "New goal",
+      "sinMetas": "You haven't created any goals yet",
+      "fechaObjetivo": "Target date",
+      "formulario": {
+        "nombre": "Goal name",
+        "montoObjetivo": "Target amount",
+        "montoActualOpcional": "Saved so far (optional)",
+        "cuentaAsociada": "Associated account",
+        "fechaObjetivoOpcional": "Target date (optional)",
+        "crear": "Create goal"
+      },
+      "detalle": {
+        "agregarAporte": "Add contribution",
+        "montoAporte": "Contribution amount",
+        "notaOpcional": "Note (optional)",
+        "guardarAporte": "Save contribution",
+        "historialAportes": "Contribution history",
+        "sinAportes": "You haven't added any contributions yet",
+        "ahorroPorSemana": "Save {{monto}} per week to reach it on time",
+        "ahorroPorMes": "Save {{monto}} per month to reach it on time",
+        "completada": "Goal completed!",
+        "archivar": "Archive goal"
+      }
+    },
+    "reinversion": {
+      "titulo": "Reinvestment & strategies",
+      "descripcion": "Explore educational alternatives based on your interest",
+      "aviso": "Educational information only. Not a guaranteed financial recommendation; all investment carries risk.",
+      "montoAConsiderar": "Amount to consider (optional)",
+      "seleccionaInteres": "What are you interested in?",
+      "verAlternativas": "See alternatives",
+      "sinResultados": "We don't have any alternatives logged for this interest yet."
+    },
+    "perfil": {
+      "titulo": "Profile",
+      "idioma": "Language",
+      "tema": "Theme",
+      "moneda": "Currency",
+      "cuentas": "Accounts",
+      "seguridad": "Security",
+      "notificaciones": "Notifications",
+      "privacidad": "Privacy",
+      "exportarDatos": "Export data",
+      "eliminarCuenta": "Delete account",
+      "cerrarSesion": "Sign out",
+      "sincronizacion": {
+        "titulo": "Cloud sync",
+        "alDia": "Everything is synced",
+        "pendientes": "{{cantidad}} changes pending sync",
+        "sincronizar": "Sync now",
+        "sincronizando": "Syncing…",
+        "sinConfigurar": "Connect Supabase to sync your data across devices"
+      },
+      "confirmarEliminarCuenta": "Your financial data will be deleted from the cloud and this device. This action cannot be undone."
+    },
+    "privacidad": {
+      "titulo": "Privacy and your data",
+      "localTitulo": "Stored on your device",
+      "localDescripcion": "Your accounts, transactions, categories, budgets, goals, and receipt photos are stored in a local database on your phone. They never leave your device unless you turn on cloud sync.",
+      "nubeTitulo": "Cloud sync",
+      "nubeActivaDescripcion": "Cloud sync is on. Your data is backed up to your own Supabase project, protected by row-level security: only you can read or modify your data.",
+      "nubeInactivaDescripcion": "You haven't turned on cloud sync. MiPresupuesto runs entirely locally and no data leaves this device.",
+      "asistenteTitulo": "Financial assistant",
+      "asistenteDescripcion": "Most of your questions are answered locally, without sending anything to the internet. Only if the assistant doesn't understand your question and you have cloud sync on, a general summary (never your individual transactions) is sent to an AI service.",
+      "exportarBoton": "Export my data",
+      "eliminarDescripcion": "You can delete your account and all your data at any time from your profile.",
+      "eliminarBoton": "Go to Profile"
+    },
+    "reporte": {
+      "titulo": "Financial report",
+      "exportarPDF": "Export PDF",
+      "exportarCSV": "Export CSV",
+      "compartir": "Share",
+      "periodoActual": "Current month",
+      "periodoAnterior": "Previous month",
+      "todasLasCuentas": "All accounts",
+      "saldoInicial": "Starting balance",
+      "saldoFinal": "Ending balance",
+      "tablaMovimientos": "Transactions in this period",
+      "sinMovimientosPeriodo": "No transactions in this period",
+      "generando": "Generating…"
+    }
+  },
+  "presupuestos": {
+    "titulo": "New budget",
+    "categoria": "Category",
+    "limite": "Monthly limit",
+    "alertaPorcentual": "Alert when reaching (%)",
+    "crear": "Create budget",
+    "eliminarConfirmacion": "Delete this budget?"
+  },
+  "reinversion": {
+    "riesgo": { "bajo": "Low", "medio": "Medium", "alto": "High" },
+    "pais": { "guatemala": "Guatemala" },
+    "intereses": {
+      "ahorro": "Savings",
+      "formacion": "Education",
+      "herramientas": "Tools",
+      "microemprendimiento": "Microenterprise",
+      "negocioExistente": "Existing business",
+      "inversionRegulada": "Regulated financial investment"
+    },
+    "camposFicha": {
+      "riesgo": "Risk",
+      "capitalMinimo": "Minimum capital",
+      "liquidez": "Liquidity",
+      "costos": "Costs and fees",
+      "ventajas": "Possible advantages",
+      "riesgosPrincipales": "Main risks",
+      "fechaConsulta": "Consulted",
+      "estadoVerificado": "Verified",
+      "estadoRequiereRevision": "Needs review"
+    },
+    "alternativas": {
+      "cooperativaAhorro": {
+        "nombre": "Savings account at a regulated credit union",
+        "descripcion": "Supervised savings and credit cooperatives offer savings accounts with reference annual rates between 3% and 4.5%, depending on term and minimum balance.",
+        "liquidez": "High for on-demand accounts; medium for term deposits (6 to 60 months)",
+        "costos": "Varies by cooperative; usually no opening fee",
+        "ventajas": "Higher yield than a regular checking account, plus access to the cooperative's financial education.",
+        "riesgos": "Deposit protection can differ between cooperatives; confirm it is registered and supervised before opening an account."
+      },
+      "intecapFormacion": {
+        "nombre": "Capacítate para el Empleo (INTECAP)",
+        "descripcion": "Free platform from INTECAP and the Carlos Slim Foundation with more than 290 certifiable online courses and diplomas in commerce, technology, tourism, and more.",
+        "liquidez": "Not applicable: this is educational content, not a financial instrument",
+        "costos": "Free",
+        "ventajas": "Recognized certification and content designed to improve employability or start a business.",
+        "riesgos": "Requires consistent study time; does not guarantee employment or income."
+      },
+      "creditoProductivo": {
+        "nombre": "Productive credit for tools and equipment",
+        "descripcion": "A credit line aimed at acquiring tools, equipment, or inventory for trade, production, or service activities.",
+        "liquidez": "Low: involves a monthly payment for the term of the loan",
+        "costos": "Interest rate and fees depend on credit evaluation; ask for details before signing",
+        "ventajas": "Lets you acquire work equipment without depleting your business capital all at once.",
+        "riesgos": "It's debt: it generates interest and payment obligations even if the business doesn't earn income that month."
+      },
+      "creditoMicroempresario": {
+        "nombre": "Credit for microentrepreneurs",
+        "descripcion": "Credit aimed at microentrepreneurs starting or formalizing a trade, production, or service business.",
+        "liquidez": "Low: involves a monthly payment for the term of the loan",
+        "costos": "Interest rate and fees depend on credit evaluation",
+        "ventajas": "Support from a wide network of branches and business advisors across the country.",
+        "riesgos": "Not recommended if the business doesn't yet have predictable income to cover payments."
+      },
+      "bancaDesarrolloMipyme": {
+        "nombre": "Development banking for small and medium businesses",
+        "descripcion": "Development banking and Ministry of Economy programs to finance the growth of already-established micro, small, and medium businesses.",
+        "liquidez": "Low: involves a payment obligation for the term of the loan",
+        "costos": "Rates and fees vary by program; usually lower than traditional private banking",
+        "ventajas": "Terms designed for growing formal businesses, with development-oriented rates and timelines.",
+        "riesgos": "Requires formal business documentation; default affects your credit history."
+      },
+      "certibonos": {
+        "nombre": "Treasury bonds for small investors",
+        "descripcion": "Guatemalan government debt securities available from Q5,000, tradable on the National Stock Exchange, with published yields of 6.00% to 6.25% annually for maturities between 2027 and 2029.",
+        "liquidez": "Medium: tradable on the National Stock Exchange before maturity, subject to market conditions",
+        "costos": "Broker or authorized bank commission; ask for details before investing",
+        "ventajas": "Backed by the Guatemalan government, with a fixed interest rate known from the start.",
+        "riesgos": "Resale value before maturity can vary; there's country risk associated with sovereign debt."
+      }
+    }
+  },
+  "categorias": {
+    "gasto": {
+      "alimentacion": "Food",
+      "supermercado": "Groceries",
+      "restaurantes": "Restaurants",
+      "transporte": "Transportation",
+      "combustible": "Fuel",
+      "educacion": "Education",
+      "universidad": "University",
+      "tecnologia": "Technology",
+      "salud": "Health",
+      "medicamentos": "Medicine",
+      "vivienda": "Housing",
+      "alquiler": "Rent",
+      "servicios": "Utilities",
+      "telefonia": "Phone",
+      "internet": "Internet",
+      "entretenimiento": "Entertainment",
+      "deporte": "Sports",
+      "ropa": "Clothing",
+      "mascotas": "Pets",
+      "viajes": "Travel",
+      "deudas": "Debts",
+      "impuestos": "Taxes",
+      "suscripciones": "Subscriptions",
+      "regalos": "Gifts",
+      "negocio": "Business",
+      "otros": "Other"
+    },
+    "ingreso": {
+      "salario": "Salary",
+      "ventas": "Sales",
+      "trabajoIndependiente": "Freelance work",
+      "comisiones": "Commissions",
+      "intereses": "Interest",
+      "reembolsos": "Refunds",
+      "regalos": "Gifts",
+      "becas": "Scholarships",
+      "rentas": "Rental income",
+      "dividendos": "Dividends",
+      "negocio": "Business",
+      "otros": "Other"
+    },
+    "categoriaPersonalizada": "Custom category",
+    "crearCategoria": "Create category",
+    "confirmarCategoria": "Confirm new category",
+    "nombreCategoria": "Category name"
+  },
+  "estadoVacio": {
+    "tituloGenerico": "Nothing here yet",
+    "descripcionGenerica": "Once you add information, it will show up on this screen"
+  },
+  "errores": {
+    "generico": "Something went wrong. Please try again.",
+    "sinConexion": "No internet connection"
+  },
+  "notificaciones": {
+    "presupuestoAdvertenciaTitulo": "You're approaching your limit",
+    "presupuestoAdvertenciaCuerpo": "You've already used {{porcentaje}}% of your {{categoria}} budget this month.",
+    "presupuestoExcedidoTitulo": "Budget exceeded",
+    "presupuestoExcedidoCuerpo": "You went over your {{categoria}} budget this month ({{porcentaje}}%).",
+    "movimientoRecurrenteTitulo": "Recurring transaction recorded",
+    "movimientoRecurrenteCuerpo": "\"{{descripcion}}\" for {{monto}} was recorded automatically.",
+    "noDisponibleWeb": "Notifications are only available in the installed app, not in the browser."
+  },
+  "seguridad": {
+    "bloqueoBiometrico": "Biometric lock",
+    "bloqueoBiometricoDescripcion": "Require Face ID, fingerprint, or your device passcode to open the app.",
+    "bloqueoBiometricoNoDisponible": "Your device doesn't have biometrics set up.",
+    "bloqueoBiometricoNoDisponibleWeb": "Biometric lock is only available in the installed app, not in the browser.",
+    "confirmarParaActivar": "Confirm your identity to turn on the lock",
+    "activado": "On",
+    "desactivado": "Off",
+    "pantallaBloqueo": {
+      "titulo": "MiPresupuesto is locked",
+      "descripcion": "Unlock with Face ID, fingerprint, or your passcode to continue.",
+      "desbloquear": "Unlock",
+      "error": "We couldn't verify your identity. Try again."
+    }
+  }
+}

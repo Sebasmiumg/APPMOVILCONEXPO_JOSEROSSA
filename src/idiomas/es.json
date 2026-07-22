@@ -1,0 +1,494 @@
+{
+  "idioma": {
+    "nombreNativo": "Español",
+    "es": "Español",
+    "en": "Inglés",
+    "zh": "Chino mandarín",
+    "hi": "Hindi",
+    "ar": "Árabe"
+  },
+  "comun": {
+    "continuar": "Continuar",
+    "atras": "Atrás",
+    "cancelar": "Cancelar",
+    "guardar": "Guardar",
+    "eliminar": "Eliminar",
+    "editar": "Editar",
+    "cerrar": "Cerrar",
+    "cargando": "Cargando…",
+    "reintentar": "Reintentar",
+    "aceptar": "Aceptar",
+    "opcional": "Opcional",
+    "buscar": "Buscar",
+    "verTodo": "Ver todo",
+    "confirmar": "Confirmar",
+    "proximamente": "Disponible en una fase próxima"
+  },
+  "splash": {
+    "eslogan": "Tu dinero, con claridad"
+  },
+  "bienvenida": {
+    "titulo": "Controla, ahorra e invierte en tu futuro",
+    "resumen": "Registra tus movimientos, entiende tus hábitos y alcanza tus metas financieras desde un solo lugar.",
+    "crearCuenta": "Crear cuenta",
+    "iniciarSesion": "Iniciar sesión"
+  },
+  "autenticacion": {
+    "registro": {
+      "titulo": "Crea tu cuenta",
+      "subtitulo": "Empieza a controlar tus finanzas en minutos",
+      "nombreCompleto": "Nombre completo",
+      "correo": "Correo electrónico",
+      "contrasena": "Contraseña",
+      "confirmarContrasena": "Confirmar contraseña",
+      "aceptoTerminos": "Acepto los términos y la política de privacidad",
+      "boton": "Crear cuenta",
+      "yaTienesCuenta": "¿Ya tienes cuenta?",
+      "irAIniciarSesion": "Inicia sesión"
+    },
+    "iniciarSesion": {
+      "titulo": "Bienvenido de nuevo",
+      "subtitulo": "Inicia sesión para continuar",
+      "correo": "Correo electrónico",
+      "contrasena": "Contraseña",
+      "boton": "Iniciar sesión",
+      "olvidasteContrasena": "¿Olvidaste tu contraseña?",
+      "noTienesCuenta": "¿No tienes cuenta?",
+      "irARegistro": "Regístrate"
+    },
+    "recuperarContrasena": {
+      "titulo": "Recuperar contraseña",
+      "subtitulo": "Te enviaremos un enlace a tu correo",
+      "correo": "Correo electrónico",
+      "boton": "Enviar enlace",
+      "volverAIniciarSesion": "Volver a iniciar sesión"
+    },
+    "verificarCorreo": {
+      "titulo": "Verifica tu correo",
+      "descripcion": "Enviamos un enlace de verificación a",
+      "reenviar": "Reenviar correo",
+      "reenviarEn": "Reenviar en {{segundos}}s",
+      "continuarDemostracion": "Continuar en modo demostración",
+      "yaVerifique": "Ya verifiqué mi correo"
+    },
+    "tipoCorreo": {
+      "titulo": "Tipo de correo detectado",
+      "personal": "Personal",
+      "institucional": "Institucional",
+      "organizacional": "Organizacional",
+      "dominioDetectado": "Dominio: {{dominio}}",
+      "aviso": "Esta clasificación es solo informativa y no otorga permisos especiales."
+    }
+  },
+  "validaciones": {
+    "campoRequerido": "Este campo es obligatorio",
+    "correoInvalido": "Ingresa un correo electrónico válido",
+    "correoYaRegistrado": "Este correo ya está registrado",
+    "contrasenaCorta": "Debe tener al menos 8 caracteres",
+    "contrasenaDebil": "Debe incluir mayúscula, minúscula, número y símbolo",
+    "confirmacionNoCoincide": "Las contraseñas no coinciden",
+    "debesAceptarTerminos": "Debes aceptar los términos para continuar",
+    "montoInvalido": "Ingresa un monto válido mayor a cero"
+  },
+  "configuracionInicial": {
+    "idioma": {
+      "titulo": "Elige tu idioma",
+      "subtitulo": "Podrás cambiarlo cuando quieras"
+    },
+    "apariencia": {
+      "titulo": "Elige tu tema",
+      "subtitulo": "Aplica un vistazo previo antes de continuar",
+      "claro": "Claro",
+      "oscuro": "Oscuro"
+    },
+    "finanzas": {
+      "titulo": "Configura tus finanzas",
+      "subtitulo": "Crea tu primera cuenta para comenzar",
+      "moneda": "Moneda principal",
+      "nombreCuenta": "Nombre de la cuenta",
+      "tipoCuenta": "Tipo de cuenta",
+      "saldoInicial": "Saldo inicial",
+      "metaAhorroOpcional": "Meta de ahorro (opcional)",
+      "fechaObjetivoOpcional": "Fecha objetivo (opcional)",
+      "metaInicialNombre": "Mi primera meta",
+      "finalizar": "Finalizar configuración",
+      "tiposCuenta": {
+        "efectivo": "Efectivo",
+        "cuentaBancaria": "Cuenta bancaria",
+        "cuentaAhorro": "Cuenta de ahorro",
+        "tarjetaCredito": "Tarjeta de crédito",
+        "negocio": "Negocio",
+        "billeteraDigital": "Billetera digital"
+      }
+    }
+  },
+  "navegacion": {
+    "inicio": "Inicio",
+    "movimientos": "Movimientos",
+    "agregar": "Agregar",
+    "asistente": "Asistente",
+    "perfil": "Perfil",
+    "analisis": "Análisis",
+    "metas": "Metas",
+    "reinversion": "Reinversión"
+  },
+  "pantallas": {
+    "inicio": {
+      "saludo": "Hola, {{nombre}}",
+      "saldoDisponible": "Saldo disponible",
+      "ingresosDelMes": "Ingresos del mes",
+      "gastosDelMes": "Gastos del mes",
+      "ahorroNeto": "Ahorro neto",
+      "tasaAhorro": "Tasa de ahorro",
+      "movimientosRecientes": "Movimientos recientes",
+      "progresoMetas": "Progreso de metas",
+      "verReporte": "Ver reporte mensual"
+    },
+    "movimientos": {
+      "titulo": "Movimientos",
+      "buscarPlaceholder": "Buscar movimiento",
+      "sinMovimientos": "Aún no tienes movimientos registrados"
+    },
+    "movimientoNuevo": {
+      "titulo": "Nuevo movimiento",
+      "tipo": "Tipo de movimiento",
+      "ingreso": "Ingreso",
+      "gasto": "Gasto",
+      "transferencia": "Transferencia",
+      "ajuste": "Ajuste de saldo",
+      "monto": "Monto",
+      "descripcion": "Descripción",
+      "categoria": "Categoría",
+      "cuenta": "Cuenta",
+      "fecha": "Fecha",
+      "nota": "Nota",
+      "comprobante": "Comprobante (opcional)",
+      "agregarFoto": "Agregar foto",
+      "cambiarFoto": "Cambiar foto",
+      "quitarFoto": "Quitar foto",
+      "permisoGaleria": "Necesitamos acceso a tus fotos para adjuntar el comprobante.",
+      "esRecurrente": "Repetir cada mes",
+      "guardarMovimiento": "Guardar movimiento"
+    },
+    "asistente": {
+      "titulo": "Asistente financiero",
+      "placeholder": "Pregunta sobre tus finanzas",
+      "preguntasSugeridas": "Preguntas sugeridas",
+      "escribiendo": "Escribiendo…",
+      "borrarConversacion": "Borrar conversación",
+      "hablanteUsuario": "Tú",
+      "hablanteAsistente": "Asistente",
+      "datosUtilizados": "Datos utilizados para esta respuesta",
+      "respuestaProximamente": "No pude interpretar tu pregunta. El asistente con IA para preguntas más complejas llega en una fase próxima.",
+      "sugerencias": [
+        "¿Cuánto gasté este mes?",
+        "¿En qué categoría gasté más?",
+        "Muéstrame mis últimos cinco movimientos",
+        "¿Cuánto he ahorrado?"
+      ],
+      "datosUtilizadosPeriodo": "Movimientos de {{periodo}}",
+      "datosUtilizadosMesActual": "Movimientos del mes actual",
+      "datosUtilizadosDosMeses": "Movimientos del mes actual y del anterior",
+      "datosUtilizadosMetas": "Tus metas de ahorro",
+      "datosUtilizadosMovimientos": "Tus movimientos registrados",
+      "periodoMesActual": "el mes actual",
+      "respuestas": {
+        "gastoMes": "Gastaste {{monto}} en {{periodo}}.",
+        "ingresoMes": "Recibiste {{monto}} de ingresos en {{periodo}}.",
+        "categoriaMayorGasto": "Tu categoría con más gasto este mes es {{categoria}}, con {{monto}}.",
+        "categoriaMayorGastoSinDatos": "Aún no tienes gastos categorizados este mes.",
+        "sugerenciaReduccion": "Podrías revisar {{categoria}}: representa {{monto}} ({{porcentaje}}% de tus gastos de este mes).",
+        "sugerenciaReduccionSinDatos": "Aún no tienes suficientes gastos categorizados para sugerir una reducción.",
+        "comparacionMas": "Sí, gastaste {{porcentaje}}% más que el mes pasado ({{montoActual}} frente a {{montoAnterior}}).",
+        "comparacionMenos": "No, gastaste {{porcentaje}}% menos que el mes pasado ({{montoActual}} frente a {{montoAnterior}}).",
+        "comparacionSinDatosAnterior": "No tengo movimientos del mes pasado para comparar.",
+        "ahorroTotal": "Tu ahorro neto de este mes es {{monto}} ({{tasa}}% de tus ingresos).",
+        "progresoMetaSinMetas": "Aún no has creado ninguna meta de ahorro.",
+        "progresoMetaVarias": "Tienes {{cantidad}} metas activas. Pregúntame por el nombre de una específica o revisa la pestaña Metas.",
+        "progresoMetaUna": "Vas al {{porcentaje}}% de tu meta \"{{nombre}}\". Te faltan {{restante}}.",
+        "progresoMetaSugerido": "Ahorra {{monto}} por semana para lograrlo a tiempo.",
+        "ultimosMovimientosEncabezado": "Aquí están tus últimos {{cantidad}} movimientos:",
+        "ultimosMovimientosSinDatos": "Aún no tienes movimientos registrados.",
+        "noEntendido": "No entendí tu pregunta. Prueba con alguna de las sugeridas o sé más específico."
+      }
+    },
+    "analisis": {
+      "titulo": "Análisis financiero",
+      "saludFinanciera": "Salud financiera",
+      "comparacionMesAnterior": "Comparación con el mes anterior",
+      "categoriaMayorGasto": "Categoría con mayor gasto",
+      "promedioDiario": "Promedio diario de gasto",
+      "proyeccionSaldo": "Proyección de saldo a fin de mes",
+      "gastosPorCategoria": "Gastos por categoría",
+      "presupuestos": "Presupuestos del mes",
+      "nuevoPresupuesto": "Nuevo presupuesto",
+      "sinPresupuestos": "Aún no has creado presupuestos",
+      "sinGastosCategoria": "Aún no tienes gastos categorizados este mes",
+      "recomendaciones": "Recomendaciones",
+      "masQueElMesPasado": "{{porcentaje}}% más que el mes anterior",
+      "menosQueElMesPasado": "{{porcentaje}}% menos que el mes anterior",
+      "salud": {
+        "verde": {
+          "titulo": "Salud financiera saludable",
+          "descripcion": "Tu tasa de ahorro es del {{tasa}}%. Estás ahorrando al menos el 20% de tus ingresos."
+        },
+        "amarillo": {
+          "titulo": "Salud financiera mejorable",
+          "descripcion": "Tu tasa de ahorro es del {{tasa}}%. Acércate al 20% para fortalecer tus finanzas."
+        },
+        "rojo": {
+          "titulo": "Atención con tus finanzas",
+          "descripcion": "Estás gastando más de lo que ingresas este mes ({{tasa}}%)."
+        }
+      },
+      "recomendacionCategoria": "Tus gastos en {{categoria}} fueron {{monto}} este mes, tu categoría con mayor gasto.",
+      "recomendacionAhorro": "Reducir un 25% en {{categoria}} liberaría aproximadamente {{monto}} al mes.",
+      "sinRecomendaciones": "Registra más movimientos para recibir recomendaciones personalizadas."
+    },
+    "metas": {
+      "titulo": "Metas de ahorro",
+      "nuevaMeta": "Nueva meta",
+      "sinMetas": "Aún no has creado ninguna meta",
+      "fechaObjetivo": "Fecha objetivo",
+      "formulario": {
+        "nombre": "Nombre de la meta",
+        "montoObjetivo": "Monto objetivo",
+        "montoActualOpcional": "Ahorrado hasta ahora (opcional)",
+        "cuentaAsociada": "Cuenta asociada",
+        "fechaObjetivoOpcional": "Fecha objetivo (opcional)",
+        "crear": "Crear meta"
+      },
+      "detalle": {
+        "agregarAporte": "Agregar aporte",
+        "montoAporte": "Monto del aporte",
+        "notaOpcional": "Nota (opcional)",
+        "guardarAporte": "Guardar aporte",
+        "historialAportes": "Historial de aportes",
+        "sinAportes": "Aún no has agregado aportes",
+        "ahorroPorSemana": "Ahorra {{monto}} por semana para lograrlo a tiempo",
+        "ahorroPorMes": "Ahorra {{monto}} por mes para lograrlo a tiempo",
+        "completada": "¡Meta completada!",
+        "archivar": "Archivar meta"
+      }
+    },
+    "reinversion": {
+      "titulo": "Reinversión y estrategias",
+      "descripcion": "Explora alternativas educativas según tu interés",
+      "aviso": "Información educativa. No es una recomendación financiera garantizada; toda inversión implica riesgo.",
+      "montoAConsiderar": "Monto a considerar (opcional)",
+      "seleccionaInteres": "¿Qué te interesa?",
+      "verAlternativas": "Ver alternativas",
+      "sinResultados": "Aún no tenemos alternativas registradas para este interés."
+    },
+    "perfil": {
+      "titulo": "Perfil",
+      "idioma": "Idioma",
+      "tema": "Tema",
+      "moneda": "Moneda",
+      "cuentas": "Cuentas",
+      "seguridad": "Seguridad",
+      "notificaciones": "Notificaciones",
+      "privacidad": "Privacidad",
+      "exportarDatos": "Exportar datos",
+      "eliminarCuenta": "Eliminar cuenta",
+      "cerrarSesion": "Cerrar sesión",
+      "sincronizacion": {
+        "titulo": "Sincronización con la nube",
+        "alDia": "Todo sincronizado",
+        "pendientes": "{{cantidad}} cambios pendientes de sincronizar",
+        "sincronizar": "Sincronizar ahora",
+        "sincronizando": "Sincronizando…",
+        "sinConfigurar": "Conecta Supabase para sincronizar tus datos entre dispositivos"
+      },
+      "confirmarEliminarCuenta": "Se eliminarán tus datos financieros de la nube y de este dispositivo. Esta acción no se puede deshacer."
+    },
+    "privacidad": {
+      "titulo": "Privacidad y tus datos",
+      "localTitulo": "Guardado en tu dispositivo",
+      "localDescripcion": "Tus cuentas, movimientos, categorías, presupuestos, metas y fotos de comprobantes se guardan en una base de datos local en tu teléfono. No salen de tu dispositivo a menos que actives la sincronización con la nube.",
+      "nubeTitulo": "Sincronización con la nube",
+      "nubeActivaDescripcion": "Tienes la sincronización activada. Tus datos se respaldan en tu propio proyecto de Supabase, protegidos con seguridad a nivel de fila: solo tú puedes leer o modificar tus datos.",
+      "nubeInactivaDescripcion": "No has activado la sincronización con la nube. MiPresupuesto funciona completamente en modo local y ningún dato sale de este dispositivo.",
+      "asistenteTitulo": "Asistente financiero",
+      "asistenteDescripcion": "La mayoría de tus preguntas se responden localmente, sin enviar nada a internet. Solo si el asistente no entiende tu pregunta y tienes la nube activada, se envía un resumen general (nunca tus movimientos individuales) a un servicio de IA.",
+      "exportarBoton": "Exportar mis datos",
+      "eliminarDescripcion": "Puedes eliminar tu cuenta y todos tus datos en cualquier momento desde tu perfil.",
+      "eliminarBoton": "Ir a Perfil"
+    },
+    "reporte": {
+      "titulo": "Reporte financiero",
+      "exportarPDF": "Exportar PDF",
+      "exportarCSV": "Exportar CSV",
+      "compartir": "Compartir",
+      "periodoActual": "Mes actual",
+      "periodoAnterior": "Mes anterior",
+      "todasLasCuentas": "Todas las cuentas",
+      "saldoInicial": "Saldo inicial",
+      "saldoFinal": "Saldo final",
+      "tablaMovimientos": "Movimientos del periodo",
+      "sinMovimientosPeriodo": "No hay movimientos en este periodo",
+      "generando": "Generando…"
+    }
+  },
+  "presupuestos": {
+    "titulo": "Nuevo presupuesto",
+    "categoria": "Categoría",
+    "limite": "Límite mensual",
+    "alertaPorcentual": "Alertar al alcanzar (%)",
+    "crear": "Crear presupuesto",
+    "eliminarConfirmacion": "¿Eliminar este presupuesto?"
+  },
+  "reinversion": {
+    "riesgo": { "bajo": "Bajo", "medio": "Medio", "alto": "Alto" },
+    "pais": { "guatemala": "Guatemala" },
+    "intereses": {
+      "ahorro": "Ahorro",
+      "formacion": "Formación",
+      "herramientas": "Herramientas",
+      "microemprendimiento": "Microemprendimiento",
+      "negocioExistente": "Negocio existente",
+      "inversionRegulada": "Inversión financiera regulada"
+    },
+    "camposFicha": {
+      "riesgo": "Riesgo",
+      "capitalMinimo": "Capital mínimo",
+      "liquidez": "Liquidez",
+      "costos": "Costos y comisiones",
+      "ventajas": "Posibles ventajas",
+      "riesgosPrincipales": "Principales riesgos",
+      "fechaConsulta": "Consultado",
+      "estadoVerificado": "Verificado",
+      "estadoRequiereRevision": "Requiere revisión"
+    },
+    "alternativas": {
+      "cooperativaAhorro": {
+        "nombre": "Cuenta de ahorro en cooperativa regulada",
+        "descripcion": "Las cooperativas de ahorro y crédito supervisadas ofrecen cuentas de ahorro con tasas de interés anual de referencia entre 3% y 4.5%, según el plazo y el saldo mínimo.",
+        "liquidez": "Alta en cuentas disponibles; media en depósitos a plazo (6 a 60 meses)",
+        "costos": "Varía por cooperativa; usualmente sin comisión de apertura",
+        "ventajas": "Rendimiento superior al de una cuenta corriente tradicional, con acceso a educación financiera de la cooperativa.",
+        "riesgos": "La protección al ahorro puede diferir entre cooperativas; confirma que esté registrada y supervisada antes de abrir una cuenta."
+      },
+      "intecapFormacion": {
+        "nombre": "Capacítate para el Empleo (INTECAP)",
+        "descripcion": "Plataforma gratuita de INTECAP y Fundación Carlos Slim con más de 290 cursos y diplomados certificables en línea, en comercio, tecnología, turismo y más.",
+        "liquidez": "No aplica: es contenido educativo, no un instrumento financiero",
+        "costos": "Gratuito",
+        "ventajas": "Certificación reconocida y contenido pensado para mejorar empleabilidad o iniciar un negocio.",
+        "riesgos": "Requiere tiempo de estudio constante; no garantiza empleo ni ingresos."
+      },
+      "creditoProductivo": {
+        "nombre": "Crédito Productivo para herramientas y equipo",
+        "descripcion": "Línea de crédito orientada a adquirir herramientas, equipo o inventario para actividades de comercio, producción o servicios.",
+        "liquidez": "Baja: implica una cuota de pago mensual durante el plazo del crédito",
+        "costos": "Tasa de interés y comisiones según evaluación crediticia; solicita el detalle antes de firmar",
+        "ventajas": "Permite adquirir equipo de trabajo sin descapitalizar el negocio de una sola vez.",
+        "riesgos": "Es deuda: genera intereses y compromisos de pago aunque el negocio no genere ingresos ese mes."
+      },
+      "creditoMicroempresario": {
+        "nombre": "Crédito para microempresarios",
+        "descripcion": "Crédito dirigido a microempresarios que inician o formalizan un negocio de comercio, producción o servicios.",
+        "liquidez": "Baja: implica una cuota de pago mensual durante el plazo del crédito",
+        "costos": "Tasa de interés y comisiones según evaluación crediticia",
+        "ventajas": "Acompañamiento de una amplia red de agencias y asesores de negocio en el país.",
+        "riesgos": "No recomendado si el negocio aún no tiene un flujo de ingresos previsible para cubrir las cuotas."
+      },
+      "bancaDesarrolloMipyme": {
+        "nombre": "Banca de desarrollo para MiPyme",
+        "descripcion": "Programas de banca de desarrollo y del Ministerio de Economía para financiar el crecimiento de micro, pequeñas y medianas empresas ya establecidas.",
+        "liquidez": "Baja: implica una cuota de pago durante el plazo del crédito",
+        "costos": "Tasas y comisiones según el programa; suelen ser más bajas que la banca privada tradicional",
+        "ventajas": "Condiciones pensadas para negocios formales en crecimiento, con plazos y tasas orientados al desarrollo.",
+        "riesgos": "Requiere documentación formal del negocio; el incumplimiento afecta el historial crediticio."
+      },
+      "certibonos": {
+        "nombre": "Bonos del Tesoro para pequeño inversionista",
+        "descripcion": "Títulos de deuda del Estado de Guatemala disponibles desde Q5,000, negociables en la Bolsa de Valores Nacional, con rendimientos publicados de 6.00% a 6.25% anual para vencimientos entre 2027 y 2029.",
+        "liquidez": "Media: se negocian en la Bolsa de Valores Nacional antes del vencimiento, sujeto a condiciones de mercado",
+        "costos": "Comisión del agente de bolsa o banco autorizado; solicita el detalle antes de invertir",
+        "ventajas": "Respaldo del Estado de Guatemala y tasa de interés fija conocida desde el inicio.",
+        "riesgos": "El valor de reventa antes del vencimiento puede variar; existe riesgo país asociado a la deuda soberana."
+      }
+    }
+  },
+  "categorias": {
+    "gasto": {
+      "alimentacion": "Alimentación",
+      "supermercado": "Supermercado",
+      "restaurantes": "Restaurantes",
+      "transporte": "Transporte",
+      "combustible": "Combustible",
+      "educacion": "Educación",
+      "universidad": "Universidad",
+      "tecnologia": "Tecnología",
+      "salud": "Salud",
+      "medicamentos": "Medicamentos",
+      "vivienda": "Vivienda",
+      "alquiler": "Alquiler",
+      "servicios": "Servicios",
+      "telefonia": "Telefonía",
+      "internet": "Internet",
+      "entretenimiento": "Entretenimiento",
+      "deporte": "Deporte",
+      "ropa": "Ropa",
+      "mascotas": "Mascotas",
+      "viajes": "Viajes",
+      "deudas": "Deudas",
+      "impuestos": "Impuestos",
+      "suscripciones": "Suscripciones",
+      "regalos": "Regalos",
+      "negocio": "Negocio",
+      "otros": "Otros"
+    },
+    "ingreso": {
+      "salario": "Salario",
+      "ventas": "Ventas",
+      "trabajoIndependiente": "Trabajo independiente",
+      "comisiones": "Comisiones",
+      "intereses": "Intereses",
+      "reembolsos": "Reembolsos",
+      "regalos": "Regalos",
+      "becas": "Becas",
+      "rentas": "Rentas",
+      "dividendos": "Dividendos",
+      "negocio": "Negocio",
+      "otros": "Otros"
+    },
+    "categoriaPersonalizada": "Categoría personalizada",
+    "crearCategoria": "Crear categoría",
+    "confirmarCategoria": "Confirmar nueva categoría",
+    "nombreCategoria": "Nombre de la categoría"
+  },
+  "estadoVacio": {
+    "tituloGenerico": "Nada por aquí todavía",
+    "descripcionGenerica": "Cuando agregues información, aparecerá en esta pantalla"
+  },
+  "errores": {
+    "generico": "Algo salió mal. Inténtalo de nuevo.",
+    "sinConexion": "Sin conexión a internet"
+  },
+  "notificaciones": {
+    "presupuestoAdvertenciaTitulo": "Te estás acercando a tu límite",
+    "presupuestoAdvertenciaCuerpo": "Ya usaste el {{porcentaje}}% de tu presupuesto de {{categoria}} este mes.",
+    "presupuestoExcedidoTitulo": "Presupuesto excedido",
+    "presupuestoExcedidoCuerpo": "Superaste tu presupuesto de {{categoria}} este mes ({{porcentaje}}%).",
+    "movimientoRecurrenteTitulo": "Movimiento recurrente registrado",
+    "movimientoRecurrenteCuerpo": "Se registró automáticamente \"{{descripcion}}\" por {{monto}}.",
+    "noDisponibleWeb": "Las notificaciones solo están disponibles en la app instalada, no en el navegador."
+  },
+  "seguridad": {
+    "bloqueoBiometrico": "Bloqueo biométrico",
+    "bloqueoBiometricoDescripcion": "Pide Face ID, huella o el código del dispositivo para abrir la app.",
+    "bloqueoBiometricoNoDisponible": "Tu dispositivo no tiene biometría configurada.",
+    "bloqueoBiometricoNoDisponibleWeb": "El bloqueo biométrico solo está disponible en la app instalada, no en el navegador.",
+    "confirmarParaActivar": "Confirma tu identidad para activar el bloqueo",
+    "activado": "Activado",
+    "desactivado": "Desactivado",
+    "pantallaBloqueo": {
+      "titulo": "MiPresupuesto está bloqueado",
+      "descripcion": "Desbloquea con Face ID, huella o tu código para continuar.",
+      "desbloquear": "Desbloquear",
+      "error": "No se pudo verificar tu identidad. Inténtalo de nuevo."
+    }
+  }
+}

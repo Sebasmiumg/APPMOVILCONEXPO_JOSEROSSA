@@ -1,0 +1,494 @@
+{
+  "idioma": {
+    "nombreNativo": "العربية",
+    "es": "الإسبانية",
+    "en": "الإنجليزية",
+    "zh": "الصينية المبسطة",
+    "hi": "الهندية",
+    "ar": "العربية"
+  },
+  "comun": {
+    "continuar": "متابعة",
+    "atras": "رجوع",
+    "cancelar": "إلغاء",
+    "guardar": "حفظ",
+    "eliminar": "حذف",
+    "editar": "تعديل",
+    "cerrar": "إغلاق",
+    "cargando": "جارٍ التحميل…",
+    "reintentar": "إعادة المحاولة",
+    "aceptar": "قبول",
+    "opcional": "اختياري",
+    "buscar": "بحث",
+    "verTodo": "عرض الكل",
+    "confirmar": "تأكيد",
+    "proximamente": "ستتوفر هذه الميزة في مرحلة قادمة"
+  },
+  "splash": {
+    "eslogan": "أموالك، بوضوح تام"
+  },
+  "bienvenida": {
+    "titulo": "تحكم في أموالك، ادّخر، واستثمر من أجل مستقبلك",
+    "resumen": "سجّل حركاتك المالية، افهم عاداتك، وحقّق أهدافك المالية من مكان واحد.",
+    "crearCuenta": "إنشاء حساب",
+    "iniciarSesion": "تسجيل الدخول"
+  },
+  "autenticacion": {
+    "registro": {
+      "titulo": "أنشئ حسابك",
+      "subtitulo": "ابدأ بإدارة أموالك خلال دقائق",
+      "nombreCompleto": "الاسم الكامل",
+      "correo": "البريد الإلكتروني",
+      "contrasena": "كلمة المرور",
+      "confirmarContrasena": "تأكيد كلمة المرور",
+      "aceptoTerminos": "أوافق على الشروط وسياسة الخصوصية",
+      "boton": "إنشاء حساب",
+      "yaTienesCuenta": "لديك حساب بالفعل؟",
+      "irAIniciarSesion": "تسجيل الدخول"
+    },
+    "iniciarSesion": {
+      "titulo": "مرحبًا بعودتك",
+      "subtitulo": "سجّل الدخول للمتابعة",
+      "correo": "البريد الإلكتروني",
+      "contrasena": "كلمة المرور",
+      "boton": "تسجيل الدخول",
+      "olvidasteContrasena": "هل نسيت كلمة المرور؟",
+      "noTienesCuenta": "ليس لديك حساب؟",
+      "irARegistro": "إنشاء حساب"
+    },
+    "recuperarContrasena": {
+      "titulo": "استعادة كلمة المرور",
+      "subtitulo": "سنرسل رابطًا إلى بريدك الإلكتروني",
+      "correo": "البريد الإلكتروني",
+      "boton": "إرسال الرابط",
+      "volverAIniciarSesion": "العودة إلى تسجيل الدخول"
+    },
+    "verificarCorreo": {
+      "titulo": "تحقق من بريدك الإلكتروني",
+      "descripcion": "تم إرسال رابط التحقق إلى",
+      "reenviar": "إعادة إرسال البريد",
+      "reenviarEn": "إعادة الإرسال خلال {{segundos}} ثانية",
+      "continuarDemostracion": "المتابعة في وضع العرض التوضيحي",
+      "yaVerifique": "لقد تحققت من بريدي الإلكتروني"
+    },
+    "tipoCorreo": {
+      "titulo": "نوع البريد الإلكتروني المكتشف",
+      "personal": "شخصي",
+      "institucional": "مؤسسي تعليمي",
+      "organizacional": "مؤسسي",
+      "dominioDetectado": "النطاق: {{dominio}}",
+      "aviso": "هذا التصنيف إعلامي فقط ولا يمنح أي صلاحيات خاصة."
+    }
+  },
+  "validaciones": {
+    "campoRequerido": "هذا الحقل مطلوب",
+    "correoInvalido": "أدخل بريدًا إلكترونيًا صالحًا",
+    "correoYaRegistrado": "هذا البريد الإلكتروني مسجّل بالفعل",
+    "contrasenaCorta": "يجب أن تتكون من 8 أحرف على الأقل",
+    "contrasenaDebil": "يجب أن تحتوي على حرف كبير وحرف صغير ورقم ورمز",
+    "confirmacionNoCoincide": "كلمتا المرور غير متطابقتين",
+    "debesAceptarTerminos": "يجب قبول الشروط للمتابعة",
+    "montoInvalido": "أدخل مبلغًا صالحًا أكبر من صفر"
+  },
+  "configuracionInicial": {
+    "idioma": {
+      "titulo": "اختر لغتك",
+      "subtitulo": "يمكنك تغييرها في أي وقت"
+    },
+    "apariencia": {
+      "titulo": "اختر المظهر",
+      "subtitulo": "عاين المظهرين قبل المتابعة",
+      "claro": "فاتح",
+      "oscuro": "داكن"
+    },
+    "finanzas": {
+      "titulo": "أعدّ بياناتك المالية",
+      "subtitulo": "أنشئ حسابك الأول للبدء",
+      "moneda": "العملة الرئيسية",
+      "nombreCuenta": "اسم الحساب",
+      "tipoCuenta": "نوع الحساب",
+      "saldoInicial": "الرصيد الابتدائي",
+      "metaAhorroOpcional": "هدف الادخار (اختياري)",
+      "fechaObjetivoOpcional": "التاريخ المستهدف (اختياري)",
+      "metaInicialNombre": "هدفي الأول",
+      "finalizar": "إنهاء الإعداد",
+      "tiposCuenta": {
+        "efectivo": "نقدًا",
+        "cuentaBancaria": "حساب بنكي",
+        "cuentaAhorro": "حساب توفير",
+        "tarjetaCredito": "بطاقة ائتمان",
+        "negocio": "عمل تجاري",
+        "billeteraDigital": "محفظة رقمية"
+      }
+    }
+  },
+  "navegacion": {
+    "inicio": "الرئيسية",
+    "movimientos": "الحركات",
+    "agregar": "إضافة",
+    "asistente": "المساعد",
+    "perfil": "الملف الشخصي",
+    "analisis": "التحليل",
+    "metas": "الأهداف",
+    "reinversion": "إعادة الاستثمار"
+  },
+  "pantallas": {
+    "inicio": {
+      "saludo": "مرحبًا، {{nombre}}",
+      "saldoDisponible": "الرصيد المتاح",
+      "ingresosDelMes": "دخل هذا الشهر",
+      "gastosDelMes": "مصروفات هذا الشهر",
+      "ahorroNeto": "صافي الادخار",
+      "tasaAhorro": "معدل الادخار",
+      "movimientosRecientes": "الحركات الأخيرة",
+      "progresoMetas": "تقدم الأهداف",
+      "verReporte": "عرض التقرير الشهري"
+    },
+    "movimientos": {
+      "titulo": "الحركات",
+      "buscarPlaceholder": "ابحث عن حركة",
+      "sinMovimientos": "لا توجد لديك أي حركات مسجّلة بعد"
+    },
+    "movimientoNuevo": {
+      "titulo": "حركة جديدة",
+      "tipo": "نوع الحركة",
+      "ingreso": "دخل",
+      "gasto": "مصروف",
+      "transferencia": "تحويل",
+      "ajuste": "تسوية الرصيد",
+      "monto": "المبلغ",
+      "descripcion": "الوصف",
+      "categoria": "الفئة",
+      "cuenta": "الحساب",
+      "fecha": "التاريخ",
+      "nota": "ملاحظة",
+      "comprobante": "الإيصال (اختياري)",
+      "agregarFoto": "إضافة صورة",
+      "cambiarFoto": "تغيير الصورة",
+      "quitarFoto": "إزالة الصورة",
+      "permisoGaleria": "نحتاج إلى الوصول إلى صورك لإرفاق الإيصال.",
+      "esRecurrente": "تكرار كل شهر",
+      "guardarMovimiento": "حفظ الحركة"
+    },
+    "asistente": {
+      "titulo": "المساعد المالي",
+      "placeholder": "اسأل عن أموالك",
+      "preguntasSugeridas": "أسئلة مقترحة",
+      "escribiendo": "يكتب…",
+      "borrarConversacion": "مسح المحادثة",
+      "hablanteUsuario": "أنت",
+      "hablanteAsistente": "المساعد",
+      "datosUtilizados": "البيانات المستخدمة في هذه الإجابة",
+      "respuestaProximamente": "لم أتمكن من فهم سؤالك. سيتوفر مساعد الذكاء الاصطناعي للأسئلة الأكثر تعقيدًا في مرحلة قادمة.",
+      "sugerencias": [
+        "كم أنفقت هذا الشهر؟",
+        "في أي فئة أنفقت أكثر؟",
+        "أظهر لي آخر خمس حركات",
+        "كم ادّخرت؟"
+      ],
+      "datosUtilizadosPeriodo": "حركات {{periodo}}",
+      "datosUtilizadosMesActual": "حركات هذا الشهر",
+      "datosUtilizadosDosMeses": "حركات هذا الشهر والشهر الماضي",
+      "datosUtilizadosMetas": "أهداف ادخارك",
+      "datosUtilizadosMovimientos": "حركاتك المسجلة",
+      "periodoMesActual": "الشهر الحالي",
+      "respuestas": {
+        "gastoMes": "أنفقت {{monto}} في {{periodo}}.",
+        "ingresoMes": "حصلت على {{monto}} كدخل في {{periodo}}.",
+        "categoriaMayorGasto": "فئتك الأعلى إنفاقًا هذا الشهر هي {{categoria}}، بمبلغ {{monto}}.",
+        "categoriaMayorGastoSinDatos": "لا توجد مصروفات مصنّفة هذا الشهر بعد.",
+        "sugerenciaReduccion": "يمكنك مراجعة {{categoria}}: تمثل {{monto}} ({{porcentaje}}% من مصروفات هذا الشهر).",
+        "sugerenciaReduccionSinDatos": "لا توجد مصروفات مصنّفة كافية بعد لاقتراح تخفيض.",
+        "comparacionMas": "نعم، أنفقت {{porcentaje}}% أكثر من الشهر الماضي ({{montoActual}} مقابل {{montoAnterior}}).",
+        "comparacionMenos": "لا، أنفقت {{porcentaje}}% أقل من الشهر الماضي ({{montoActual}} مقابل {{montoAnterior}}).",
+        "comparacionSinDatosAnterior": "لا تتوفر لدي حركات الشهر الماضي للمقارنة.",
+        "ahorroTotal": "صافي ادخارك هذا الشهر هو {{monto}} ({{tasa}}% من دخلك).",
+        "progresoMetaSinMetas": "لم تنشئ أي هدف ادخار بعد.",
+        "progresoMetaVarias": "لديك {{cantidad}} أهداف نشطة. اسألني عن اسم هدف محدد أو راجع تبويب الأهداف.",
+        "progresoMetaUna": "لقد حققت {{porcentaje}}% من هدف \"{{nombre}}\". يتبقى {{restante}}.",
+        "progresoMetaSugerido": "ادّخر {{monto}} أسبوعيًا لتحقيق الهدف في الوقت المحدد.",
+        "ultimosMovimientosEncabezado": "إليك آخر {{cantidad}} حركات لديك:",
+        "ultimosMovimientosSinDatos": "لا توجد لديك أي حركات مسجّلة بعد.",
+        "noEntendido": "لم أفهم سؤالك. جرّب أحد الأسئلة المقترحة أو كن أكثر تحديدًا."
+      }
+    },
+    "analisis": {
+      "titulo": "التحليل المالي",
+      "saludFinanciera": "الصحة المالية",
+      "comparacionMesAnterior": "المقارنة مع الشهر الماضي",
+      "categoriaMayorGasto": "الفئة الأعلى إنفاقًا",
+      "promedioDiario": "متوسط الإنفاق اليومي",
+      "proyeccionSaldo": "الرصيد المتوقع في نهاية الشهر",
+      "gastosPorCategoria": "المصروفات حسب الفئة",
+      "presupuestos": "ميزانيات هذا الشهر",
+      "nuevoPresupuesto": "ميزانية جديدة",
+      "sinPresupuestos": "لم تنشئ أي ميزانية بعد",
+      "sinGastosCategoria": "لا توجد مصروفات مصنّفة هذا الشهر بعد",
+      "recomendaciones": "توصيات",
+      "masQueElMesPasado": "أكثر بنسبة {{porcentaje}}% من الشهر الماضي",
+      "menosQueElMesPasado": "أقل بنسبة {{porcentaje}}% من الشهر الماضي",
+      "salud": {
+        "verde": {
+          "titulo": "وضع مالي جيد",
+          "descripcion": "معدل ادخارك {{tasa}}%. أنت تدّخر 20% على الأقل من دخلك."
+        },
+        "amarillo": {
+          "titulo": "وضع مالي قابل للتحسين",
+          "descripcion": "معدل ادخارك {{tasa}}%. حاول الاقتراب من 20% لتعزيز وضعك المالي."
+        },
+        "rojo": {
+          "titulo": "انتبه لوضعك المالي",
+          "descripcion": "أنت تنفق أكثر مما تكسب هذا الشهر ({{tasa}}%)."
+        }
+      },
+      "recomendacionCategoria": "بلغ إنفاقك على {{categoria}} هذا الشهر {{monto}}، وهي فئتك الأعلى إنفاقًا.",
+      "recomendacionAhorro": "تقليل الإنفاق على {{categoria}} بنسبة 25% سيوفر لك ما يقارب {{monto}} شهريًا.",
+      "sinRecomendaciones": "سجّل المزيد من الحركات للحصول على توصيات مخصصة."
+    },
+    "metas": {
+      "titulo": "أهداف الادخار",
+      "nuevaMeta": "هدف جديد",
+      "sinMetas": "لم تنشئ أي هدف بعد",
+      "fechaObjetivo": "التاريخ المستهدف",
+      "formulario": {
+        "nombre": "اسم الهدف",
+        "montoObjetivo": "المبلغ المستهدف",
+        "montoActualOpcional": "المدّخر حتى الآن (اختياري)",
+        "cuentaAsociada": "الحساب المرتبط",
+        "fechaObjetivoOpcional": "التاريخ المستهدف (اختياري)",
+        "crear": "إنشاء هدف"
+      },
+      "detalle": {
+        "agregarAporte": "إضافة مساهمة",
+        "montoAporte": "مبلغ المساهمة",
+        "notaOpcional": "ملاحظة (اختياري)",
+        "guardarAporte": "حفظ المساهمة",
+        "historialAportes": "سجل المساهمات",
+        "sinAportes": "لم تضف أي مساهمة بعد",
+        "ahorroPorSemana": "ادّخر {{monto}} أسبوعيًا لتحقيق الهدف في الوقت المحدد",
+        "ahorroPorMes": "ادّخر {{monto}} شهريًا لتحقيق الهدف في الوقت المحدد",
+        "completada": "تم تحقيق الهدف!",
+        "archivar": "أرشفة الهدف"
+      }
+    },
+    "reinversion": {
+      "titulo": "إعادة الاستثمار والاستراتيجيات",
+      "descripcion": "استكشف بدائل تعليمية حسب اهتمامك",
+      "aviso": "هذه المعلومات تعليمية فقط وليست توصية مالية مضمونة؛ كل استثمار ينطوي على مخاطر.",
+      "montoAConsiderar": "المبلغ المراد النظر فيه (اختياري)",
+      "seleccionaInteres": "ما الذي يهمك؟",
+      "verAlternativas": "عرض البدائل",
+      "sinResultados": "لا تتوفر لدينا بدائل مسجّلة لهذا الاهتمام بعد."
+    },
+    "perfil": {
+      "titulo": "الملف الشخصي",
+      "idioma": "اللغة",
+      "tema": "المظهر",
+      "moneda": "العملة",
+      "cuentas": "الحسابات",
+      "seguridad": "الأمان",
+      "notificaciones": "الإشعارات",
+      "privacidad": "الخصوصية",
+      "exportarDatos": "تصدير البيانات",
+      "eliminarCuenta": "حذف الحساب",
+      "cerrarSesion": "تسجيل الخروج",
+      "sincronizacion": {
+        "titulo": "المزامنة مع السحابة",
+        "alDia": "كل شيء متزامن",
+        "pendientes": "{{cantidad}} تغييرات بانتظار المزامنة",
+        "sincronizar": "مزامنة الآن",
+        "sincronizando": "جارٍ المزامنة…",
+        "sinConfigurar": "قم بربط Supabase لمزامنة بياناتك بين أجهزتك"
+      },
+      "confirmarEliminarCuenta": "سيتم حذف بياناتك المالية من السحابة ومن هذا الجهاز. لا يمكن التراجع عن هذا الإجراء."
+    },
+    "privacidad": {
+      "titulo": "الخصوصية وبياناتك",
+      "localTitulo": "محفوظ على جهازك",
+      "localDescripcion": "تُحفظ حساباتك وحركاتك وفئاتك وميزانياتك وأهدافك وصور الإيصالات في قاعدة بيانات محلية على هاتفك. لا تغادر جهازك أبدًا ما لم تُفعّل المزامنة مع السحابة.",
+      "nubeTitulo": "المزامنة مع السحابة",
+      "nubeActivaDescripcion": "المزامنة مع السحابة مفعّلة. يتم نسخ بياناتك احتياطيًا في مشروع Supabase الخاص بك، محمية بأمان على مستوى الصفوف: أنت فقط من يمكنه قراءة بياناتك أو تعديلها.",
+      "nubeInactivaDescripcion": "لم تُفعّل المزامنة مع السحابة. يعمل MiPresupuesto بالكامل محليًا ولا تغادر أي بيانات هذا الجهاز.",
+      "asistenteTitulo": "المساعد المالي",
+      "asistenteDescripcion": "يتم الرد على معظم أسئلتك محليًا دون إرسال أي شيء إلى الإنترنت. فقط عندما لا يفهم المساعد سؤالك وتكون المزامنة مع السحابة مفعّلة، يُرسل ملخص عام (وليس حركاتك الفردية أبدًا) إلى خدمة ذكاء اصطناعي.",
+      "exportarBoton": "تصدير بياناتي",
+      "eliminarDescripcion": "يمكنك حذف حسابك وجميع بياناتك في أي وقت من ملفك الشخصي.",
+      "eliminarBoton": "الذهاب إلى الملف الشخصي"
+    },
+    "reporte": {
+      "titulo": "التقرير المالي",
+      "exportarPDF": "تصدير PDF",
+      "exportarCSV": "تصدير CSV",
+      "compartir": "مشاركة",
+      "periodoActual": "الشهر الحالي",
+      "periodoAnterior": "الشهر الماضي",
+      "todasLasCuentas": "جميع الحسابات",
+      "saldoInicial": "الرصيد الابتدائي",
+      "saldoFinal": "الرصيد النهائي",
+      "tablaMovimientos": "حركات هذه الفترة",
+      "sinMovimientosPeriodo": "لا توجد حركات في هذه الفترة",
+      "generando": "جارٍ الإنشاء…"
+    }
+  },
+  "presupuestos": {
+    "titulo": "ميزانية جديدة",
+    "categoria": "الفئة",
+    "limite": "الحد الشهري",
+    "alertaPorcentual": "التنبيه عند الوصول إلى (%)",
+    "crear": "إنشاء ميزانية",
+    "eliminarConfirmacion": "حذف هذه الميزانية؟"
+  },
+  "reinversion": {
+    "riesgo": { "bajo": "منخفض", "medio": "متوسط", "alto": "مرتفع" },
+    "pais": { "guatemala": "غواتيمالا" },
+    "intereses": {
+      "ahorro": "الادخار",
+      "formacion": "التدريب",
+      "herramientas": "الأدوات",
+      "microemprendimiento": "المشاريع الصغيرة جدًا",
+      "negocioExistente": "عمل قائم",
+      "inversionRegulada": "استثمار مالي منظّم"
+    },
+    "camposFicha": {
+      "riesgo": "المخاطر",
+      "capitalMinimo": "الحد الأدنى لرأس المال",
+      "liquidez": "السيولة",
+      "costos": "التكاليف والعمولات",
+      "ventajas": "المزايا المحتملة",
+      "riesgosPrincipales": "المخاطر الرئيسية",
+      "fechaConsulta": "تاريخ الاطلاع",
+      "estadoVerificado": "موثّق",
+      "estadoRequiereRevision": "يحتاج إلى مراجعة"
+    },
+    "alternativas": {
+      "cooperativaAhorro": {
+        "nombre": "حساب ادخار في تعاونية منظّمة",
+        "descripcion": "تقدّم تعاونيات الادخار والائتمان الخاضعة للرقابة حسابات ادخار بمعدلات فائدة سنوية مرجعية تتراوح بين 3% و4.5%، حسب المدة والحد الأدنى للرصيد.",
+        "liquidez": "سيولة عالية في الحسابات المتاحة؛ متوسطة في الودائع لأجل (6 إلى 60 شهرًا)",
+        "costos": "تختلف حسب التعاونية؛ عادة بدون رسوم فتح حساب",
+        "ventajas": "عائد أعلى من الحساب الجاري التقليدي، مع إمكانية الوصول إلى التثقيف المالي الذي تقدمه التعاونية.",
+        "riesgos": "قد تختلف حماية الودائع بين التعاونيات؛ تأكد من أنها مسجّلة وخاضعة للرقابة قبل فتح حساب."
+      },
+      "intecapFormacion": {
+        "nombre": "التدريب من أجل التوظيف (INTECAP)",
+        "descripcion": "منصة مجانية من معهد INTECAP ومؤسسة كارلوس سليم تضم أكثر من 290 دورة ودبلومًا معتمدًا عبر الإنترنت في التجارة والتقنية والسياحة وغيرها.",
+        "liquidez": "لا ينطبق: هذا محتوى تعليمي وليس أداة مالية",
+        "costos": "مجاني",
+        "ventajas": "شهادة معترف بها ومحتوى مصمم لتحسين فرص التوظيف أو بدء عمل تجاري.",
+        "riesgos": "يتطلب وقتًا ثابتًا للدراسة؛ لا يضمن الحصول على عمل أو دخل."
+      },
+      "creditoProductivo": {
+        "nombre": "ائتمان إنتاجي لشراء الأدوات والمعدات",
+        "descripcion": "خط ائتمان موجّه لشراء الأدوات أو المعدات أو المخزون لأنشطة التجارة أو الإنتاج أو الخدمات.",
+        "liquidez": "منخفضة: يتطلب دفعة شهرية طوال مدة القرض",
+        "costos": "معدل الفائدة والعمولات حسب التقييم الائتماني؛ اطلب التفاصيل قبل التوقيع",
+        "ventajas": "يتيح الحصول على معدات العمل دون استنزاف رأس مال العمل دفعة واحدة.",
+        "riesgos": "هذا دَين: يولّد فوائد والتزامات سداد حتى لو لم يحقق العمل دخلاً ذلك الشهر."
+      },
+      "creditoMicroempresario": {
+        "nombre": "ائتمان لأصحاب المشاريع الصغيرة جدًا",
+        "descripcion": "ائتمان موجّه لأصحاب المشاريع الصغيرة جدًا الذين يبدأون أو يوثّقون عملاً في التجارة أو الإنتاج أو الخدمات.",
+        "liquidez": "منخفضة: يتطلب دفعة شهرية طوال مدة القرض",
+        "costos": "معدل الفائدة والعمولات حسب التقييم الائتماني",
+        "ventajas": "دعم من شبكة واسعة من الفروع ومستشاري الأعمال في جميع أنحاء البلاد.",
+        "riesgos": "لا يُنصح به إذا لم يكن للعمل بعد تدفق دخل يمكن التنبؤ به لتغطية الأقساط."
+      },
+      "bancaDesarrolloMipyme": {
+        "nombre": "التمويل التنموي للمنشآت الصغيرة والمتوسطة",
+        "descripcion": "برامج التمويل التنموي ووزارة الاقتصاد لتمويل نمو المنشآت الصغرى والصغيرة والمتوسطة القائمة بالفعل.",
+        "liquidez": "منخفضة: يتطلب التزام سداد طوال مدة القرض",
+        "costos": "المعدلات والعمولات تختلف حسب البرنامج؛ عادة أقل من البنوك الخاصة التقليدية",
+        "ventajas": "شروط مصممة للأعمال الرسمية النامية، بآجال ومعدلات موجهة نحو التنمية.",
+        "riesgos": "يتطلب وثائق رسمية للعمل؛ التعثر في السداد يؤثر على السجل الائتماني."
+      },
+      "certibonos": {
+        "nombre": "سندات الخزانة لصغار المستثمرين",
+        "descripcion": "سندات دين حكومية غواتيمالية متاحة ابتداءً من 5,000 كتزال، قابلة للتداول في البورصة الوطنية للأوراق المالية، بعوائد معلنة تتراوح بين 6.00% و6.25% سنويًا لآجال استحقاق بين 2027 و2029.",
+        "liquidez": "متوسطة: قابلة للتداول في البورصة الوطنية قبل الاستحقاق، وفقًا لظروف السوق",
+        "costos": "عمولة الوسيط أو البنك المعتمد؛ اطلب التفاصيل قبل الاستثمار",
+        "ventajas": "مدعومة من حكومة غواتيمالا وبمعدل فائدة ثابت معروف منذ البداية.",
+        "riesgos": "قد تتغير قيمة إعادة البيع قبل تاريخ الاستحقاق؛ توجد مخاطر متعلقة بالدين السيادي للدولة."
+      }
+    }
+  },
+  "categorias": {
+    "gasto": {
+      "alimentacion": "الطعام",
+      "supermercado": "السوبر ماركت",
+      "restaurantes": "المطاعم",
+      "transporte": "المواصلات",
+      "combustible": "الوقود",
+      "educacion": "التعليم",
+      "universidad": "الجامعة",
+      "tecnologia": "التقنية",
+      "salud": "الصحة",
+      "medicamentos": "الأدوية",
+      "vivienda": "السكن",
+      "alquiler": "الإيجار",
+      "servicios": "الخدمات",
+      "telefonia": "الهاتف",
+      "internet": "الإنترنت",
+      "entretenimiento": "الترفيه",
+      "deporte": "الرياضة",
+      "ropa": "الملابس",
+      "mascotas": "الحيوانات الأليفة",
+      "viajes": "السفر",
+      "deudas": "الديون",
+      "impuestos": "الضرائب",
+      "suscripciones": "الاشتراكات",
+      "regalos": "الهدايا",
+      "negocio": "العمل التجاري",
+      "otros": "أخرى"
+    },
+    "ingreso": {
+      "salario": "الراتب",
+      "ventas": "المبيعات",
+      "trabajoIndependiente": "عمل حر",
+      "comisiones": "العمولات",
+      "intereses": "الفوائد",
+      "reembolsos": "المبالغ المستردة",
+      "regalos": "الهدايا",
+      "becas": "المنح الدراسية",
+      "rentas": "دخل الإيجار",
+      "dividendos": "الأرباح الموزعة",
+      "negocio": "العمل التجاري",
+      "otros": "أخرى"
+    },
+    "categoriaPersonalizada": "فئة مخصصة",
+    "crearCategoria": "إنشاء فئة",
+    "confirmarCategoria": "تأكيد الفئة الجديدة",
+    "nombreCategoria": "اسم الفئة"
+  },
+  "estadoVacio": {
+    "tituloGenerico": "لا يوجد شيء هنا بعد",
+    "descripcionGenerica": "عند إضافة معلومات، ستظهر في هذه الشاشة"
+  },
+  "errores": {
+    "generico": "حدث خطأ ما. حاول مرة أخرى.",
+    "sinConexion": "لا يوجد اتصال بالإنترنت"
+  },
+  "notificaciones": {
+    "presupuestoAdvertenciaTitulo": "أنت تقترب من حدك الأقصى",
+    "presupuestoAdvertenciaCuerpo": "لقد استخدمت {{porcentaje}}% من ميزانية {{categoria}} هذا الشهر.",
+    "presupuestoExcedidoTitulo": "تم تجاوز الميزانية",
+    "presupuestoExcedidoCuerpo": "لقد تجاوزت ميزانية {{categoria}} هذا الشهر ({{porcentaje}}%).",
+    "movimientoRecurrenteTitulo": "تم تسجيل حركة متكررة",
+    "movimientoRecurrenteCuerpo": "تم تسجيل \"{{descripcion}}\" تلقائيًا بمبلغ {{monto}}.",
+    "noDisponibleWeb": "الإشعارات متاحة فقط في التطبيق المثبَّت، وليس في المتصفح."
+  },
+  "seguridad": {
+    "bloqueoBiometrico": "القفل البيومتري",
+    "bloqueoBiometricoDescripcion": "اطلب Face ID أو بصمة الإصبع أو رمز الجهاز لفتح التطبيق.",
+    "bloqueoBiometricoNoDisponible": "جهازك لا يحتوي على بصمة بيومترية مُعدّة.",
+    "bloqueoBiometricoNoDisponibleWeb": "القفل البيومتري متاح فقط في التطبيق المثبَّت، وليس في المتصفح.",
+    "confirmarParaActivar": "أكّد هويتك لتفعيل القفل",
+    "activado": "مفعّل",
+    "desactivado": "غير مفعّل",
+    "pantallaBloqueo": {
+      "titulo": "MiPresupuesto مقفل",
+      "descripcion": "افتح القفل باستخدام Face ID أو بصمة الإصبع أو الرمز للمتابعة.",
+      "desbloquear": "فتح القفل",
+      "error": "تعذّر التحقق من هويتك. حاول مرة أخرى."
+    }
+  }
+}

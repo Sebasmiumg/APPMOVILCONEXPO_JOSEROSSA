@@ -1,0 +1,494 @@
+{
+  "idioma": {
+    "nombreNativo": "简体中文",
+    "es": "西班牙语",
+    "en": "英语",
+    "zh": "简体中文",
+    "hi": "印地语",
+    "ar": "阿拉伯语"
+  },
+  "comun": {
+    "continuar": "继续",
+    "atras": "返回",
+    "cancelar": "取消",
+    "guardar": "保存",
+    "eliminar": "删除",
+    "editar": "编辑",
+    "cerrar": "关闭",
+    "cargando": "加载中…",
+    "reintentar": "重试",
+    "aceptar": "接受",
+    "opcional": "可选",
+    "buscar": "搜索",
+    "verTodo": "查看全部",
+    "confirmar": "确认",
+    "proximamente": "即将在后续阶段推出"
+  },
+  "splash": {
+    "eslogan": "让你的财务一目了然"
+  },
+  "bienvenida": {
+    "titulo": "掌控、储蓄，投资你的未来",
+    "resumen": "在一个地方记录收支、了解消费习惯，实现你的财务目标。",
+    "crearCuenta": "创建账户",
+    "iniciarSesion": "登录"
+  },
+  "autenticacion": {
+    "registro": {
+      "titulo": "创建账户",
+      "subtitulo": "几分钟即可开始管理你的财务",
+      "nombreCompleto": "姓名",
+      "correo": "电子邮箱",
+      "contrasena": "密码",
+      "confirmarContrasena": "确认密码",
+      "aceptoTerminos": "我接受服务条款和隐私政策",
+      "boton": "创建账户",
+      "yaTienesCuenta": "已经有账户？",
+      "irAIniciarSesion": "登录"
+    },
+    "iniciarSesion": {
+      "titulo": "欢迎回来",
+      "subtitulo": "登录以继续",
+      "correo": "电子邮箱",
+      "contrasena": "密码",
+      "boton": "登录",
+      "olvidasteContrasena": "忘记密码？",
+      "noTienesCuenta": "还没有账户？",
+      "irARegistro": "注册"
+    },
+    "recuperarContrasena": {
+      "titulo": "重置密码",
+      "subtitulo": "我们会向你的邮箱发送一个链接",
+      "correo": "电子邮箱",
+      "boton": "发送链接",
+      "volverAIniciarSesion": "返回登录"
+    },
+    "verificarCorreo": {
+      "titulo": "验证你的邮箱",
+      "descripcion": "验证链接已发送至",
+      "reenviar": "重新发送邮件",
+      "reenviarEn": "{{segundos}} 秒后可重新发送",
+      "continuarDemostracion": "以演示模式继续",
+      "yaVerifique": "我已完成验证"
+    },
+    "tipoCorreo": {
+      "titulo": "检测到的邮箱类型",
+      "personal": "个人",
+      "institucional": "机构",
+      "organizacional": "组织",
+      "dominioDetectado": "域名：{{dominio}}",
+      "aviso": "此分类仅供参考，不授予任何特殊权限。"
+    }
+  },
+  "validaciones": {
+    "campoRequerido": "此字段为必填项",
+    "correoInvalido": "请输入有效的电子邮箱地址",
+    "correoYaRegistrado": "该邮箱已被注册",
+    "contrasenaCorta": "密码长度至少为8位",
+    "contrasenaDebil": "密码需包含大写字母、小写字母、数字和符号",
+    "confirmacionNoCoincide": "两次输入的密码不一致",
+    "debesAceptarTerminos": "必须接受条款才能继续",
+    "montoInvalido": "请输入大于零的有效金额"
+  },
+  "configuracionInicial": {
+    "idioma": {
+      "titulo": "选择你的语言",
+      "subtitulo": "之后可随时更改"
+    },
+    "apariencia": {
+      "titulo": "选择你的主题",
+      "subtitulo": "继续前可预览两种主题",
+      "claro": "浅色",
+      "oscuro": "深色"
+    },
+    "finanzas": {
+      "titulo": "设置你的财务信息",
+      "subtitulo": "创建你的第一个账户以开始使用",
+      "moneda": "主要货币",
+      "nombreCuenta": "账户名称",
+      "tipoCuenta": "账户类型",
+      "saldoInicial": "初始余额",
+      "metaAhorroOpcional": "储蓄目标（可选）",
+      "fechaObjetivoOpcional": "目标日期（可选）",
+      "metaInicialNombre": "我的第一个目标",
+      "finalizar": "完成设置",
+      "tiposCuenta": {
+        "efectivo": "现金",
+        "cuentaBancaria": "银行账户",
+        "cuentaAhorro": "储蓄账户",
+        "tarjetaCredito": "信用卡",
+        "negocio": "生意账户",
+        "billeteraDigital": "数字钱包"
+      }
+    }
+  },
+  "navegacion": {
+    "inicio": "首页",
+    "movimientos": "收支记录",
+    "agregar": "添加",
+    "asistente": "助手",
+    "perfil": "我的",
+    "analisis": "分析",
+    "metas": "目标",
+    "reinversion": "再投资"
+  },
+  "pantallas": {
+    "inicio": {
+      "saludo": "你好，{{nombre}}",
+      "saldoDisponible": "可用余额",
+      "ingresosDelMes": "本月收入",
+      "gastosDelMes": "本月支出",
+      "ahorroNeto": "净储蓄",
+      "tasaAhorro": "储蓄率",
+      "movimientosRecientes": "最近的收支记录",
+      "progresoMetas": "目标进度",
+      "verReporte": "查看月度报告"
+    },
+    "movimientos": {
+      "titulo": "收支记录",
+      "buscarPlaceholder": "搜索记录",
+      "sinMovimientos": "你还没有任何收支记录"
+    },
+    "movimientoNuevo": {
+      "titulo": "新增记录",
+      "tipo": "记录类型",
+      "ingreso": "收入",
+      "gasto": "支出",
+      "transferencia": "转账",
+      "ajuste": "余额调整",
+      "monto": "金额",
+      "descripcion": "描述",
+      "categoria": "分类",
+      "cuenta": "账户",
+      "fecha": "日期",
+      "nota": "备注",
+      "comprobante": "凭证（可选）",
+      "agregarFoto": "添加照片",
+      "cambiarFoto": "更换照片",
+      "quitarFoto": "移除照片",
+      "permisoGaleria": "我们需要访问你的照片才能添加凭证。",
+      "esRecurrente": "每月重复",
+      "guardarMovimiento": "保存记录"
+    },
+    "asistente": {
+      "titulo": "财务助手",
+      "placeholder": "询问你的财务情况",
+      "preguntasSugeridas": "推荐问题",
+      "escribiendo": "正在输入…",
+      "borrarConversacion": "清空对话",
+      "hablanteUsuario": "你",
+      "hablanteAsistente": "助手",
+      "datosUtilizados": "本次回答使用的数据",
+      "respuestaProximamente": "我没能理解你的问题。支持更复杂问题的AI助手将在后续阶段上线。",
+      "sugerencias": [
+        "我这个月花了多少钱？",
+        "我在哪个类别花费最多？",
+        "显示我最近的五笔记录",
+        "我存了多少钱？"
+      ],
+      "datosUtilizadosPeriodo": "{{periodo}}的收支记录",
+      "datosUtilizadosMesActual": "本月的收支记录",
+      "datosUtilizadosDosMeses": "本月和上月的收支记录",
+      "datosUtilizadosMetas": "你的储蓄目标",
+      "datosUtilizadosMovimientos": "你记录的收支",
+      "periodoMesActual": "本月",
+      "respuestas": {
+        "gastoMes": "你在{{periodo}}花费了{{monto}}。",
+        "ingresoMes": "你在{{periodo}}获得了{{monto}}的收入。",
+        "categoriaMayorGasto": "本月你支出最多的分类是{{categoria}}，共{{monto}}。",
+        "categoriaMayorGastoSinDatos": "本月还没有已分类的支出。",
+        "sugerenciaReduccion": "可以关注一下{{categoria}}：占本月支出的{{monto}}（{{porcentaje}}%）。",
+        "sugerenciaReduccionSinDatos": "分类支出还不够多，暂时无法给出削减建议。",
+        "comparacionMas": "是的，你比上月多花了{{porcentaje}}%（{{montoActual}} 对比 {{montoAnterior}}）。",
+        "comparacionMenos": "不，你比上月少花了{{porcentaje}}%（{{montoActual}} 对比 {{montoAnterior}}）。",
+        "comparacionSinDatosAnterior": "我没有上个月的记录可供比较。",
+        "ahorroTotal": "本月你的净储蓄为{{monto}}（占收入的{{tasa}}%）。",
+        "progresoMetaSinMetas": "你还没有创建任何储蓄目标。",
+        "progresoMetaVarias": "你有{{cantidad}}个进行中的目标。请告诉我具体名称，或前往“目标”页面查看。",
+        "progresoMetaUna": "你已完成目标“{{nombre}}”的{{porcentaje}}%，还差{{restante}}。",
+        "progresoMetaSugerido": "每周储蓄{{monto}}即可按时达成目标。",
+        "ultimosMovimientosEncabezado": "以下是你最近的{{cantidad}}笔记录：",
+        "ultimosMovimientosSinDatos": "你还没有任何记录。",
+        "noEntendido": "我没能理解你的问题，请尝试推荐的问题或说得更具体一些。"
+      }
+    },
+    "analisis": {
+      "titulo": "财务分析",
+      "saludFinanciera": "财务健康状况",
+      "comparacionMesAnterior": "与上月对比",
+      "categoriaMayorGasto": "支出最多的分类",
+      "promedioDiario": "日均支出",
+      "proyeccionSaldo": "月末预计余额",
+      "gastosPorCategoria": "按分类支出",
+      "presupuestos": "本月预算",
+      "nuevoPresupuesto": "新建预算",
+      "sinPresupuestos": "你还没有创建任何预算",
+      "sinGastosCategoria": "本月还没有已分类的支出",
+      "recomendaciones": "建议",
+      "masQueElMesPasado": "比上月多 {{porcentaje}}%",
+      "menosQueElMesPasado": "比上月少 {{porcentaje}}%",
+      "salud": {
+        "verde": {
+          "titulo": "财务状况良好",
+          "descripcion": "你的储蓄率为 {{tasa}}%，至少储蓄了收入的20%。"
+        },
+        "amarillo": {
+          "titulo": "财务状况有待改善",
+          "descripcion": "你的储蓄率为 {{tasa}}%，尝试接近20%以增强财务状况。"
+        },
+        "rojo": {
+          "titulo": "请注意你的财务状况",
+          "descripcion": "本月你的支出超过了收入（{{tasa}}%）。"
+        }
+      },
+      "recomendacionCategoria": "本月你在{{categoria}}上的支出为{{monto}}，是你支出最多的分类。",
+      "recomendacionAhorro": "在{{categoria}}上减少25%的支出每月可节省约{{monto}}。",
+      "sinRecomendaciones": "记录更多收支后即可获得个性化建议。"
+    },
+    "metas": {
+      "titulo": "储蓄目标",
+      "nuevaMeta": "新建目标",
+      "sinMetas": "你还没有创建任何目标",
+      "fechaObjetivo": "目标日期",
+      "formulario": {
+        "nombre": "目标名称",
+        "montoObjetivo": "目标金额",
+        "montoActualOpcional": "已储蓄金额（可选）",
+        "cuentaAsociada": "关联账户",
+        "fechaObjetivoOpcional": "目标日期（可选）",
+        "crear": "创建目标"
+      },
+      "detalle": {
+        "agregarAporte": "添加储蓄",
+        "montoAporte": "储蓄金额",
+        "notaOpcional": "备注（可选）",
+        "guardarAporte": "保存储蓄",
+        "historialAportes": "储蓄记录",
+        "sinAportes": "你还没有添加任何储蓄记录",
+        "ahorroPorSemana": "每周储蓄{{monto}}即可按时达成目标",
+        "ahorroPorMes": "每月储蓄{{monto}}即可按时达成目标",
+        "completada": "目标已完成！",
+        "archivar": "归档目标"
+      }
+    },
+    "reinversion": {
+      "titulo": "再投资与策略",
+      "descripcion": "根据你的兴趣探索教育性替代方案",
+      "aviso": "此内容仅供教育参考，并非保证收益的财务建议；所有投资均存在风险。",
+      "montoAConsiderar": "考虑投入的金额（可选）",
+      "seleccionaInteres": "你对什么感兴趣？",
+      "verAlternativas": "查看备选方案",
+      "sinResultados": "目前还没有针对该兴趣的备选方案。"
+    },
+    "perfil": {
+      "titulo": "我的",
+      "idioma": "语言",
+      "tema": "主题",
+      "moneda": "货币",
+      "cuentas": "账户",
+      "seguridad": "安全",
+      "notificaciones": "通知",
+      "privacidad": "隐私",
+      "exportarDatos": "导出数据",
+      "eliminarCuenta": "删除账户",
+      "cerrarSesion": "退出登录",
+      "sincronizacion": {
+        "titulo": "云同步",
+        "alDia": "已全部同步",
+        "pendientes": "{{cantidad}} 项更改待同步",
+        "sincronizar": "立即同步",
+        "sincronizando": "同步中…",
+        "sinConfigurar": "连接 Supabase 即可在多设备间同步数据"
+      },
+      "confirmarEliminarCuenta": "你的财务数据将从云端和本设备中删除。此操作无法撤销。"
+    },
+    "privacidad": {
+      "titulo": "隐私与你的数据",
+      "localTitulo": "保存在你的设备上",
+      "localDescripcion": "你的账户、收支、分类、预算、目标和凭证照片都保存在手机本地数据库中。除非你开启云同步，否则不会离开你的设备。",
+      "nubeTitulo": "云同步",
+      "nubeActivaDescripcion": "云同步已开启。你的数据会备份到你自己的 Supabase 项目，并受到行级安全保护：只有你能读取或修改自己的数据。",
+      "nubeInactivaDescripcion": "你尚未开启云同步。MiPresupuesto 完全在本地运行，没有任何数据离开这台设备。",
+      "asistenteTitulo": "财务助手",
+      "asistenteDescripcion": "大多数问题都在本地回答，不会发送到互联网。只有当助手无法理解你的问题且你已开启云同步时，才会向 AI 服务发送一份总体摘要（绝不会发送你的具体收支记录）。",
+      "exportarBoton": "导出我的数据",
+      "eliminarDescripcion": "你可以随时在个人资料中删除你的账户和所有数据。",
+      "eliminarBoton": "前往个人资料"
+    },
+    "reporte": {
+      "titulo": "财务报告",
+      "exportarPDF": "导出 PDF",
+      "exportarCSV": "导出 CSV",
+      "compartir": "分享",
+      "periodoActual": "本月",
+      "periodoAnterior": "上月",
+      "todasLasCuentas": "所有账户",
+      "saldoInicial": "期初余额",
+      "saldoFinal": "期末余额",
+      "tablaMovimientos": "本期收支记录",
+      "sinMovimientosPeriodo": "本期没有收支记录",
+      "generando": "生成中…"
+    }
+  },
+  "presupuestos": {
+    "titulo": "新建预算",
+    "categoria": "分类",
+    "limite": "月度限额",
+    "alertaPorcentual": "达到该百分比时提醒 (%)",
+    "crear": "创建预算",
+    "eliminarConfirmacion": "删除此预算？"
+  },
+  "reinversion": {
+    "riesgo": { "bajo": "低", "medio": "中", "alto": "高" },
+    "pais": { "guatemala": "危地马拉" },
+    "intereses": {
+      "ahorro": "储蓄",
+      "formacion": "教育培训",
+      "herramientas": "工具设备",
+      "microemprendimiento": "微型创业",
+      "negocioExistente": "现有业务",
+      "inversionRegulada": "受监管的金融投资"
+    },
+    "camposFicha": {
+      "riesgo": "风险",
+      "capitalMinimo": "最低资金",
+      "liquidez": "流动性",
+      "costos": "费用与手续费",
+      "ventajas": "可能的优势",
+      "riesgosPrincipales": "主要风险",
+      "fechaConsulta": "查询日期",
+      "estadoVerificado": "已核实",
+      "estadoRequiereRevision": "待核实"
+    },
+    "alternativas": {
+      "cooperativaAhorro": {
+        "nombre": "受监管信用合作社的储蓄账户",
+        "descripcion": "受监管的储蓄信用合作社提供储蓄账户，根据期限和最低余额不同，参考年利率在3%至4.5%之间。",
+        "liquidez": "活期账户流动性高；定期存款（6至60个月）流动性中等",
+        "costos": "因合作社而异；通常无开户费",
+        "ventajas": "收益高于普通活期账户，还可获得合作社提供的金融教育。",
+        "riesgos": "不同合作社的存款保护程度可能不同；开户前请确认其已注册并受到监管。"
+      },
+      "intecapFormacion": {
+        "nombre": "就业能力培训（INTECAP）",
+        "descripcion": "由INTECAP与Carlos Slim基金会提供的免费平台，提供290多门可获认证的在线课程和文凭，涵盖商业、科技、旅游等领域。",
+        "liquidez": "不适用：这是教育内容，而非金融产品",
+        "costos": "免费",
+        "ventajas": "获得权威认证，内容有助于提升就业能力或开展创业。",
+        "riesgos": "需要持续投入学习时间；不保证就业或收入。"
+      },
+      "creditoProductivo": {
+        "nombre": "用于购置工具设备的生产性贷款",
+        "descripcion": "面向商业、生产或服务活动的信贷额度，用于购置工具、设备或库存。",
+        "liquidez": "低：需在贷款期限内按月还款",
+        "costos": "利率和费用视信用评估而定；签约前请索取详细信息",
+        "ventajas": "无需一次性耗尽经营资金即可购置工作设备。",
+        "riesgos": "属于债务：即使当月经营无收入，也会产生利息和还款义务。"
+      },
+      "creditoMicroempresario": {
+        "nombre": "微型企业主贷款",
+        "descripcion": "面向正在启动或将商业、生产或服务类业务正规化的微型企业主的贷款。",
+        "liquidez": "低：需在贷款期限内按月还款",
+        "costos": "利率和费用视信用评估而定",
+        "ventajas": "可获得全国广泛的分支机构和业务顾问支持。",
+        "riesgos": "若业务尚无可预测的收入流以覆盖还款，则不建议申请。"
+      },
+      "bancaDesarrolloMipyme": {
+        "nombre": "面向中小企业的开发性金融支持",
+        "descripcion": "开发性银行及经济部提供的项目，用于资助已建立的微型、小型和中型企业的发展。",
+        "liquidez": "低：需在贷款期限内履行还款义务",
+        "costos": "利率和费用因项目而异；通常低于传统私人银行",
+        "ventajas": "条款专为成长中的正规企业设计，期限和利率更具发展导向性。",
+        "riesgos": "需要正规的企业文件；违约会影响信用记录。"
+      },
+      "certibonos": {
+        "nombre": "面向小额投资者的国债",
+        "descripcion": "危地马拉政府发行的债务证券，最低5,000格查尔起投，可在国家证券交易所交易，2027至2029年到期的公开收益率为年化6.00%至6.25%。",
+        "liquidez": "中等：到期前可在国家证券交易所交易，但受市场情况影响",
+        "costos": "经纪商或授权银行收取佣金；投资前请索取详细信息",
+        "ventajas": "由危地马拉政府担保，且从一开始就有固定利率。",
+        "riesgos": "到期前的转售价值可能波动；存在与主权债务相关的国家风险。"
+      }
+    }
+  },
+  "categorias": {
+    "gasto": {
+      "alimentacion": "饮食",
+      "supermercado": "超市",
+      "restaurantes": "餐厅",
+      "transporte": "交通",
+      "combustible": "燃油",
+      "educacion": "教育",
+      "universidad": "大学",
+      "tecnologia": "科技",
+      "salud": "健康",
+      "medicamentos": "药品",
+      "vivienda": "住房",
+      "alquiler": "房租",
+      "servicios": "生活缴费",
+      "telefonia": "话费",
+      "internet": "网络",
+      "entretenimiento": "娱乐",
+      "deporte": "运动",
+      "ropa": "服装",
+      "mascotas": "宠物",
+      "viajes": "旅行",
+      "deudas": "债务",
+      "impuestos": "税费",
+      "suscripciones": "订阅服务",
+      "regalos": "礼物",
+      "negocio": "生意",
+      "otros": "其他"
+    },
+    "ingreso": {
+      "salario": "工资",
+      "ventas": "销售收入",
+      "trabajoIndependiente": "自由职业",
+      "comisiones": "佣金",
+      "intereses": "利息",
+      "reembolsos": "退款",
+      "regalos": "礼金",
+      "becas": "奖学金",
+      "rentas": "租金收入",
+      "dividendos": "股息",
+      "negocio": "生意",
+      "otros": "其他"
+    },
+    "categoriaPersonalizada": "自定义分类",
+    "crearCategoria": "创建分类",
+    "confirmarCategoria": "确认新分类",
+    "nombreCategoria": "分类名称"
+  },
+  "estadoVacio": {
+    "tituloGenerico": "暂无内容",
+    "descripcionGenerica": "添加信息后将显示在此页面"
+  },
+  "errores": {
+    "generico": "出现错误，请重试。",
+    "sinConexion": "无网络连接"
+  },
+  "notificaciones": {
+    "presupuestoAdvertenciaTitulo": "你正在接近预算上限",
+    "presupuestoAdvertenciaCuerpo": "你本月的{{categoria}}预算已使用{{porcentaje}}%。",
+    "presupuestoExcedidoTitulo": "预算已超支",
+    "presupuestoExcedidoCuerpo": "你本月的{{categoria}}预算已超支（{{porcentaje}}%）。",
+    "movimientoRecurrenteTitulo": "已记录周期性收支",
+    "movimientoRecurrenteCuerpo": "已自动记录“{{descripcion}}”，金额为{{monto}}。",
+    "noDisponibleWeb": "通知功能仅在已安装的应用中可用，浏览器中不可用。"
+  },
+  "seguridad": {
+    "bloqueoBiometrico": "生物识别锁定",
+    "bloqueoBiometricoDescripcion": "打开应用时需要面容、指纹或设备密码验证。",
+    "bloqueoBiometricoNoDisponible": "你的设备未设置生物识别。",
+    "bloqueoBiometricoNoDisponibleWeb": "生物识别锁定仅在已安装的应用中可用，浏览器中不可用。",
+    "confirmarParaActivar": "验证身份以开启锁定",
+    "activado": "已开启",
+    "desactivado": "已关闭",
+    "pantallaBloqueo": {
+      "titulo": "MiPresupuesto 已锁定",
+      "descripcion": "使用面容、指纹或密码解锁以继续。",
+      "desbloquear": "解锁",
+      "error": "无法验证你的身份，请重试。"
+    }
+  }
+}

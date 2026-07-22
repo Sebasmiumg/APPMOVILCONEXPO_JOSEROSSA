@@ -1,0 +1,494 @@
+{
+  "idioma": {
+    "nombreNativo": "हिन्दी",
+    "es": "स्पेनिश",
+    "en": "अंग्रेज़ी",
+    "zh": "चीनी (सरलीकृत)",
+    "hi": "हिन्दी",
+    "ar": "अरबी"
+  },
+  "comun": {
+    "continuar": "जारी रखें",
+    "atras": "वापस",
+    "cancelar": "रद्द करें",
+    "guardar": "सहेजें",
+    "eliminar": "हटाएं",
+    "editar": "संपादित करें",
+    "cerrar": "बंद करें",
+    "cargando": "लोड हो रहा है…",
+    "reintentar": "पुनः प्रयास करें",
+    "aceptar": "स्वीकार करें",
+    "opcional": "वैकल्पिक",
+    "buscar": "खोजें",
+    "verTodo": "सभी देखें",
+    "confirmar": "पुष्टि करें",
+    "proximamente": "यह सुविधा आगामी चरण में उपलब्ध होगी"
+  },
+  "splash": {
+    "eslogan": "आपका पैसा, पूरी स्पष्टता के साथ"
+  },
+  "bienvenida": {
+    "titulo": "अपने भविष्य को नियंत्रित करें, बचाएं और निवेश करें",
+    "resumen": "एक ही जगह से अपने लेन-देन दर्ज करें, अपनी आदतें समझें और अपने वित्तीय लक्ष्य हासिल करें।",
+    "crearCuenta": "खाता बनाएं",
+    "iniciarSesion": "साइन इन करें"
+  },
+  "autenticacion": {
+    "registro": {
+      "titulo": "अपना खाता बनाएं",
+      "subtitulo": "मिनटों में अपने वित्त प्रबंधित करना शुरू करें",
+      "nombreCompleto": "पूरा नाम",
+      "correo": "ईमेल पता",
+      "contrasena": "पासवर्ड",
+      "confirmarContrasena": "पासवर्ड की पुष्टि करें",
+      "aceptoTerminos": "मैं नियम व शर्तें और गोपनीयता नीति स्वीकार करता/करती हूं",
+      "boton": "खाता बनाएं",
+      "yaTienesCuenta": "पहले से खाता है?",
+      "irAIniciarSesion": "साइन इन करें"
+    },
+    "iniciarSesion": {
+      "titulo": "वापसी पर स्वागत है",
+      "subtitulo": "जारी रखने के लिए साइन इन करें",
+      "correo": "ईमेल पता",
+      "contrasena": "पासवर्ड",
+      "boton": "साइन इन करें",
+      "olvidasteContrasena": "पासवर्ड भूल गए?",
+      "noTienesCuenta": "खाता नहीं है?",
+      "irARegistro": "साइन अप करें"
+    },
+    "recuperarContrasena": {
+      "titulo": "पासवर्ड रीसेट करें",
+      "subtitulo": "हम आपके ईमेल पर एक लिंक भेजेंगे",
+      "correo": "ईमेल पता",
+      "boton": "लिंक भेजें",
+      "volverAIniciarSesion": "साइन इन पर वापस जाएं"
+    },
+    "verificarCorreo": {
+      "titulo": "अपना ईमेल सत्यापित करें",
+      "descripcion": "सत्यापन लिंक भेजा गया",
+      "reenviar": "ईमेल पुनः भेजें",
+      "reenviarEn": "{{segundos}} सेकंड में पुनः भेजें",
+      "continuarDemostracion": "डेमो मोड में जारी रखें",
+      "yaVerifique": "मैंने अपना ईमेल सत्यापित कर लिया है"
+    },
+    "tipoCorreo": {
+      "titulo": "पहचाना गया ईमेल प्रकार",
+      "personal": "व्यक्तिगत",
+      "institucional": "शैक्षणिक संस्थान",
+      "organizacional": "संगठनात्मक",
+      "dominioDetectado": "डोमेन: {{dominio}}",
+      "aviso": "यह वर्गीकरण केवल जानकारी के लिए है और कोई विशेष अनुमति प्रदान नहीं करता।"
+    }
+  },
+  "validaciones": {
+    "campoRequerido": "यह फ़ील्ड आवश्यक है",
+    "correoInvalido": "एक मान्य ईमेल पता दर्ज करें",
+    "correoYaRegistrado": "यह ईमेल पहले से पंजीकृत है",
+    "contrasenaCorta": "कम से कम 8 अक्षर होने चाहिए",
+    "contrasenaDebil": "इसमें बड़ा अक्षर, छोटा अक्षर, संख्या और प्रतीक होना चाहिए",
+    "confirmacionNoCoincide": "पासवर्ड मेल नहीं खाते",
+    "debesAceptarTerminos": "जारी रखने के लिए नियम स्वीकार करने होंगे",
+    "montoInvalido": "शून्य से अधिक एक मान्य राशि दर्ज करें"
+  },
+  "configuracionInicial": {
+    "idioma": {
+      "titulo": "अपनी भाषा चुनें",
+      "subtitulo": "आप इसे कभी भी बदल सकते हैं"
+    },
+    "apariencia": {
+      "titulo": "अपना थीम चुनें",
+      "subtitulo": "जारी रखने से पहले दोनों का पूर्वावलोकन करें",
+      "claro": "लाइट",
+      "oscuro": "डार्क"
+    },
+    "finanzas": {
+      "titulo": "अपनी वित्तीय जानकारी सेट करें",
+      "subtitulo": "शुरू करने के लिए अपना पहला खाता बनाएं",
+      "moneda": "मुख्य मुद्रा",
+      "nombreCuenta": "खाते का नाम",
+      "tipoCuenta": "खाते का प्रकार",
+      "saldoInicial": "प्रारंभिक शेष राशि",
+      "metaAhorroOpcional": "बचत लक्ष्य (वैकल्पिक)",
+      "fechaObjetivoOpcional": "लक्ष्य तिथि (वैकल्पिक)",
+      "metaInicialNombre": "मेरा पहला लक्ष्य",
+      "finalizar": "सेटअप पूरा करें",
+      "tiposCuenta": {
+        "efectivo": "नकद",
+        "cuentaBancaria": "बैंक खाता",
+        "cuentaAhorro": "बचत खाता",
+        "tarjetaCredito": "क्रेडिट कार्ड",
+        "negocio": "व्यवसाय",
+        "billeteraDigital": "डिजिटल वॉलेट"
+      }
+    }
+  },
+  "navegacion": {
+    "inicio": "होम",
+    "movimientos": "लेन-देन",
+    "agregar": "जोड़ें",
+    "asistente": "सहायक",
+    "perfil": "प्रोफ़ाइल",
+    "analisis": "विश्लेषण",
+    "metas": "लक्ष्य",
+    "reinversion": "पुनर्निवेश"
+  },
+  "pantallas": {
+    "inicio": {
+      "saludo": "नमस्ते, {{nombre}}",
+      "saldoDisponible": "उपलब्ध शेष राशि",
+      "ingresosDelMes": "इस महीने की आय",
+      "gastosDelMes": "इस महीने का खर्च",
+      "ahorroNeto": "शुद्ध बचत",
+      "tasaAhorro": "बचत दर",
+      "movimientosRecientes": "हाल के लेन-देन",
+      "progresoMetas": "लक्ष्य प्रगति",
+      "verReporte": "मासिक रिपोर्ट देखें"
+    },
+    "movimientos": {
+      "titulo": "लेन-देन",
+      "buscarPlaceholder": "लेन-देन खोजें",
+      "sinMovimientos": "अभी तक आपका कोई लेन-देन नहीं है"
+    },
+    "movimientoNuevo": {
+      "titulo": "नया लेन-देन",
+      "tipo": "लेन-देन का प्रकार",
+      "ingreso": "आय",
+      "gasto": "खर्च",
+      "transferencia": "ट्रांसफर",
+      "ajuste": "शेष राशि समायोजन",
+      "monto": "राशि",
+      "descripcion": "विवरण",
+      "categoria": "श्रेणी",
+      "cuenta": "खाता",
+      "fecha": "तारीख",
+      "nota": "नोट",
+      "comprobante": "रसीद (वैकल्पिक)",
+      "agregarFoto": "फ़ोटो जोड़ें",
+      "cambiarFoto": "फ़ोटो बदलें",
+      "quitarFoto": "फ़ोटो हटाएं",
+      "permisoGaleria": "रसीद जोड़ने के लिए हमें आपकी फ़ोटो तक पहुंच चाहिए।",
+      "esRecurrente": "हर महीने दोहराएं",
+      "guardarMovimiento": "लेन-देन सहेजें"
+    },
+    "asistente": {
+      "titulo": "वित्तीय सहायक",
+      "placeholder": "अपने वित्त के बारे में पूछें",
+      "preguntasSugeridas": "सुझाए गए प्रश्न",
+      "escribiendo": "टाइप कर रहा है…",
+      "borrarConversacion": "बातचीत साफ़ करें",
+      "hablanteUsuario": "आप",
+      "hablanteAsistente": "सहायक",
+      "datosUtilizados": "इस उत्तर के लिए उपयोग किया गया डेटा",
+      "respuestaProximamente": "मैं आपका प्रश्न समझ नहीं पाया। अधिक जटिल प्रश्नों के लिए AI सहायता आगामी चरण में आएगी।",
+      "sugerencias": [
+        "इस महीने मैंने कितना खर्च किया?",
+        "मैंने किस श्रेणी में सबसे अधिक खर्च किया?",
+        "मुझे मेरे आखिरी पांच लेन-देन दिखाएं",
+        "मैंने कितनी बचत की है?"
+      ],
+      "datosUtilizadosPeriodo": "{{periodo}} के लेन-देन",
+      "datosUtilizadosMesActual": "इस महीने के लेन-देन",
+      "datosUtilizadosDosMeses": "इस महीने और पिछले महीने के लेन-देन",
+      "datosUtilizadosMetas": "आपके बचत लक्ष्य",
+      "datosUtilizadosMovimientos": "आपके दर्ज किए गए लेन-देन",
+      "periodoMesActual": "इस महीने",
+      "respuestas": {
+        "gastoMes": "आपने {{periodo}} में {{monto}} खर्च किए।",
+        "ingresoMes": "आपको {{periodo}} में {{monto}} की आय हुई।",
+        "categoriaMayorGasto": "इस महीने आपकी सबसे अधिक खर्च वाली श्रेणी {{categoria}} है, कुल {{monto}}।",
+        "categoriaMayorGastoSinDatos": "इस महीने अभी तक कोई वर्गीकृत खर्च नहीं है।",
+        "sugerenciaReduccion": "आप {{categoria}} पर ध्यान दे सकते हैं: यह इस महीने के खर्च का {{monto}} ({{porcentaje}}%) है।",
+        "sugerenciaReduccionSinDatos": "कमी का सुझाव देने के लिए अभी पर्याप्त वर्गीकृत खर्च नहीं हैं।",
+        "comparacionMas": "हाँ, आपने पिछले महीने से {{porcentaje}}% अधिक खर्च किया ({{montoActual}} बनाम {{montoAnterior}})।",
+        "comparacionMenos": "नहीं, आपने पिछले महीने से {{porcentaje}}% कम खर्च किया ({{montoActual}} बनाम {{montoAnterior}})।",
+        "comparacionSinDatosAnterior": "तुलना के लिए मेरे पास पिछले महीने के लेन-देन नहीं हैं।",
+        "ahorroTotal": "इस महीने आपकी शुद्ध बचत {{monto}} है (आपकी आय का {{tasa}}%)।",
+        "progresoMetaSinMetas": "आपने अभी तक कोई बचत लक्ष्य नहीं बनाया है।",
+        "progresoMetaVarias": "आपके पास {{cantidad}} सक्रिय लक्ष्य हैं। मुझसे किसी एक का नाम पूछें या लक्ष्य टैब देखें।",
+        "progresoMetaUna": "आप अपने लक्ष्य \"{{nombre}}\" का {{porcentaje}}% पूरा कर चुके हैं। {{restante}} शेष है।",
+        "progresoMetaSugerido": "समय पर पहुंचने के लिए प्रति सप्ताह {{monto}} बचाएं।",
+        "ultimosMovimientosEncabezado": "यहां आपके आखिरी {{cantidad}} लेन-देन हैं:",
+        "ultimosMovimientosSinDatos": "आपका अभी तक कोई लेन-देन नहीं है।",
+        "noEntendido": "मैं आपका प्रश्न समझ नहीं पाया। सुझाए गए प्रश्नों में से कोई आज़माएं या अधिक स्पष्ट रूप से पूछें।"
+      }
+    },
+    "analisis": {
+      "titulo": "वित्तीय विश्लेषण",
+      "saludFinanciera": "वित्तीय स्वास्थ्य",
+      "comparacionMesAnterior": "पिछले महीने से तुलना",
+      "categoriaMayorGasto": "सबसे अधिक खर्च वाली श्रेणी",
+      "promedioDiario": "औसत दैनिक खर्च",
+      "proyeccionSaldo": "महीने के अंत में अनुमानित शेष राशि",
+      "gastosPorCategoria": "श्रेणी अनुसार खर्च",
+      "presupuestos": "इस महीने के बजट",
+      "nuevoPresupuesto": "नया बजट",
+      "sinPresupuestos": "आपने अभी तक कोई बजट नहीं बनाया है",
+      "sinGastosCategoria": "इस महीने अभी तक कोई वर्गीकृत खर्च नहीं है",
+      "recomendaciones": "सुझाव",
+      "masQueElMesPasado": "पिछले महीने से {{porcentaje}}% अधिक",
+      "menosQueElMesPasado": "पिछले महीने से {{porcentaje}}% कम",
+      "salud": {
+        "verde": {
+          "titulo": "स्वस्थ वित्तीय स्थिति",
+          "descripcion": "आपकी बचत दर {{tasa}}% है। आप अपनी आय का कम से कम 20% बचा रहे हैं।"
+        },
+        "amarillo": {
+          "titulo": "वित्तीय स्थिति में सुधार की गुंजाइश",
+          "descripcion": "आपकी बचत दर {{tasa}}% है। अपनी वित्तीय स्थिति मजबूत करने के लिए 20% के करीब पहुंचें।"
+        },
+        "rojo": {
+          "titulo": "अपने वित्त पर ध्यान दें",
+          "descripcion": "इस महीने आप अपनी आय से अधिक खर्च कर रहे हैं ({{tasa}}%)।"
+        }
+      },
+      "recomendacionCategoria": "इस महीने {{categoria}} पर आपका खर्च {{monto}} रहा, जो आपकी सबसे अधिक खर्च वाली श्रेणी है।",
+      "recomendacionAhorro": "{{categoria}} में 25% की कमी करने से लगभग {{monto}} प्रति माह बचेंगे।",
+      "sinRecomendaciones": "व्यक्तिगत सुझाव पाने के लिए अधिक लेन-देन दर्ज करें।"
+    },
+    "metas": {
+      "titulo": "बचत लक्ष्य",
+      "nuevaMeta": "नया लक्ष्य",
+      "sinMetas": "आपने अभी तक कोई लक्ष्य नहीं बनाया है",
+      "fechaObjetivo": "लक्ष्य तिथि",
+      "formulario": {
+        "nombre": "लक्ष्य का नाम",
+        "montoObjetivo": "लक्ष्य राशि",
+        "montoActualOpcional": "अब तक की बचत (वैकल्पिक)",
+        "cuentaAsociada": "संबद्ध खाता",
+        "fechaObjetivoOpcional": "लक्ष्य तिथि (वैकल्पिक)",
+        "crear": "लक्ष्य बनाएं"
+      },
+      "detalle": {
+        "agregarAporte": "योगदान जोड़ें",
+        "montoAporte": "योगदान राशि",
+        "notaOpcional": "नोट (वैकल्पिक)",
+        "guardarAporte": "योगदान सहेजें",
+        "historialAportes": "योगदान इतिहास",
+        "sinAportes": "आपने अभी तक कोई योगदान नहीं जोड़ा है",
+        "ahorroPorSemana": "समय पर पहुंचने के लिए प्रति सप्ताह {{monto}} बचाएं",
+        "ahorroPorMes": "समय पर पहुंचने के लिए प्रति माह {{monto}} बचाएं",
+        "completada": "लक्ष्य पूरा हुआ!",
+        "archivar": "लक्ष्य संग्रहीत करें"
+      }
+    },
+    "reinversion": {
+      "titulo": "पुनर्निवेश और रणनीतियां",
+      "descripcion": "अपनी रुचि के अनुसार शैक्षिक विकल्प देखें",
+      "aviso": "यह जानकारी केवल शैक्षिक उद्देश्यों के लिए है। यह गारंटीशुदा वित्तीय सलाह नहीं है; हर निवेश में जोखिम होता है।",
+      "montoAConsiderar": "विचार करने की राशि (वैकल्पिक)",
+      "seleccionaInteres": "आपकी रुचि किसमें है?",
+      "verAlternativas": "विकल्प देखें",
+      "sinResultados": "इस रुचि के लिए अभी तक कोई विकल्प उपलब्ध नहीं है।"
+    },
+    "perfil": {
+      "titulo": "प्रोफ़ाइल",
+      "idioma": "भाषा",
+      "tema": "थीम",
+      "moneda": "मुद्रा",
+      "cuentas": "खाते",
+      "seguridad": "सुरक्षा",
+      "notificaciones": "सूचनाएं",
+      "privacidad": "गोपनीयता",
+      "exportarDatos": "डेटा निर्यात करें",
+      "eliminarCuenta": "खाता हटाएं",
+      "cerrarSesion": "साइन आउट करें",
+      "sincronizacion": {
+        "titulo": "क्लाउड सिंक",
+        "alDia": "सब कुछ सिंक हो चुका है",
+        "pendientes": "{{cantidad}} बदलाव सिंक होने बाकी हैं",
+        "sincronizar": "अभी सिंक करें",
+        "sincronizando": "सिंक हो रहा है…",
+        "sinConfigurar": "डिवाइसों के बीच डेटा सिंक करने के लिए Supabase कनेक्ट करें"
+      },
+      "confirmarEliminarCuenta": "आपका वित्तीय डेटा क्लाउड और इस डिवाइस से हटा दिया जाएगा। यह कार्रवाई वापस नहीं की जा सकती।"
+    },
+    "privacidad": {
+      "titulo": "गोपनीयता और आपका डेटा",
+      "localTitulo": "आपके डिवाइस पर सहेजा गया",
+      "localDescripcion": "आपके खाते, लेन-देन, श्रेणियां, बजट, लक्ष्य और रसीद की फ़ोटो आपके फ़ोन पर एक स्थानीय डेटाबेस में सहेजी जाती हैं। जब तक आप क्लाउड सिंक चालू नहीं करते, ये आपके डिवाइस से बाहर नहीं जातीं।",
+      "nubeTitulo": "क्लाउड सिंक",
+      "nubeActivaDescripcion": "क्लाउड सिंक चालू है। आपका डेटा आपके अपने Supabase प्रोजेक्ट में बैकअप होता है, जो रो-लेवल सिक्योरिटी से सुरक्षित है: केवल आप ही अपना डेटा पढ़ या बदल सकते हैं।",
+      "nubeInactivaDescripcion": "आपने क्लाउड सिंक चालू नहीं किया है। MiPresupuesto पूरी तरह स्थानीय रूप से काम करता है और कोई भी डेटा इस डिवाइस से बाहर नहीं जाता।",
+      "asistenteTitulo": "वित्तीय सहायक",
+      "asistenteDescripcion": "आपके अधिकतर सवालों के जवाब स्थानीय रूप से दिए जाते हैं, बिना इंटरनेट पर कुछ भेजे। केवल जब सहायक आपका सवाल नहीं समझ पाता और आपका क्लाउड सिंक चालू है, तब एक सामान्य सारांश (कभी भी आपके अलग-अलग लेन-देन नहीं) किसी AI सेवा को भेजा जाता है।",
+      "exportarBoton": "मेरा डेटा निर्यात करें",
+      "eliminarDescripcion": "आप किसी भी समय अपनी प्रोफ़ाइल से अपना खाता और सारा डेटा हटा सकते हैं।",
+      "eliminarBoton": "प्रोफ़ाइल पर जाएं"
+    },
+    "reporte": {
+      "titulo": "वित्तीय रिपोर्ट",
+      "exportarPDF": "PDF निर्यात करें",
+      "exportarCSV": "CSV निर्यात करें",
+      "compartir": "साझा करें",
+      "periodoActual": "इस महीने",
+      "periodoAnterior": "पिछला महीना",
+      "todasLasCuentas": "सभी खाते",
+      "saldoInicial": "प्रारंभिक शेष राशि",
+      "saldoFinal": "अंतिम शेष राशि",
+      "tablaMovimientos": "इस अवधि के लेन-देन",
+      "sinMovimientosPeriodo": "इस अवधि में कोई लेन-देन नहीं है",
+      "generando": "बनाया जा रहा है…"
+    }
+  },
+  "presupuestos": {
+    "titulo": "नया बजट",
+    "categoria": "श्रेणी",
+    "limite": "मासिक सीमा",
+    "alertaPorcentual": "पहुंचने पर सूचित करें (%)",
+    "crear": "बजट बनाएं",
+    "eliminarConfirmacion": "इस बजट को हटाएं?"
+  },
+  "reinversion": {
+    "riesgo": { "bajo": "कम", "medio": "मध्यम", "alto": "उच्च" },
+    "pais": { "guatemala": "ग्वाटेमाला" },
+    "intereses": {
+      "ahorro": "बचत",
+      "formacion": "शिक्षा",
+      "herramientas": "उपकरण",
+      "microemprendimiento": "सूक्ष्म उद्यमिता",
+      "negocioExistente": "मौजूदा व्यवसाय",
+      "inversionRegulada": "विनियमित वित्तीय निवेश"
+    },
+    "camposFicha": {
+      "riesgo": "जोखिम",
+      "capitalMinimo": "न्यूनतम पूंजी",
+      "liquidez": "तरलता",
+      "costos": "लागत और शुल्क",
+      "ventajas": "संभावित लाभ",
+      "riesgosPrincipales": "मुख्य जोखिम",
+      "fechaConsulta": "जांचा गया",
+      "estadoVerificado": "सत्यापित",
+      "estadoRequiereRevision": "समीक्षा आवश्यक"
+    },
+    "alternativas": {
+      "cooperativaAhorro": {
+        "nombre": "विनियमित सहकारी समिति में बचत खाता",
+        "descripcion": "पर्यवेक्षित बचत और ऋण सहकारी समितियां अवधि और न्यूनतम शेष राशि के अनुसार 3% से 4.5% वार्षिक संदर्भ ब्याज दर वाले बचत खाते प्रदान करती हैं।",
+        "liquidez": "उपलब्ध खातों में उच्च; मीयादी जमा (6 से 60 महीने) में मध्यम",
+        "costos": "सहकारी समिति के अनुसार भिन्न; आमतौर पर खोलने पर कोई शुल्क नहीं",
+        "ventajas": "सामान्य चालू खाते से अधिक रिटर्न, साथ ही सहकारी समिति की वित्तीय शिक्षा तक पहुंच।",
+        "riesgos": "सहकारी समितियों के बीच जमा सुरक्षा अलग हो सकती है; खाता खोलने से पहले पुष्टि करें कि यह पंजीकृत और पर्यवेक्षित है।"
+      },
+      "intecapFormacion": {
+        "nombre": "रोजगार के लिए प्रशिक्षण (INTECAP)",
+        "descripcion": "INTECAP और कार्लोस स्लिम फाउंडेशन का निःशुल्क मंच, जिसमें वाणिज्य, तकनीक, पर्यटन आदि में 290 से अधिक प्रमाणित ऑनलाइन पाठ्यक्रम और डिप्लोमा शामिल हैं।",
+        "liquidez": "लागू नहीं: यह शैक्षिक सामग्री है, वित्तीय साधन नहीं",
+        "costos": "निःशुल्क",
+        "ventajas": "मान्यता प्राप्त प्रमाणन और रोजगार क्षमता बढ़ाने या व्यवसाय शुरू करने के लिए तैयार सामग्री।",
+        "riesgos": "निरंतर अध्ययन समय की आवश्यकता होती है; रोजगार या आय की गारंटी नहीं देता।"
+      },
+      "creditoProductivo": {
+        "nombre": "उपकरण और औजारों के लिए उत्पादक ऋण",
+        "descripcion": "वाणिज्य, उत्पादन या सेवा गतिविधियों के लिए औजार, उपकरण या इन्वेंटरी खरीदने हेतु ऋण सुविधा।",
+        "liquidez": "कम: ऋण अवधि के दौरान मासिक भुगतान आवश्यक",
+        "costos": "ब्याज दर और शुल्क क्रेडिट मूल्यांकन पर निर्भर; हस्ताक्षर से पहले विवरण मांगें",
+        "ventajas": "एक साथ व्यवसाय की पूंजी खर्च किए बिना कार्य उपकरण प्राप्त करने की सुविधा।",
+        "riesgos": "यह ऋण है: भले ही उस महीने व्यवसाय से आय न हो, ब्याज और भुगतान दायित्व बनते हैं।"
+      },
+      "creditoMicroempresario": {
+        "nombre": "सूक्ष्म उद्यमियों के लिए ऋण",
+        "descripcion": "वाणिज्य, उत्पादन या सेवा व्यवसाय शुरू करने या औपचारिक बनाने वाले सूक्ष्म उद्यमियों के लिए ऋण।",
+        "liquidez": "कम: ऋण अवधि के दौरान मासिक भुगतान आवश्यक",
+        "costos": "ब्याज दर और शुल्क क्रेडिट मूल्यांकन पर निर्भर",
+        "ventajas": "देशभर में शाखाओं और व्यवसाय सलाहकारों के व्यापक नेटवर्क का सहयोग।",
+        "riesgos": "यदि व्यवसाय में अभी तक किस्तें चुकाने लायक अनुमानित आय नहीं है तो अनुशंसित नहीं।"
+      },
+      "bancaDesarrolloMipyme": {
+        "nombre": "मध्यम व्यवसायों के लिए विकास बैंकिंग",
+        "descripcion": "पहले से स्थापित सूक्ष्म, लघु और मध्यम व्यवसायों के विकास के वित्तपोषण के लिए विकास बैंकिंग और अर्थव्यवस्था मंत्रालय के कार्यक्रम।",
+        "liquidez": "कम: ऋण अवधि के दौरान भुगतान दायित्व आवश्यक",
+        "costos": "दरें और शुल्क कार्यक्रम अनुसार भिन्न; आमतौर पर पारंपरिक निजी बैंकिंग से कम",
+        "ventajas": "बढ़ते औपचारिक व्यवसायों के लिए तैयार शर्तें, विकास-उन्मुख अवधि और दरों के साथ।",
+        "riesgos": "औपचारिक व्यवसाय दस्तावेज़ आवश्यक; चूक होने पर क्रेडिट इतिहास प्रभावित होता है।"
+      },
+      "certibonos": {
+        "nombre": "लघु निवेशकों के लिए ट्रेजरी बॉन्ड",
+        "descripcion": "Q5,000 से उपलब्ध ग्वाटेमाला सरकार के ऋण प्रपत्र, राष्ट्रीय स्टॉक एक्सचेंज पर कारोबार योग्य, 2027 से 2029 तक की परिपक्वता के लिए 6.00% से 6.25% वार्षिक प्रकाशित प्रतिफल के साथ।",
+        "liquidez": "मध्यम: परिपक्वता से पहले राष्ट्रीय स्टॉक एक्सचेंज पर कारोबार योग्य, बाजार स्थितियों के अधीन",
+        "costos": "ब्रोकर या अधिकृत बैंक कमीशन; निवेश से पहले विवरण मांगें",
+        "ventajas": "ग्वाटेमाला सरकार का समर्थन, और शुरुआत से ही ज्ञात एक निश्चित ब्याज दर।",
+        "riesgos": "परिपक्वता से पहले पुनर्विक्रय मूल्य बदल सकता है; संप्रभु ऋण से जुड़ा देश जोखिम मौजूद है।"
+      }
+    }
+  },
+  "categorias": {
+    "gasto": {
+      "alimentacion": "भोजन",
+      "supermercado": "किराना",
+      "restaurantes": "रेस्तरां",
+      "transporte": "परिवहन",
+      "combustible": "ईंधन",
+      "educacion": "शिक्षा",
+      "universidad": "विश्वविद्यालय",
+      "tecnologia": "तकनीक",
+      "salud": "स्वास्थ्य",
+      "medicamentos": "दवाइयां",
+      "vivienda": "आवास",
+      "alquiler": "किराया",
+      "servicios": "उपयोगिता बिल",
+      "telefonia": "फोन",
+      "internet": "इंटरनेट",
+      "entretenimiento": "मनोरंजन",
+      "deporte": "खेल",
+      "ropa": "कपड़े",
+      "mascotas": "पालतू जानवर",
+      "viajes": "यात्रा",
+      "deudas": "कर्ज",
+      "impuestos": "कर",
+      "suscripciones": "सदस्यताएं",
+      "regalos": "उपहार",
+      "negocio": "व्यवसाय",
+      "otros": "अन्य"
+    },
+    "ingreso": {
+      "salario": "वेतन",
+      "ventas": "बिक्री",
+      "trabajoIndependiente": "फ्रीलांस कार्य",
+      "comisiones": "कमीशन",
+      "intereses": "ब्याज",
+      "reembolsos": "धनवापसी",
+      "regalos": "उपहार",
+      "becas": "छात्रवृत्ति",
+      "rentas": "किराये की आय",
+      "dividendos": "लाभांश",
+      "negocio": "व्यवसाय",
+      "otros": "अन्य"
+    },
+    "categoriaPersonalizada": "कस्टम श्रेणी",
+    "crearCategoria": "श्रेणी बनाएं",
+    "confirmarCategoria": "नई श्रेणी की पुष्टि करें",
+    "nombreCategoria": "श्रेणी का नाम"
+  },
+  "estadoVacio": {
+    "tituloGenerico": "अभी यहां कुछ नहीं है",
+    "descripcionGenerica": "जानकारी जोड़ने के बाद यह यहां दिखाई देगी"
+  },
+  "errores": {
+    "generico": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+    "sinConexion": "इंटरनेट कनेक्शन नहीं है"
+  },
+  "notificaciones": {
+    "presupuestoAdvertenciaTitulo": "आप अपनी सीमा के करीब पहुंच रहे हैं",
+    "presupuestoAdvertenciaCuerpo": "आपने इस महीने अपने {{categoria}} बजट का {{porcentaje}}% उपयोग कर लिया है।",
+    "presupuestoExcedidoTitulo": "बजट सीमा पार हो गई",
+    "presupuestoExcedidoCuerpo": "आपने इस महीने अपना {{categoria}} बजट पार कर लिया ({{porcentaje}}%)।",
+    "movimientoRecurrenteTitulo": "आवर्ती लेन-देन दर्ज हुआ",
+    "movimientoRecurrenteCuerpo": "\"{{descripcion}}\" {{monto}} के लिए अपने आप दर्ज हो गया।",
+    "noDisponibleWeb": "सूचनाएं केवल इंस्टॉल किए गए ऐप में उपलब्ध हैं, ब्राउज़र में नहीं।"
+  },
+  "seguridad": {
+    "bloqueoBiometrico": "बायोमेट्रिक लॉक",
+    "bloqueoBiometricoDescripcion": "ऐप खोलने के लिए Face ID, फ़िंगरप्रिंट या डिवाइस पासकोड मांगें।",
+    "bloqueoBiometricoNoDisponible": "आपके डिवाइस पर बायोमेट्रिक सेट अप नहीं है।",
+    "bloqueoBiometricoNoDisponibleWeb": "बायोमेट्रिक लॉक केवल इंस्टॉल किए गए ऐप में उपलब्ध है, ब्राउज़र में नहीं।",
+    "confirmarParaActivar": "लॉक चालू करने के लिए अपनी पहचान की पुष्टि करें",
+    "activado": "चालू",
+    "desactivado": "बंद",
+    "pantallaBloqueo": {
+      "titulo": "MiPresupuesto लॉक है",
+      "descripcion": "जारी रखने के लिए Face ID, फ़िंगरप्रिंट या पासकोड से अनलॉक करें।",
+      "desbloquear": "अनलॉक करें",
+      "error": "आपकी पहचान सत्यापित नहीं हो सकी। फिर से प्रयास करें।"
+    }
+  }
+}
