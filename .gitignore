@@ -33,6 +33,9 @@ yarn-error.*
 # editor/tooling config
 .claude/
 
+# capturas de pantalla (entregadas por separado via Google Drive)
+capturas/
+
 # local env files
 .env
 .env*.local
