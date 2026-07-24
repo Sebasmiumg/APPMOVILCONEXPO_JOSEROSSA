@@ -1,7 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import { guardarConfiguracionFinancieraInicial } from '@/src/almacenamiento/configuracionFinancieraInicial';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -43,6 +45,7 @@ export default function PantallaConfiguracionFinanciera() {
       setErrorNombre(t('validaciones.campoRequerido'));
       return;
     }
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setErrorNombre(undefined);
     setEnviando(true);
 
@@ -86,14 +89,18 @@ export default function PantallaConfiguracionFinanciera() {
     <LayoutResponsive>
       <View style={estilos.contenedor}>
         <IndicadorPasos totalPasos={3} pasoActual={3} />
-        <View style={estilos.encabezado}>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.encabezado}
+        >
           <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
             {t('configuracionInicial.finanzas.titulo')}
           </Text>
           <Text style={[estilos.subtitulo, { color: tema.colores.textoSecundario }]}>
             {t('configuracionInicial.finanzas.subtitulo')}
           </Text>
-        </View>
+        </BlurView>
 
         <View style={estilos.grupo}>
           <Text style={[estilos.etiquetaGrupo, { color: tema.colores.textoSecundario }]}>
@@ -174,6 +181,9 @@ const estilos = StyleSheet.create({
   },
   encabezado: {
     gap: 6,
+    borderRadius: 16,
+    padding: 12,
+    overflow: 'hidden',
   },
   titulo: {
     fontSize: 24,

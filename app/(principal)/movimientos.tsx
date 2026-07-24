@@ -1,7 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { CampoTexto } from '@/src/componentes/comunes/CampoTexto';
 import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
@@ -42,12 +44,23 @@ export default function PantallaMovimientos() {
   const categoriaPorId = useMemo(() => new Map(categorias.map((categoria) => [categoria.id, categoria])), [categorias]);
   const cuentaPorId = useMemo(() => new Map(cuentas.map((cuenta) => [cuenta.id, cuenta])), [cuentas]);
 
+  const abrirMovimiento = (id: string) => {
+    if (Platform.OS !== 'web') Haptics.selectionAsync();
+    router.push(`/movimiento/${id}`);
+  };
+
   return (
     <LayoutResponsive conDesplazamiento={false}>
       <View style={estilos.contenedor}>
-        <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-          {t('pantallas.movimientos.titulo')}
-        </Text>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.tarjetaTitulo}
+        >
+          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+            {t('pantallas.movimientos.titulo')}
+          </Text>
+        </BlurView>
 
         <CampoTexto
           etiqueta=""
@@ -89,7 +102,7 @@ export default function PantallaMovimientos() {
               categoria={item.categoriaId ? categoriaPorId.get(item.categoriaId) : undefined}
               cuenta={cuentaPorId.get(item.cuentaId)}
               cuentaDestino={item.cuentaDestinoId ? cuentaPorId.get(item.cuentaDestinoId) : undefined}
-              onPress={() => router.push(`/movimiento/${item.id}`)}
+              onPress={() => abrirMovimiento(item.id)}
             />
           )}
           ListEmptyComponent={
@@ -106,6 +119,13 @@ const estilos = StyleSheet.create({
     flex: 1,
     gap: 12,
     paddingTop: 16,
+  },
+  tarjetaTitulo: {
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    overflow: 'hidden',
+    alignSelf: 'flex-start',
   },
   titulo: {
     fontSize: 22,

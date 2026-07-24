@@ -1,8 +1,9 @@
 import { Image } from 'expo-image';
+import * as Haptics from 'expo-haptics';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
@@ -76,6 +77,7 @@ export default function PantallaDetalleMovimiento() {
   const guardarCambios = async () => {
     const montoNumerico = Number.parseFloat(monto);
     if (!montoNumerico || montoNumerico <= 0) return;
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setGuardando(true);
     try {
       await actualizarMovimiento(movimiento.id, {

@@ -1,3 +1,5 @@
+import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -51,6 +53,10 @@ export default function PantallaSplash() {
 
   return (
     <View style={[estilos.contenedor, { backgroundColor: tema.colores.fondoPrincipal }]}>
+      <LinearGradient
+        colors={[`${tema.colores.violeta}33`, 'transparent']}
+        style={estilos.resplandor}
+      />
       <Animated.View style={estiloAnimado}>
         <Svg width={120} height={120} viewBox="0 0 120 120">
           <Defs>
@@ -72,8 +78,14 @@ export default function PantallaSplash() {
           />
         </Svg>
       </Animated.View>
-      <Text style={[estilos.nombre, { color: tema.colores.textoPrincipal }]}>MiPresupuesto</Text>
-      <Text style={[estilos.eslogan, { color: tema.colores.textoSecundario }]}>{t('splash.eslogan')}</Text>
+      <BlurView
+        intensity={30}
+        tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+        style={estilos.tarjetaTexto}
+      >
+        <Text style={[estilos.nombre, { color: tema.colores.textoPrincipal }]}>MiPresupuesto</Text>
+        <Text style={[estilos.eslogan, { color: tema.colores.textoSecundario }]}>{t('splash.eslogan')}</Text>
+      </BlurView>
     </View>
   );
 }
@@ -84,6 +96,21 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 16,
+  },
+  resplandor: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 320,
+  },
+  tarjetaTexto: {
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   nombre: {
     fontSize: 24,

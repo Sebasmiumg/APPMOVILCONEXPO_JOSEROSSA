@@ -1,7 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
@@ -95,10 +97,21 @@ export default function PantallaAnalisis() {
 
   const hayDatosSuficientes = movimientosMesActual.length > 0;
 
+  const irANuevoPresupuesto = () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push('/presupuesto/nuevo');
+  };
+
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>{t('pantallas.analisis.titulo')}</Text>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.tarjetaTitulo}
+        >
+          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>{t('pantallas.analisis.titulo')}</Text>
+        </BlurView>
 
         <TarjetaCristal>
           <View style={estilos.filaSalud}>
@@ -171,7 +184,7 @@ export default function PantallaAnalisis() {
             <Text style={[estilos.tituloSeccion, { color: tema.colores.textoPrincipal }]}>
               {t('pantallas.analisis.presupuestos')}
             </Text>
-            <Pressable onPress={() => router.push('/presupuesto/nuevo')} accessibilityRole="button" accessibilityLabel={t('pantallas.analisis.nuevoPresupuesto')}>
+            <Pressable onPress={irANuevoPresupuesto} accessibilityRole="button" accessibilityLabel={t('pantallas.analisis.nuevoPresupuesto')}>
               <Icono nombre="add-circle-outline" tamano={22} color={tema.colores.violeta} />
             </Pressable>
           </View>
@@ -240,6 +253,13 @@ const estilos = StyleSheet.create({
     gap: 20,
     paddingTop: 16,
     paddingBottom: 32,
+  },
+  tarjetaTitulo: {
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    overflow: 'hidden',
+    alignSelf: 'flex-start',
   },
   titulo: {
     fontSize: 22,

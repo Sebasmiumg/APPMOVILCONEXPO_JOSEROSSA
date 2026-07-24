@@ -1,9 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { EncabezadoFormulario } from '@/src/componentes/autenticacion/EncabezadoFormulario';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -38,6 +40,7 @@ export default function PantallaRecuperarContrasena() {
   });
 
   const alEnviar = handleSubmit(async (datos) => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setEnviando(true);
     setErrorServidor(undefined);
 
@@ -60,10 +63,16 @@ export default function PantallaRecuperarContrasena() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <EncabezadoFormulario
-          titulo={t('autenticacion.recuperarContrasena.titulo')}
-          subtitulo={t('autenticacion.recuperarContrasena.subtitulo')}
-        />
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.tarjetaEncabezado}
+        >
+          <EncabezadoFormulario
+            titulo={t('autenticacion.recuperarContrasena.titulo')}
+            subtitulo={t('autenticacion.recuperarContrasena.subtitulo')}
+          />
+        </BlurView>
 
         {enviado ? (
           <View
@@ -124,6 +133,11 @@ const estilos = StyleSheet.create({
   contenedor: {
     gap: 16,
     paddingTop: 12,
+  },
+  tarjetaEncabezado: {
+    borderRadius: 16,
+    padding: 12,
+    overflow: 'hidden',
   },
   confirmacion: {
     flexDirection: 'row',

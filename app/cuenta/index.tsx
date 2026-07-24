@@ -1,6 +1,8 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { Icono } from '@/src/componentes/comunes/Icono';
@@ -20,22 +22,31 @@ export default function PantallaCuentas() {
   const router = useRouter();
   const { cuentas, movimientos } = useFinanzas();
 
+  const irANuevaCuenta = () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push('/cuenta/nueva');
+  };
+
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <View style={estilos.encabezado}>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.encabezado}
+        >
           <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
             {t('pantallas.perfil.cuentas')}
           </Text>
           <Pressable
-            onPress={() => router.push('/cuenta/nueva')}
+            onPress={irANuevaCuenta}
             accessibilityRole="button"
             accessibilityLabel={t('configuracionInicial.finanzas.finalizar')}
             style={[estilos.botonAgregar, { backgroundColor: tema.colores.violeta }]}
           >
             <Icono nombre="add" tamano={20} color={tema.colores.sobrePrimario} />
           </Pressable>
-        </View>
+        </BlurView>
 
         {cuentas.length === 0 ? (
           <EstadoVacio titulo={t('pantallas.perfil.cuentas')} icono="account-balance-wallet" />
@@ -72,6 +83,10 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    overflow: 'hidden',
   },
   titulo: {
     fontSize: 22,

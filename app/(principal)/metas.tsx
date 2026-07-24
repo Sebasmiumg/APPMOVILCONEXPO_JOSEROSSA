@@ -1,6 +1,8 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
@@ -19,12 +21,21 @@ export default function PantallaMetas() {
 
   const monedaPorDefecto = cuentas[0]?.moneda ?? 'GTQ';
 
+  const irANuevaMeta = () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push('/meta/nueva');
+  };
+
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <View style={estilos.encabezado}>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.encabezado}
+        >
           <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>{t('pantallas.metas.titulo')}</Text>
-        </View>
+        </BlurView>
 
         {metas.length === 0 ? (
           <EstadoVacio titulo={t('pantallas.metas.sinMetas')} icono="flag" />
@@ -44,7 +55,7 @@ export default function PantallaMetas() {
           </View>
         )}
 
-        <BotonPrincipal titulo={t('pantallas.metas.nuevaMeta')} onPress={() => router.push('/meta/nueva')} />
+        <BotonPrincipal titulo={t('pantallas.metas.nuevaMeta')} onPress={irANuevaMeta} />
       </View>
     </LayoutResponsive>
   );
@@ -60,6 +71,10 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    overflow: 'hidden',
   },
   titulo: {
     fontSize: 22,

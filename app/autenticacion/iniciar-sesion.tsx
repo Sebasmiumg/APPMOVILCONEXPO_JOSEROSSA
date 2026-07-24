@@ -1,9 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { configuracionInicialEstaCompleta } from '@/src/almacenamiento/configuracionFinancieraInicial';
 import { EncabezadoFormulario } from '@/src/componentes/autenticacion/EncabezadoFormulario';
@@ -37,6 +39,7 @@ export default function PantallaIniciarSesion() {
   });
 
   const alEnviar = handleSubmit(async (datos) => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setEnviando(true);
     setErrorServidor(undefined);
 
@@ -57,10 +60,16 @@ export default function PantallaIniciarSesion() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <EncabezadoFormulario
-          titulo={t('autenticacion.iniciarSesion.titulo')}
-          subtitulo={t('autenticacion.iniciarSesion.subtitulo')}
-        />
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.tarjetaEncabezado}
+        >
+          <EncabezadoFormulario
+            titulo={t('autenticacion.iniciarSesion.titulo')}
+            subtitulo={t('autenticacion.iniciarSesion.subtitulo')}
+          />
+        </BlurView>
 
         <Controller
           control={control}
@@ -130,6 +139,11 @@ const estilos = StyleSheet.create({
   contenedor: {
     gap: 16,
     paddingTop: 12,
+  },
+  tarjetaEncabezado: {
+    borderRadius: 16,
+    padding: 12,
+    overflow: 'hidden',
   },
   enlace: {
     fontSize: 13,

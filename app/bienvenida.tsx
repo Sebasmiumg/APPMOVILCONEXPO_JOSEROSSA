@@ -1,7 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
+import * as Haptics from 'expo-haptics';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -12,6 +13,16 @@ export default function PantallaBienvenida() {
   const { tema } = useTema();
   const { t } = useTranslation();
   const router = useRouter();
+
+  const irARegistro = () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push('/autenticacion/registro');
+  };
+
+  const irAIniciarSesion = () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push('/autenticacion/iniciar-sesion');
+  };
 
   return (
     <View style={[estilos.raiz, { backgroundColor: tema.colores.fondoPrincipal }]}>
@@ -36,11 +47,11 @@ export default function PantallaBienvenida() {
         <View style={estilos.acciones}>
           <BotonPrincipal
             titulo={t('bienvenida.crearCuenta')}
-            onPress={() => router.push('/autenticacion/registro')}
+            onPress={irARegistro}
           />
           <BotonSecundario
             titulo={t('bienvenida.iniciarSesion')}
-            onPress={() => router.push('/autenticacion/iniciar-sesion')}
+            onPress={irAIniciarSesion}
           />
         </View>
       </SafeAreaView>

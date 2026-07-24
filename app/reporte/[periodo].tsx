@@ -1,7 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Share, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
 import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
@@ -146,6 +148,7 @@ export default function PantallaReporte() {
   };
 
   const compartirResumen = async () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const resumenTexto = `${t('pantallas.reporte.titulo')} — ${etiquetaPeriodo}\n${filasResumen
       .map((f) => `${f.etiqueta}: ${f.valor}`)
       .join('\n')}`;
@@ -155,7 +158,11 @@ export default function PantallaReporte() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <View style={estilos.encabezado}>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.encabezado}
+        >
           <View>
             <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
               {t('pantallas.reporte.titulo')}
@@ -165,7 +172,7 @@ export default function PantallaReporte() {
           <Pressable onPress={() => volverOIrA(router, '/(principal)/inicio')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
             <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
           </Pressable>
-        </View>
+        </BlurView>
 
         <View style={estilos.filaChips}>
           <ChipCategoria
@@ -286,6 +293,10 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,

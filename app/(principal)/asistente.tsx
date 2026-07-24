@@ -1,3 +1,6 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -47,6 +50,8 @@ export default function PantallaAsistente() {
   const enviarMensaje = (contenido: string) => {
     const limpio = contenido.trim();
     if (!limpio) return;
+
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
     const mensajeUsuario: MensajeChat = {
       id: `u-${Date.now()}`,
@@ -115,7 +120,11 @@ export default function PantallaAsistente() {
       style={[estilos.raiz, { backgroundColor: tema.colores.fondoPrincipal, paddingTop: insets.top + 16 }]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={estilos.encabezado}>
+      <BlurView
+        intensity={40}
+        tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+        style={estilos.encabezado}
+      >
         <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
           {t('pantallas.asistente.titulo')}
         </Text>
@@ -124,7 +133,7 @@ export default function PantallaAsistente() {
             <Icono nombre="delete-outline" tamano={20} color={tema.colores.textoSecundario} />
           </Pressable>
         ) : null}
-      </View>
+      </BlurView>
 
       {mensajes.length === 0 ? (
         <View style={estilos.sugerenciasContenedor}>
@@ -174,9 +183,10 @@ export default function PantallaAsistente() {
           onPress={() => enviarMensaje(texto)}
           accessibilityRole="button"
           accessibilityLabel={t('pantallas.asistente.placeholder')}
-          style={[estilos.botonEnviar, { backgroundColor: tema.colores.violeta }]}
         >
-          <Icono nombre="send" tamano={20} color={tema.colores.sobrePrimario} />
+          <LinearGradient colors={tema.gradientePrincipal} style={estilos.botonEnviar}>
+            <Icono nombre="send" tamano={20} color={tema.colores.sobrePrimario} />
+          </LinearGradient>
         </Pressable>
       </View>
     </KeyboardAvoidingView>

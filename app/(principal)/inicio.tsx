@@ -1,7 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import { obtenerPerfilDemo } from '@/src/almacenamiento/perfilDemo';
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
@@ -80,12 +82,23 @@ export default function PantallaInicio() {
 
   const metasActivas = useMemo(() => metas.filter((m) => m.estado === 'activa').slice(0, 3), [metas]);
 
+  const verReporte = () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push('/reporte/mes-actual');
+  };
+
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <Text style={[estilos.saludo, { color: tema.colores.textoPrincipal }]}>
-          {t('pantallas.inicio.saludo', { nombre: nombre ?? '👋' })}
-        </Text>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.tarjetaSaludo}
+        >
+          <Text style={[estilos.saludo, { color: tema.colores.textoPrincipal }]}>
+            {t('pantallas.inicio.saludo', { nombre: nombre ?? '👋' })}
+          </Text>
+        </BlurView>
 
         {cuentas.length > 1 ? (
           <View style={estilos.filaChips}>
@@ -195,7 +208,7 @@ export default function PantallaInicio() {
 
         <BotonSecundario
           titulo={t('pantallas.inicio.verReporte')}
-          onPress={() => router.push('/reporte/mes-actual')}
+          onPress={verReporte}
         />
       </View>
     </LayoutResponsive>
@@ -207,6 +220,13 @@ const estilos = StyleSheet.create({
     gap: 16,
     paddingTop: 16,
     paddingBottom: 32,
+  },
+  tarjetaSaludo: {
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    overflow: 'hidden',
+    alignSelf: 'flex-start',
   },
   saludo: {
     fontSize: 22,

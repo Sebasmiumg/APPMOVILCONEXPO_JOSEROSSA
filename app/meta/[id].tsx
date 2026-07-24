@@ -1,7 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { BarraProgreso } from '@/src/componentes/comunes/BarraProgreso';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -60,6 +62,7 @@ export default function PantallaDetalleMeta() {
   const guardarAporte = async () => {
     const montoNumerico = Number.parseFloat(montoAporte);
     if (!montoNumerico || montoNumerico <= 0) return;
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setEnviando(true);
     try {
       await agregarAporteMeta(meta.id, montoNumerico, notaAporte.trim() || null);
@@ -80,14 +83,18 @@ export default function PantallaDetalleMeta() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <View style={estilos.encabezado}>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.encabezado}
+        >
           <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]} numberOfLines={1}>
             {meta.nombre}
           </Text>
           <Pressable onPress={() => volverOIrA(router, '/(principal)/metas')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
             <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
           </Pressable>
-        </View>
+        </BlurView>
 
         <TarjetaCristal>
           <BarraProgreso
@@ -188,6 +195,10 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,

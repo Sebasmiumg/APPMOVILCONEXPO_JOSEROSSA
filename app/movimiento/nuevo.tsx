@@ -1,7 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { CampoMoneda } from '@/src/componentes/comunes/CampoMoneda';
@@ -85,6 +87,7 @@ export default function PantallaNuevoMovimiento() {
       return;
     }
 
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setEnviando(true);
     try {
       const fechaISO = (fecha ?? new Date()).toISOString();
@@ -137,14 +140,18 @@ export default function PantallaNuevoMovimiento() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <View style={estilos.encabezado}>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.encabezado}
+        >
           <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
             {t('pantallas.movimientoNuevo.titulo')}
           </Text>
           <Pressable onPress={() => volverOIrA(router, '/(principal)/inicio')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
             <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
           </Pressable>
-        </View>
+        </BlurView>
 
         <View style={estilos.grupo}>
           <Text style={[estilos.etiquetaGrupo, { color: tema.colores.textoSecundario }]}>
@@ -303,6 +310,10 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,

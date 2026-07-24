@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 import { useSQLiteContext } from 'expo-sqlite';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
@@ -103,6 +104,7 @@ export default function PantallaPerfil() {
   };
 
   const confirmarAccionDestructiva = async () => {
+    if (Platform.OS !== 'web') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     if (supabaseConfigurado && sesion && usuario) {
       if (modalActivo === 'eliminarCuenta') {
         await eliminarDatosUsuarioEnNube(usuario.id);

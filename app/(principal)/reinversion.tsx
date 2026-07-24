@@ -1,6 +1,9 @@
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import { CampoMoneda } from '@/src/componentes/comunes/CampoMoneda';
 import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
@@ -37,27 +40,36 @@ export default function PantallaReinversion() {
     [interesSeleccionado]
   );
 
+  const seleccionarInteres = (interes: InteresReinversion) => {
+    if (Platform.OS !== 'web') Haptics.selectionAsync();
+    setInteresSeleccionado(interes);
+  };
+
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-          {t('pantallas.reinversion.titulo')}
-        </Text>
-        <Text style={[estilos.descripcion, { color: tema.colores.textoSecundario }]}>
-          {t('pantallas.reinversion.descripcion')}
-        </Text>
+        <LinearGradient colors={tema.gradientePrincipal} style={estilos.bannerTitulo}>
+          <Text style={[estilos.titulo, { color: tema.colores.sobrePrimario }]}>
+            {t('pantallas.reinversion.titulo')}
+          </Text>
+          <Text style={[estilos.descripcion, { color: tema.colores.sobrePrimario }]}>
+            {t('pantallas.reinversion.descripcion')}
+          </Text>
+        </LinearGradient>
 
-        <View
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
           style={[
             estilos.aviso,
-            { borderRadius: tema.radios.tarjeta, borderColor: tema.colores.advertencia, backgroundColor: `${tema.colores.advertencia}1A` },
+            { borderRadius: tema.radios.tarjeta, borderColor: tema.colores.advertencia },
           ]}
         >
           <Icono nombre="info-outline" tamano={20} color={tema.colores.advertencia} />
           <Text style={[estilos.textoAviso, { color: tema.colores.textoPrincipal }]}>
             {t('pantallas.reinversion.aviso')}
           </Text>
-        </View>
+        </BlurView>
 
         <CampoMoneda
           etiqueta={t('pantallas.reinversion.montoAConsiderar')}
@@ -77,7 +89,7 @@ export default function PantallaReinversion() {
                 etiqueta={t(`reinversion.intereses.${item.valor}`)}
                 icono={item.icono}
                 seleccionado={interesSeleccionado === item.valor}
-                onPress={() => setInteresSeleccionado(item.valor)}
+                onPress={() => seleccionarInteres(item.valor)}
               />
             ))}
           </View>
@@ -107,6 +119,11 @@ const estilos = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 32,
   },
+  bannerTitulo: {
+    borderRadius: 18,
+    padding: 16,
+    gap: 6,
+  },
   titulo: {
     fontSize: 22,
     fontWeight: '800',
@@ -120,6 +137,7 @@ const estilos = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     padding: 14,
     alignItems: 'flex-start',
+    overflow: 'hidden',
   },
   textoAviso: {
     flex: 1,
