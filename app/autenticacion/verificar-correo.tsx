@@ -4,6 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { EncabezadoFormulario } from '@/src/componentes/autenticacion/EncabezadoFormulario';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -14,6 +15,7 @@ import { MensajeError } from '@/src/componentes/comunes/MensajeError';
 import { useTema } from '@/src/contextos/ContextoTema';
 import { reenviarVerificacion } from '@/src/servicios/supabase/autenticacion';
 import { supabaseEstaConfigurado } from '@/src/servicios/supabase/cliente';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 const SEGUNDOS_ESPERA_REENVIO = 30;
 
@@ -52,13 +54,15 @@ export default function PantallaVerificarCorreo() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.tarjetaEncabezado}
-        >
-          <EncabezadoFormulario titulo={t('autenticacion.verificarCorreo.titulo')} />
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.tarjetaEncabezado}
+                  >
+                    <EncabezadoFormulario titulo={t('autenticacion.verificarCorreo.titulo')} />
+                  </BlurView>
+        </Animated.View>
 
         <View style={[estilos.icono, { backgroundColor: `${tema.colores.violeta}26` }]}>
           <Icono nombre="mark-email-unread" tamano={36} color={tema.colores.violeta} />
@@ -102,14 +106,14 @@ const estilos = StyleSheet.create({
   },
   tarjetaEncabezado: {
     width: '100%',
-    borderRadius: 16,
+    borderRadius: 6,
     padding: 12,
     overflow: 'hidden',
   },
   icono: {
     width: 80,
     height: 80,
-    borderRadius: 24,
+    borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
@@ -120,7 +124,7 @@ const estilos = StyleSheet.create({
   },
   correo: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
     marginBottom: 8,
   },
   separador: {

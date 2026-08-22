@@ -6,12 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import Animated, {
   Easing,
+  FadeInDown,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
 import Svg, { Circle, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
+import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { configuracionInicialEstaCompleta } from '@/src/almacenamiento/configuracionFinancieraInicial';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -78,14 +80,16 @@ export default function PantallaSplash() {
           />
         </Svg>
       </Animated.View>
-      <BlurView
-        intensity={30}
-        tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-        style={estilos.tarjetaTexto}
-      >
-        <Text style={[estilos.nombre, { color: tema.colores.textoPrincipal }]}>MiPresupuesto</Text>
-        <Text style={[estilos.eslogan, { color: tema.colores.textoSecundario }]}>{t('splash.eslogan')}</Text>
-      </BlurView>
+      <Animated.View entering={FadeInDown.duration(450).easing(Easing.out(Easing.cubic))}>
+        <BlurView
+          intensity={30}
+          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+          style={estilos.tarjetaTexto}
+        >
+          <Text style={[estilos.nombre, { color: tema.colores.textoPrincipal }]}>MiPresupuesto</Text>
+          <Text style={[estilos.eslogan, { color: tema.colores.textoSecundario }]}>{t('splash.eslogan')}</Text>
+        </BlurView>
+      </Animated.View>
     </View>
   );
 }
@@ -109,12 +113,12 @@ const estilos = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 24,
     paddingVertical: 16,
-    borderRadius: 20,
+    borderRadius: 6,
     overflow: 'hidden',
   },
   nombre: {
     fontSize: 24,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
     marginTop: 12,
   },
   eslogan: {

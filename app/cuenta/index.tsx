@@ -3,6 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { Icono } from '@/src/componentes/comunes/Icono';
@@ -14,6 +15,7 @@ import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { useTema } from '@/src/contextos/ContextoTema';
 import { calcularSaldoCuenta } from '@/src/utilidades/calculosFinancieros';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaCuentas() {
   const { tema } = useTema();
@@ -30,23 +32,26 @@ export default function PantallaCuentas() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-            {t('pantallas.perfil.cuentas')}
-          </Text>
-          <Pressable
-            onPress={irANuevaCuenta}
-            accessibilityRole="button"
-            accessibilityLabel={t('configuracionInicial.finanzas.finalizar')}
-            style={[estilos.botonAgregar, { backgroundColor: tema.colores.violeta }]}
-          >
-            <Icono nombre="add" tamano={20} color={tema.colores.sobrePrimario} />
-          </Pressable>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                      {t('pantallas.perfil.cuentas')}
+                    </Text>
+                    <Pressable
+                      onPress={irANuevaCuenta}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('configuracionInicial.finanzas.finalizar')}
+                      hitSlop={6}
+                      style={[estilos.botonAgregar, { backgroundColor: tema.colores.violeta }]}
+                    >
+                      <Icono nombre="add" tamano={20} color={tema.colores.sobrePrimario} />
+                    </Pressable>
+                  </BlurView>
+        </Animated.View>
 
         {cuentas.length === 0 ? (
           <EstadoVacio titulo={t('pantallas.perfil.cuentas')} icono="account-balance-wallet" />
@@ -83,19 +88,19 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   botonAgregar: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -107,7 +112,7 @@ const estilos = StyleSheet.create({
   icono: {
     width: 44,
     height: 44,
-    borderRadius: 14,
+    borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -117,13 +122,13 @@ const estilos = StyleSheet.create({
   },
   nombreCuenta: {
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   tipoCuenta: {
     fontSize: 12,
   },
   saldo: {
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
 });

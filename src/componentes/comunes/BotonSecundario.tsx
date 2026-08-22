@@ -1,7 +1,11 @@
 import * as Haptics from 'expo-haptics';
 import { Platform, Pressable, StyleSheet, Text } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { useTema } from '@/src/contextos/ContextoTema';
+
+const PressableAnimado = Animated.createAnimatedComponent(Pressable);
 
 interface PropiedadesBotonSecundario {
   titulo: string;
@@ -17,6 +21,11 @@ export function BotonSecundario({
   etiquetaAccesibilidad,
 }: PropiedadesBotonSecundario) {
   const { tema } = useTema();
+  const escala = useSharedValue(1);
+
+  const estiloAnimado = useAnimatedStyle(() => ({
+    transform: [{ scale: escala.value }],
+  }));
 
   const manejarPress = () => {
     if (deshabilitado) return;
@@ -27,27 +36,34 @@ export function BotonSecundario({
   };
 
   return (
-    <Pressable
+    <PressableAnimado
       onPress={manejarPress}
+      onPressIn={() => {
+        escala.value = withTiming(0.97, { duration: 120 });
+      }}
+      onPressOut={() => {
+        escala.value = withTiming(1, { duration: 200 });
+      }}
       disabled={deshabilitado}
       accessibilityRole="button"
       accessibilityLabel={etiquetaAccesibilidad ?? titulo}
       accessibilityState={{ disabled: deshabilitado }}
-      style={({ pressed }) => [
+      style={[
+        estiloAnimado,
         estilos.contenedor,
         {
           borderRadius: tema.radios.boton,
           minHeight: tema.alturaControlMinima,
           borderColor: tema.colores.borde,
           backgroundColor: tema.colores.tarjetaElevada,
-          opacity: deshabilitado ? 0.5 : pressed ? 0.85 : 1,
+          opacity: deshabilitado ? 0.5 : 1,
         },
       ]}
     >
       <Text style={[estilos.texto, { color: tema.colores.textoPrincipal }]} numberOfLines={2}>
         {titulo}
       </Text>
-    </Pressable>
+    </PressableAnimado>
   );
 }
 
@@ -61,7 +77,7 @@ const estilos = StyleSheet.create({
   },
   texto: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
     textAlign: 'center',
   },
 });

@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import Animated, { Easing, FadeInLeft, FadeInRight } from 'react-native-reanimated';
 
 import { useTema } from '@/src/contextos/ContextoTema';
 
@@ -16,10 +17,16 @@ export const BurbujaChat = memo(function BurbujaChat({ contenido, esUsuario, hor
   const { t } = useTranslation();
   const hablante = t(esUsuario ? 'pantallas.asistente.hablanteUsuario' : 'pantallas.asistente.hablanteAsistente');
   const etiquetaAccesibilidad = [hablante, contenido, datosUtilizados, hora].filter(Boolean).join('. ');
+  const entrada = esUsuario ? FadeInRight : FadeInLeft;
 
   return (
     <View style={[estilos.fila, { justifyContent: esUsuario ? 'flex-end' : 'flex-start' }]}>
-      <View style={{ maxWidth: '82%' }} accessible accessibilityLabel={etiquetaAccesibilidad}>
+      <Animated.View
+        entering={entrada.duration(300).easing(Easing.out(Easing.cubic))}
+        style={{ maxWidth: '82%' }}
+        accessible
+        accessibilityLabel={etiquetaAccesibilidad}
+      >
         <View
           style={[
             estilos.burbuja,
@@ -37,7 +44,7 @@ export const BurbujaChat = memo(function BurbujaChat({ contenido, esUsuario, hor
           <Text
             style={[
               estilos.hora,
-              { color: esUsuario ? 'rgba(255,255,255,0.7)' : tema.colores.textoSecundario },
+              { color: esUsuario ? `${tema.colores.sobrePrimario}B3` : tema.colores.textoSecundario },
             ]}
           >
             {hora}
@@ -46,7 +53,7 @@ export const BurbujaChat = memo(function BurbujaChat({ contenido, esUsuario, hor
         {datosUtilizados ? (
           <Text style={[estilos.datosUtilizados, { color: tema.colores.textoSecundario }]}>{datosUtilizados}</Text>
         ) : null}
-      </View>
+      </Animated.View>
     </View>
   );
 });

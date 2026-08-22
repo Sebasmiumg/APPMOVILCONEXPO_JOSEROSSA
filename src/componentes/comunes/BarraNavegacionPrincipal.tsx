@@ -5,6 +5,7 @@ import * as Haptics from 'expo-haptics';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -48,7 +49,9 @@ export function BarraNavegacionPrincipal({ state, navigation }: BottomTabBarProp
         >
           <LinearGradient colors={tema.gradientePrincipal} style={estilos.gradienteAgregarLateral}>
             <Icono nombre="add" tamano={20} color={tema.colores.sobrePrimario} />
-            <Text style={estilos.textoAgregarLateral}>{t('navegacion.agregar')}</Text>
+            <Text style={[estilos.textoAgregarLateral, { color: tema.colores.sobrePrimario }]}>
+              {t('navegacion.agregar')}
+            </Text>
           </LinearGradient>
         </Pressable>
 
@@ -159,7 +162,7 @@ const estilos = StyleSheet.create({
   },
   textoDock: {
     fontSize: 11,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   contenedorFab: {
     marginTop: -28,
@@ -183,7 +186,7 @@ const estilos = StyleSheet.create({
   },
   marcaLateral: {
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
     marginBottom: 12,
     paddingHorizontal: 10,
   },
@@ -195,25 +198,24 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    borderRadius: 14,
+    borderRadius: 4,
     paddingVertical: 12,
   },
   textoAgregarLateral: {
-    color: '#FFFFFF',
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
     fontSize: 14,
   },
   itemLateral: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    borderRadius: 12,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 12,
     minHeight: 44,
   },
   textoLateral: {
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
 });

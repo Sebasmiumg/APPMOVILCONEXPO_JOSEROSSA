@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
+import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { CampoTexto } from '@/src/componentes/comunes/CampoTexto';
 import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
@@ -13,6 +14,7 @@ import { TarjetaMovimiento } from '@/src/componentes/movimientos/TarjetaMovimien
 import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { useTema } from '@/src/contextos/ContextoTema';
 import type { TipoMovimiento } from '@/src/tipos/movimiento';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 const TIPOS_FILTRO: TipoMovimiento[] = ['ingreso', 'gasto', 'transferencia', 'ajuste'];
 
@@ -52,15 +54,17 @@ export default function PantallaMovimientos() {
   return (
     <LayoutResponsive conDesplazamiento={false}>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.tarjetaTitulo}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-            {t('pantallas.movimientos.titulo')}
-          </Text>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.tarjetaTitulo}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                      {t('pantallas.movimientos.titulo')}
+                    </Text>
+                  </BlurView>
+        </Animated.View>
 
         <CampoTexto
           etiqueta=""
@@ -121,7 +125,7 @@ const estilos = StyleSheet.create({
     paddingTop: 16,
   },
   tarjetaTitulo: {
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 8,
     overflow: 'hidden',
@@ -129,7 +133,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   filaChips: {
     flexDirection: 'row',

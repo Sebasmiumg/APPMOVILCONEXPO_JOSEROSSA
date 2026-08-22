@@ -4,6 +4,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { borrarDatosLocalesDemo, obtenerPerfilDemo } from '@/src/almacenamiento/perfilDemo';
 import { Icono } from '@/src/componentes/comunes/Icono';
@@ -123,7 +124,9 @@ export default function PantallaPerfil() {
 
         <TarjetaCristal estilo={estilos.tarjetaIdentidad}>
           <View style={[estilos.avatar, { backgroundColor: tema.colores.violeta }]}>
-            <Text style={estilos.avatarInicial}>{(nombre ?? '?').charAt(0).toUpperCase()}</Text>
+            <Text style={[estilos.avatarInicial, { color: tema.colores.sobrePrimario }]}>
+              {(nombre ?? '?').charAt(0).toUpperCase()}
+            </Text>
           </View>
           <View style={estilos.identidadTextos}>
             <Text style={[estilos.nombre, { color: tema.colores.textoPrincipal }]}>{nombre ?? '—'}</Text>
@@ -181,10 +184,11 @@ export default function PantallaPerfil() {
               onPress={sincronizarAhora}
               disabled={sincronizando}
               style={{ marginTop: 10 }}
+              hitSlop={8}
               accessibilityRole="button"
               accessibilityLabel={t('pantallas.perfil.sincronizacion.sincronizar')}
             >
-              <Text style={{ color: tema.colores.violeta, fontWeight: '700', fontSize: 13 }}>
+              <Text style={{ color: tema.colores.violeta, fontFamily: FUENTES.negrita, fontSize: 13 }}>
                 {sincronizando ? t('pantallas.perfil.sincronizacion.sincronizando') : t('pantallas.perfil.sincronizacion.sincronizar')}
               </Text>
             </Pressable>
@@ -205,11 +209,12 @@ export default function PantallaPerfil() {
             <Pressable
               onPress={alternarBloqueoBiometrico}
               style={{ marginTop: 10 }}
+              hitSlop={8}
               accessibilityRole="switch"
               accessibilityState={{ checked: bloqueoActivo }}
               accessibilityLabel={t('seguridad.bloqueoBiometrico')}
             >
-              <Text style={{ color: tema.colores.violeta, fontWeight: '700', fontSize: 13 }}>
+              <Text style={{ color: tema.colores.violeta, fontFamily: FUENTES.negrita, fontSize: 13 }}>
                 {bloqueoActivo ? t('seguridad.activado') : t('seguridad.desactivado')}
               </Text>
             </Pressable>
@@ -234,17 +239,18 @@ export default function PantallaPerfil() {
               {t('notificaciones.noDisponibleWeb')}
             </Text>
           ) : notificacionesConcedidas ? (
-            <Text style={{ color: tema.colores.ingreso, fontSize: 13, marginTop: 6, fontWeight: '600' }}>
+            <Text style={{ color: tema.colores.ingreso, fontSize: 13, marginTop: 6, fontFamily: FUENTES.seminegrita }}>
               {t('seguridad.activado')}
             </Text>
           ) : (
             <Pressable
               onPress={activarNotificaciones}
               style={{ marginTop: 10 }}
+              hitSlop={8}
               accessibilityRole="button"
               accessibilityLabel={t('pantallas.perfil.notificaciones')}
             >
-              <Text style={{ color: tema.colores.violeta, fontWeight: '700', fontSize: 13 }}>
+              <Text style={{ color: tema.colores.violeta, fontFamily: FUENTES.negrita, fontSize: 13 }}>
                 {t('seguridad.desactivado')}
               </Text>
             </Pressable>
@@ -294,7 +300,7 @@ export default function PantallaPerfil() {
 
         <Pressable
           onPress={() => setModalActivo('cerrarSesion')}
-          style={[estilos.filaOpcion, { borderColor: tema.colores.borde }]}
+          style={[estilos.filaOpcion, { borderColor: tema.colores.borde, marginTop: 8 }]}
           accessibilityRole="button"
           accessibilityLabel={t('pantallas.perfil.cerrarSesion')}
         >
@@ -338,7 +344,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   tarjetaIdentidad: {
     flexDirection: 'row',
@@ -353,9 +359,8 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
   },
   avatarInicial: {
-    color: '#FFFFFF',
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   identidadTextos: {
     flex: 1,
@@ -363,7 +368,7 @@ const estilos = StyleSheet.create({
   },
   nombre: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   correo: {
     fontSize: 13,
@@ -373,7 +378,7 @@ const estilos = StyleSheet.create({
   },
   tituloSeccion: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   filaMoneda: {
     flexDirection: 'row',
@@ -382,20 +387,20 @@ const estilos = StyleSheet.create({
   },
   textoMoneda: {
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   filaOpcion: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 14,
+    borderRadius: 6,
     paddingHorizontal: 14,
     minHeight: 52,
   },
   textoOpcion: {
     flex: 1,
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
 });

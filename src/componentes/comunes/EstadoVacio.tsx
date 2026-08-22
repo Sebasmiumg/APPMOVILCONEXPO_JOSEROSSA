@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -35,7 +36,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
     textAlign: 'center',
   },
   descripcion: {

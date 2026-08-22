@@ -1,7 +1,10 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
+import { PressableAnimado } from '@/src/componentes/comunes/PressableAnimado';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { useEscalaPresion } from '@/src/hooks/useEscalaPresion';
 
 interface PropiedadesChipCategoria {
   etiqueta: string;
@@ -14,15 +17,20 @@ interface PropiedadesChipCategoria {
 export function ChipCategoria({ etiqueta, icono, color, seleccionado = false, onPress }: PropiedadesChipCategoria) {
   const { tema } = useTema();
   const colorAcento = color ?? tema.colores.violeta;
+  const { estiloAnimado, onPressIn, onPressOut } = useEscalaPresion(0.95);
 
   return (
-    <Pressable
+    <PressableAnimado
       onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       disabled={!onPress}
       accessibilityRole={onPress ? 'button' : undefined}
       accessibilityLabel={etiqueta}
       accessibilityState={onPress ? { selected: seleccionado } : undefined}
+      hitSlop={{ top: 6, bottom: 6, left: 4, right: 4 }}
       style={[
+        estiloAnimado,
         estilos.contenedor,
         {
           borderRadius: tema.radios.chip,
@@ -38,7 +46,7 @@ export function ChipCategoria({ etiqueta, icono, color, seleccionado = false, on
       >
         {etiqueta}
       </Text>
-    </Pressable>
+    </PressableAnimado>
   );
 }
 
@@ -53,6 +61,6 @@ const estilos = StyleSheet.create({
   },
   texto: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
 });

@@ -3,6 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { IndicadorPasos } from '@/src/componentes/comunes/IndicadorPasos';
@@ -10,6 +11,7 @@ import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
 import { SelectorIdioma } from '@/src/componentes/comunes/SelectorIdioma';
 import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { useTema } from '@/src/contextos/ContextoTema';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaSeleccionIdioma() {
   const { tema } = useTema();
@@ -26,18 +28,20 @@ export default function PantallaSeleccionIdioma() {
     <LayoutResponsive>
       <View style={estilos.contenedor}>
         <IndicadorPasos totalPasos={3} pasoActual={1} />
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-            {t('configuracionInicial.idioma.titulo')}
-          </Text>
-          <Text style={[estilos.subtitulo, { color: tema.colores.textoSecundario }]}>
-            {t('configuracionInicial.idioma.subtitulo')}
-          </Text>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                      {t('configuracionInicial.idioma.titulo')}
+                    </Text>
+                    <Text style={[estilos.subtitulo, { color: tema.colores.textoSecundario }]}>
+                      {t('configuracionInicial.idioma.subtitulo')}
+                    </Text>
+                  </BlurView>
+        </Animated.View>
 
         <SelectorIdioma idiomaSeleccionado={idioma} onSeleccionar={establecerIdioma} />
 
@@ -57,13 +61,13 @@ const estilos = StyleSheet.create({
   },
   encabezado: {
     gap: 6,
-    borderRadius: 16,
+    borderRadius: 6,
     padding: 12,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 24,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   subtitulo: {
     fontSize: 14,

@@ -14,15 +14,17 @@ App de finanzas personales multiplataforma (iOS, Android, Web) construida con Ex
 - **Autenticación y sincronización opcional** vía Supabase (Auth + Postgres con Row Level Security + Storage), con degradación elegante: si no hay proyecto de Supabase configurado, la app sigue funcionando igual en modo local.
 - **Pantalla de Privacidad** que explica qué se guarda localmente, qué se sincroniza (si aplica) y da acceso directo a exportar o eliminar tus datos.
 - **Internacionalización completa**: español, inglés, chino, hindi y árabe (con soporte RTL), usando `i18next` y el API `Intl` del dispositivo para fechas, monedas y nombres de mes.
+- **Explorador NASA** con dos pantallas conectadas a NASA Open APIs: imagen astronómica del día (APOD) y objetos cercanos a la Tierra (NeoWs).
 - **Tema claro/oscuro**, diseño responsivo (móvil/tablet/web) y componentes con soporte de accesibilidad (roles, labels y agrupación para lectores de pantalla).
 
 > Nota: `expo-notifications` y `expo-local-authentication` no funcionan en web (limitación de las librerías, no de la app) — MiPresupuesto lo detecta y lo indica en pantalla en vez de fallar. Pruébalos en un build nativo (iOS/Android) o Expo Go.
 
 ## Empezar
 
-1. Instalar dependencias:
+1. Usa Node.js 22 LTS (el archivo `.nvmrc` permite seleccionarlo con `nvm use`) e instala dependencias:
 
    ```bash
+   nvm use
    npm install
    ```
 
@@ -35,6 +37,17 @@ App de finanzas personales multiplataforma (iOS, Android, Web) construida con Ex
    ```
 
    Desde ahí puedes abrir la app en Expo Go, un simulador de iOS/Android, o en el navegador (`npx expo start --web` / tecla `w`).
+
+### Token de NASA
+
+Solicita gratuitamente una API key en [NASA Open APIs](https://api.nasa.gov/) y agrégala a `.env`:
+
+```bash
+EXPO_PUBLIC_NASA_API_KEY=tu_token
+```
+
+El módulo consume los recursos `GET /planetary/apod` y `GET /neo/rest/v1/feed`. Después de cambiar el token, recarga por completo la app.
+Como toda variable `EXPO_PUBLIC_`, esta clave queda visible en el bundle del cliente. Para una entrega académica permite demostrar autenticación por token; en producción debe colocarse detrás de una Edge Function con límites de uso.
 
 ## Scripts disponibles
 

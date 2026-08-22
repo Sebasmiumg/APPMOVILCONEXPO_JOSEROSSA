@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { configuracionInicialEstaCompleta } from '@/src/almacenamiento/configuracionFinancieraInicial';
 import { EncabezadoFormulario } from '@/src/componentes/autenticacion/EncabezadoFormulario';
@@ -20,6 +21,7 @@ import {
   crearEsquemaInicioSesion,
   type DatosInicioSesion,
 } from '@/src/validaciones/esquemasAutenticacion';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaIniciarSesion() {
   const { tema } = useTema();
@@ -60,16 +62,18 @@ export default function PantallaIniciarSesion() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.tarjetaEncabezado}
-        >
-          <EncabezadoFormulario
-            titulo={t('autenticacion.iniciarSesion.titulo')}
-            subtitulo={t('autenticacion.iniciarSesion.subtitulo')}
-          />
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.tarjetaEncabezado}
+                  >
+                    <EncabezadoFormulario
+                      titulo={t('autenticacion.iniciarSesion.titulo')}
+                      subtitulo={t('autenticacion.iniciarSesion.subtitulo')}
+                    />
+                  </BlurView>
+        </Animated.View>
 
         <Controller
           control={control}
@@ -106,6 +110,7 @@ export default function PantallaIniciarSesion() {
           onPress={() => router.push('/autenticacion/recuperar-contrasena')}
           accessibilityRole="button"
           accessibilityLabel={t('autenticacion.iniciarSesion.olvidasteContrasena')}
+          hitSlop={8}
         >
           <Text style={[estilos.enlace, { color: tema.colores.violeta }]}>
             {t('autenticacion.iniciarSesion.olvidasteContrasena')}
@@ -124,8 +129,9 @@ export default function PantallaIniciarSesion() {
             onPress={() => router.replace('/autenticacion/registro')}
             accessibilityRole="button"
             accessibilityLabel={t('autenticacion.iniciarSesion.irARegistro')}
+            hitSlop={8}
           >
-            <Text style={{ color: tema.colores.violeta, fontWeight: '700' }}>
+            <Text style={{ color: tema.colores.violeta, fontFamily: FUENTES.negrita }}>
               {t('autenticacion.iniciarSesion.irARegistro')}
             </Text>
           </Pressable>
@@ -141,13 +147,13 @@ const estilos = StyleSheet.create({
     paddingTop: 12,
   },
   tarjetaEncabezado: {
-    borderRadius: 16,
+    borderRadius: 6,
     padding: 12,
     overflow: 'hidden',
   },
   enlace: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
     alignSelf: 'flex-end',
   },
   piePagina: {

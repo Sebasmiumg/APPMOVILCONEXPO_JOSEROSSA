@@ -4,6 +4,7 @@ import * as Haptics from 'expo-haptics';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
@@ -81,14 +82,14 @@ const estilos = StyleSheet.create({
   },
   marca: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   cuerpo: {
     gap: 12,
   },
   titulo: {
     fontSize: 30,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
     lineHeight: 38,
   },
   resumen: {

@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
@@ -16,6 +17,7 @@ import { useTema } from '@/src/contextos/ContextoTema';
 import { exportarDatosUsuario } from '@/src/servicios/exportacion/exportarDatosUsuario';
 import { supabaseEstaConfigurado } from '@/src/servicios/supabase/cliente';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaPrivacidad() {
   const { tema } = useTema();
@@ -39,16 +41,18 @@ export default function PantallaPrivacidad() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>{t('pantallas.privacidad.titulo')}</Text>
-          <Pressable onPress={() => volverOIrA(router, '/(principal)/perfil')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
-            <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
-          </Pressable>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>{t('pantallas.privacidad.titulo')}</Text>
+                    <Pressable onPress={() => volverOIrA(router, '/(principal)/perfil')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
+                      <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
+                    </Pressable>
+                  </BlurView>
+        </Animated.View>
 
         <TarjetaCristal>
           <View style={estilos.filaTitulo}>
@@ -113,14 +117,14 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
     flex: 1,
     marginRight: 12,
   },
@@ -132,7 +136,7 @@ const estilos = StyleSheet.create({
   },
   tituloTarjeta: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   descripcion: {
     fontSize: 13,

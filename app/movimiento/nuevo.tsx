@@ -4,6 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { CampoMoneda } from '@/src/componentes/comunes/CampoMoneda';
@@ -23,6 +24,7 @@ import { notificarSiExcedePresupuesto } from '@/src/servicios/notificaciones/ale
 import type { TipoCategoria } from '@/src/tipos/categoria';
 import { nombreCategoria } from '@/src/utilidades/nombreCategoria';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 type TipoMovimientoFormulario = 'ingreso' | 'gasto' | 'transferencia' | 'ajuste';
 
@@ -140,18 +142,20 @@ export default function PantallaNuevoMovimiento() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-            {t('pantallas.movimientoNuevo.titulo')}
-          </Text>
-          <Pressable onPress={() => volverOIrA(router, '/(principal)/inicio')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
-            <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
-          </Pressable>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                      {t('pantallas.movimientoNuevo.titulo')}
+                    </Text>
+                    <Pressable onPress={() => volverOIrA(router, '/(principal)/inicio')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
+                      <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
+                    </Pressable>
+                  </BlurView>
+        </Animated.View>
 
         <View style={estilos.grupo}>
           <Text style={[estilos.etiquetaGrupo, { color: tema.colores.textoSecundario }]}>
@@ -310,21 +314,21 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   grupo: {
     gap: 8,
   },
   etiquetaGrupo: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   filaChips: {
     flexDirection: 'row',
@@ -342,7 +346,7 @@ const estilos = StyleSheet.create({
   botonAgregarCategoria: {
     width: 44,
     height: 44,
-    borderRadius: 14,
+    borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
   },

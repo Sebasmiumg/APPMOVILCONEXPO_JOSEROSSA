@@ -5,11 +5,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BurbujaChat } from '@/src/componentes/asistente/BurbujaChat';
 import { PreguntaSugerida } from '@/src/componentes/asistente/PreguntaSugerida';
 import { CampoTexto } from '@/src/componentes/comunes/CampoTexto';
 import { Icono } from '@/src/componentes/comunes/Icono';
+import { TextoPulso } from '@/src/componentes/comunes/TextoPulso';
 import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
@@ -20,6 +22,7 @@ import { generarRespuesta } from '@/src/servicios/asistente/generadorRespuestas'
 import { calcularResumenPeriodo, obtenerRangoMesActual } from '@/src/utilidades/calculosFinancieros';
 import { calcularCategoriaConMayorGasto } from '@/src/utilidades/calculosAnalisis';
 import { nombreCategoria } from '@/src/utilidades/nombreCategoria';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 interface MensajeChat {
   id: string;
@@ -120,20 +123,27 @@ export default function PantallaAsistente() {
       style={[estilos.raiz, { backgroundColor: tema.colores.fondoPrincipal, paddingTop: insets.top + 16 }]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <BlurView
-        intensity={40}
-        tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-        style={estilos.encabezado}
-      >
-        <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-          {t('pantallas.asistente.titulo')}
-        </Text>
-        {mensajes.length > 0 ? (
-          <Pressable onPress={() => setMensajes([])} accessibilityRole="button" accessibilityLabel={t('pantallas.asistente.borrarConversacion')}>
-            <Icono nombre="delete-outline" tamano={20} color={tema.colores.textoSecundario} />
-          </Pressable>
-        ) : null}
-      </BlurView>
+      <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+        <BlurView
+                intensity={40}
+                tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                style={estilos.encabezado}
+              >
+                <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                  {t('pantallas.asistente.titulo')}
+                </Text>
+                {mensajes.length > 0 ? (
+                  <Pressable
+                    onPress={() => setMensajes([])}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('pantallas.asistente.borrarConversacion')}
+                    hitSlop={12}
+                  >
+                    <Icono nombre="delete-outline" tamano={20} color={tema.colores.textoSecundario} />
+                  </Pressable>
+                ) : null}
+              </BlurView>
+      </Animated.View>
 
       {mensajes.length === 0 ? (
         <View style={estilos.sugerenciasContenedor}>
@@ -161,9 +171,9 @@ export default function PantallaAsistente() {
           )}
           ListFooterComponent={
             escribiendo ? (
-              <Text style={[estilos.escribiendo, { color: tema.colores.textoSecundario }]}>
+              <TextoPulso style={[estilos.escribiendo, { color: tema.colores.textoSecundario }]}>
                 {t('pantallas.asistente.escribiendo')}
-              </Text>
+              </TextoPulso>
             ) : null
           }
         />
@@ -206,7 +216,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   sugerenciasContenedor: {
     gap: 10,
@@ -214,7 +224,7 @@ const estilos = StyleSheet.create({
   },
   tituloSugerencias: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   filaSugerencias: {
     gap: 8,
@@ -239,7 +249,7 @@ const estilos = StyleSheet.create({
   botonEnviar: {
     width: 44,
     height: 44,
-    borderRadius: 14,
+    borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
   },

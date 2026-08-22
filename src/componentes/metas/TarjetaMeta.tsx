@@ -1,11 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { BarraProgreso } from '@/src/componentes/comunes/BarraProgreso';
 import { Icono } from '@/src/componentes/comunes/Icono';
+import { PressableAnimado } from '@/src/componentes/comunes/PressableAnimado';
 import { TarjetaCristal } from '@/src/componentes/comunes/TarjetaCristal';
 import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { useEscalaPresion } from '@/src/hooks/useEscalaPresion';
 import type { CodigoMoneda } from '@/src/tipos/finanzas';
 import type { Meta } from '@/src/tipos/meta';
 import { calcularProgresoMeta } from '@/src/utilidades/calculosPlanificacion';
@@ -23,9 +26,17 @@ export function TarjetaMeta({ meta, moneda, onPress }: PropiedadesTarjetaMeta) {
   const { idioma } = useIdioma();
   const progreso = calcularProgresoMeta(meta);
   const completada = meta.estado === 'completada';
+  const { estiloAnimado, onPressIn, onPressOut } = useEscalaPresion();
 
   return (
-    <Pressable onPress={onPress} accessibilityRole={onPress ? 'button' : undefined} accessibilityLabel={meta.nombre}>
+    <PressableAnimado
+      onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      accessibilityRole={onPress ? 'button' : undefined}
+      accessibilityLabel={meta.nombre}
+      style={estiloAnimado}
+    >
       <TarjetaCristal>
         <View style={estilos.encabezado}>
           <View style={estilos.identidad}>
@@ -36,7 +47,7 @@ export function TarjetaMeta({ meta, moneda, onPress }: PropiedadesTarjetaMeta) {
           </View>
           {completada ? (
             <View style={[estilos.chipCompletada, { backgroundColor: `${tema.colores.ingreso}26` }]}>
-              <Text style={{ color: tema.colores.ingreso, fontSize: 11, fontWeight: '700' }}>✓</Text>
+              <Text style={{ color: tema.colores.ingreso, fontSize: 11, fontFamily: FUENTES.negrita }}>✓</Text>
             </View>
           ) : null}
         </View>
@@ -59,7 +70,7 @@ export function TarjetaMeta({ meta, moneda, onPress }: PropiedadesTarjetaMeta) {
           </Text>
         ) : null}
       </TarjetaCristal>
-    </Pressable>
+    </PressableAnimado>
   );
 }
 
@@ -78,7 +89,7 @@ const estilos = StyleSheet.create({
   },
   nombre: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   chipCompletada: {
     width: 22,
@@ -97,7 +108,7 @@ const estilos = StyleSheet.create({
   },
   porcentaje: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   fecha: {
     fontSize: 11,

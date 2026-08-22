@@ -1,10 +1,13 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
+import { PressableAnimado } from '@/src/componentes/comunes/PressableAnimado';
 import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { useEscalaPresion } from '@/src/hooks/useEscalaPresion';
 import type { Categoria } from '@/src/tipos/categoria';
 import type { Cuenta } from '@/src/tipos/cuenta';
 import type { Movimiento } from '@/src/tipos/movimiento';
@@ -36,6 +39,7 @@ export const TarjetaMovimiento = memo(function TarjetaMovimiento({
   const { tema } = useTema();
   const { t } = useTranslation();
   const { idioma } = useIdioma();
+  const { estiloAnimado, onPressIn, onPressOut } = useEscalaPresion();
 
   const colorPorTipo: Record<Movimiento['tipo'], string> = {
     ingreso: tema.colores.ingreso,
@@ -59,14 +63,13 @@ export const TarjetaMovimiento = memo(function TarjetaMovimiento({
     .filter(Boolean)
     .join(' · ');
 
-  const Contenedor = onPress ? Pressable : View;
+  const estiloBase = [
+    estilos.contenedor,
+    { borderColor: tema.colores.borde, backgroundColor: tema.colores.tarjeta, borderRadius: tema.radios.tarjeta },
+  ];
 
-  return (
-    <Contenedor
-      onPress={onPress}
-      accessibilityRole={onPress ? 'button' : undefined}
-      style={[estilos.contenedor, { borderColor: tema.colores.borde, backgroundColor: tema.colores.tarjeta, borderRadius: tema.radios.tarjeta }]}
-    >
+  const contenido = (
+    <>
       <View style={[estilos.icono, { backgroundColor: `${color}26` }]}>
         <Icono nombre={categoria?.icono as NombreIcono ?? ICONO_POR_TIPO[movimiento.tipo]} tamano={20} color={color} />
       </View>
@@ -82,7 +85,23 @@ export const TarjetaMovimiento = memo(function TarjetaMovimiento({
         {signo}
         {formatearMoneda(movimiento.monto, cuenta?.moneda ?? 'GTQ', idioma)}
       </Text>
-    </Contenedor>
+    </>
+  );
+
+  if (!onPress) {
+    return <View style={estiloBase}>{contenido}</View>;
+  }
+
+  return (
+    <PressableAnimado
+      onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      accessibilityRole="button"
+      style={[estiloAnimado, estiloBase]}
+    >
+      {contenido}
+    </PressableAnimado>
   );
 });
 
@@ -97,7 +116,7 @@ const estilos = StyleSheet.create({
   icono: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -107,13 +126,13 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   subtitulo: {
     fontSize: 12,
   },
   monto: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
 });

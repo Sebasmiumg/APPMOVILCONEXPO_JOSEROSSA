@@ -130,11 +130,13 @@
     "perfil": "Profile",
     "analisis": "Analysis",
     "metas": "Goals",
-    "reinversion": "Reinvestment"
+    "reinversion": "Reinvestment",
+    "nasa": "NASA"
   },
   "pantallas": {
     "inicio": {
       "saludo": "Hi, {{nombre}}",
+      "saludoGenerico": "Hi there!",
       "saldoDisponible": "Available balance",
       "ingresosDelMes": "Income this month",
       "gastosDelMes": "Expenses this month",
@@ -462,6 +464,33 @@
   "estadoVacio": {
     "tituloGenerico": "Nothing here yet",
     "descripcionGenerica": "Once you add information, it will show up on this screen"
+  },
+  "nasa": {
+    "cargando": "Contacting NASA…",
+    "fuente": "Source: NASA Open APIs · Scientific text is displayed as published by NASA.",
+    "apod": {
+      "titulo": "Today's universe",
+      "descripcion": "Discover NASA's astronomy picture of the day and its scientific explanation.",
+      "verVideo": "Open NASA video",
+      "verAsteroides": "Explore nearby asteroids"
+    },
+    "asteroides": {
+      "titulo": "Nearby asteroids",
+      "descripcion": "Near-Earth objects detected for today by NASA JPL.",
+      "detectados": "Objects detected",
+      "potencialmentePeligrosos": "Potentially hazardous",
+      "peligroso": "Potentially hazardous",
+      "noPeligroso": "No potential hazard",
+      "diametro": "Estimated diameter",
+      "distancia": "Distance from Earth",
+      "velocidad": "Relative speed",
+      "verFicha": "View NASA JPL record"
+    },
+    "errores": {
+      "sin_clave": "EXPO_PUBLIC_NASA_API_KEY is missing from the .env file.",
+      "limite": "The NASA token reached its request limit. Try again later.",
+      "respuesta": "NASA data could not be loaded. Check your connection and try again."
+    }
   },
   "errores": {
     "generico": "Something went wrong. Please try again.",

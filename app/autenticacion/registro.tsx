@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { guardarPreferencia } from '@/src/almacenamiento/preferenciasDispositivo';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -24,6 +25,7 @@ import {
   crearEsquemaRegistro,
   type DatosRegistro,
 } from '@/src/validaciones/esquemasAutenticacion';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaRegistro() {
   const { tema } = useTema();
@@ -75,16 +77,18 @@ export default function PantallaRegistro() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.tarjetaEncabezado}
-        >
-          <EncabezadoFormulario
-            titulo={t('autenticacion.registro.titulo')}
-            subtitulo={t('autenticacion.registro.subtitulo')}
-          />
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.tarjetaEncabezado}
+                  >
+                    <EncabezadoFormulario
+                      titulo={t('autenticacion.registro.titulo')}
+                      subtitulo={t('autenticacion.registro.subtitulo')}
+                    />
+                  </BlurView>
+        </Animated.View>
 
         <Controller
           control={control}
@@ -160,6 +164,7 @@ export default function PantallaRegistro() {
               accessibilityRole="checkbox"
               accessibilityState={{ checked: value }}
               accessibilityLabel={t('autenticacion.registro.aceptoTerminos')}
+              hitSlop={8}
             >
               <View
                 style={[
@@ -196,8 +201,9 @@ export default function PantallaRegistro() {
             onPress={() => router.replace('/autenticacion/iniciar-sesion')}
             accessibilityRole="button"
             accessibilityLabel={t('autenticacion.registro.irAIniciarSesion')}
+            hitSlop={8}
           >
-            <Text style={{ color: tema.colores.violeta, fontWeight: '700' }}>
+            <Text style={{ color: tema.colores.violeta, fontFamily: FUENTES.negrita }}>
               {t('autenticacion.registro.irAIniciarSesion')}
             </Text>
           </Pressable>
@@ -213,7 +219,7 @@ const estilos = StyleSheet.create({
     paddingTop: 12,
   },
   tarjetaEncabezado: {
-    borderRadius: 16,
+    borderRadius: 6,
     padding: 12,
     overflow: 'hidden',
   },
@@ -228,7 +234,7 @@ const estilos = StyleSheet.create({
   casilla: {
     width: 22,
     height: 22,
-    borderRadius: 6,
+    borderRadius: 3,
     borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
