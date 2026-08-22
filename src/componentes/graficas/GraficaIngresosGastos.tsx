@@ -1,11 +1,15 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import Animated, { Easing, useAnimatedProps, useSharedValue, withTiming } from 'react-native-reanimated';
 import Svg, { Rect } from 'react-native-svg';
 
 import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { useTema } from '@/src/contextos/ContextoTema';
 import type { CodigoMoneda } from '@/src/tipos/finanzas';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
+
+const RectAnimado = Animated.createAnimatedComponent(Rect);
 
 interface PropiedadesGraficaIngresosGastos {
   ingresos: number;
@@ -25,25 +29,41 @@ export function GraficaIngresosGastos({ ingresos, gastos, moneda }: PropiedadesG
   const altoIngresos = Math.max(4, (ingresos / maximo) * ALTO);
   const altoGastos = Math.max(4, (gastos / maximo) * ALTO);
 
+  const alturaIngresosAnimada = useSharedValue(0);
+  const alturaGastosAnimada = useSharedValue(0);
+
+  useEffect(() => {
+    const config = { duration: 700, easing: Easing.out(Easing.cubic) };
+    alturaIngresosAnimada.value = withTiming(altoIngresos, config);
+    alturaGastosAnimada.value = withTiming(altoGastos, config);
+  }, [altoIngresos, altoGastos, alturaIngresosAnimada, alturaGastosAnimada]);
+
+  const propsIngresos = useAnimatedProps(() => ({
+    height: alturaIngresosAnimada.value,
+    y: ALTO - alturaIngresosAnimada.value,
+  }));
+  const propsGastos = useAnimatedProps(() => ({
+    height: alturaGastosAnimada.value,
+    y: ALTO - alturaGastosAnimada.value,
+  }));
+
   return (
     <View style={estilos.contenedor}>
       <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
         <Svg width={ANCHO_BARRA * 2 + 40} height={ALTO + 10}>
-          <Rect
+          <RectAnimado
             x={10}
-            y={ALTO - altoIngresos}
             width={ANCHO_BARRA}
-            height={altoIngresos}
             rx={8}
             fill={tema.colores.ingreso}
+            animatedProps={propsIngresos}
           />
-          <Rect
+          <RectAnimado
             x={ANCHO_BARRA + 30}
-            y={ALTO - altoGastos}
             width={ANCHO_BARRA}
-            height={altoGastos}
             rx={8}
             fill={tema.colores.gasto}
+            animatedProps={propsGastos}
           />
         </Svg>
       </View>

@@ -1,4 +1,18 @@
 import { DarkTheme, DefaultTheme, ThemeProvider as ThemeProviderNavegacion } from '@react-navigation/native';
+import {
+  IBMPlexSans_400Regular,
+  IBMPlexSans_500Medium,
+  IBMPlexSans_600SemiBold,
+  IBMPlexSans_700Bold,
+  useFonts,
+} from '@expo-google-fonts/ibm-plex-sans';
+import {
+  Fraunces_400Regular,
+  Fraunces_500Medium_Italic,
+  Fraunces_600SemiBold,
+  Fraunces_700Bold,
+  useFonts as useFuentesDisplay,
+} from '@expo-google-fonts/fraunces';
 import { Stack } from 'expo-router';
 import Head from 'expo-router/head';
 import { useCallback, useEffect, useState } from 'react';
@@ -40,6 +54,18 @@ function NavegacionRaiz() {
   const { tema, listo: temaListo } = useTema();
   const { listo: idiomaListo, esRTL } = useIdioma();
   const { t } = useTranslation();
+  const [fuentesListas] = useFonts({
+    IBMPlexSans_400Regular,
+    IBMPlexSans_500Medium,
+    IBMPlexSans_600SemiBold,
+    IBMPlexSans_700Bold,
+  });
+  const [fuentesDisplayListas] = useFuentesDisplay({
+    Fraunces_400Regular,
+    Fraunces_500Medium_Italic,
+    Fraunces_600SemiBold,
+    Fraunces_700Bold,
+  });
   const [requiereBloqueo, setRequiereBloqueo] = useState<boolean | null>(null);
   const [desbloqueado, setDesbloqueado] = useState(false);
   const [errorDesbloqueo, setErrorDesbloqueo] = useState(false);
@@ -66,7 +92,7 @@ function NavegacionRaiz() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!temaListo || !idiomaListo || requiereBloqueo === null) {
+  if (!temaListo || !idiomaListo || !fuentesListas || !fuentesDisplayListas || requiereBloqueo === null) {
     return <View style={{ flex: 1, backgroundColor: '#070A18' }} />;
   }
 

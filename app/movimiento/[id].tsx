@@ -4,6 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
@@ -199,7 +200,7 @@ function FilaDetalle({ etiqueta, valor }: { etiqueta: string; valor: string }) {
   return (
     <View style={estilos.filaDetalle}>
       <Text style={{ color: tema.colores.textoSecundario, fontSize: 13 }}>{etiqueta}</Text>
-      <Text style={{ color: tema.colores.textoPrincipal, fontSize: 13, fontWeight: '600' }}>{valor}</Text>
+      <Text style={{ color: tema.colores.textoPrincipal, fontSize: 13, fontFamily: FUENTES.seminegrita }}>{valor}</Text>
     </View>
   );
 }
@@ -217,7 +218,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
     flex: 1,
     marginRight: 12,
   },

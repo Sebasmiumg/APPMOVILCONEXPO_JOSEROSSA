@@ -1,7 +1,10 @@
-import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Linking, StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
+import { PressableAnimado } from '@/src/componentes/comunes/PressableAnimado';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { useEscalaPresion } from '@/src/hooks/useEscalaPresion';
 import type { FuenteReinversion } from '@/src/tipos/reinversion';
 
 const ICONO_POR_TIPO: Record<FuenteReinversion['tipoFuente'], 'account-balance' | 'gavel' | 'business' | 'school'> = {
@@ -13,13 +16,16 @@ const ICONO_POR_TIPO: Record<FuenteReinversion['tipoFuente'], 'account-balance' 
 
 export function TarjetaFuente({ titulo, entidad, url, fechaConsulta, tipoFuente }: FuenteReinversion) {
   const { tema } = useTema();
+  const { estiloAnimado, onPressIn, onPressOut } = useEscalaPresion();
 
   return (
-    <Pressable
+    <PressableAnimado
       onPress={() => Linking.openURL(url)}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       accessibilityRole="link"
       accessibilityLabel={`${titulo} — ${entidad}`}
-      style={[estilos.contenedor, { borderColor: tema.colores.borde, backgroundColor: tema.colores.tarjeta }]}
+      style={[estiloAnimado, estilos.contenedor, { borderColor: tema.colores.borde, backgroundColor: tema.colores.tarjeta }]}
     >
       <Icono nombre={ICONO_POR_TIPO[tipoFuente]} tamano={16} color={tema.colores.textoSecundario} />
       <View style={estilos.textos}>
@@ -31,7 +37,7 @@ export function TarjetaFuente({ titulo, entidad, url, fechaConsulta, tipoFuente 
         </Text>
       </View>
       <Icono nombre="open-in-new" tamano={14} color={tema.colores.textoSecundario} />
-    </Pressable>
+    </PressableAnimado>
   );
 }
 
@@ -41,7 +47,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 12,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
@@ -51,7 +57,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   meta: {
     fontSize: 11,

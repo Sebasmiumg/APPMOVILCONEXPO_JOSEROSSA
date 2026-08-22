@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { CampoMoneda } from '@/src/componentes/comunes/CampoMoneda';
@@ -17,6 +18,7 @@ import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
 import { useTema } from '@/src/contextos/ContextoTema';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaNuevaMeta() {
   const { tema } = useTema();
@@ -63,18 +65,20 @@ export default function PantallaNuevaMeta() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-            {t('pantallas.metas.nuevaMeta')}
-          </Text>
-          <Pressable onPress={() => volverOIrA(router, '/(principal)/metas')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
-            <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
-          </Pressable>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                      {t('pantallas.metas.nuevaMeta')}
+                    </Text>
+                    <Pressable onPress={() => volverOIrA(router, '/(principal)/metas')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
+                      <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
+                    </Pressable>
+                  </BlurView>
+        </Animated.View>
 
         <CampoTexto etiqueta={t('pantallas.metas.formulario.nombre')} value={nombre} onChangeText={setNombre} />
 
@@ -133,21 +137,21 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   grupo: {
     gap: 8,
   },
   etiquetaGrupo: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   filaChips: {
     flexDirection: 'row',

@@ -4,6 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
 import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
@@ -35,6 +36,7 @@ import {
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
 import { nombreCategoria } from '@/src/utilidades/nombreCategoria';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 type ClavePeriodo = 'mes-actual' | 'mes-anterior';
 
@@ -72,7 +74,7 @@ export default function PantallaReporte() {
       resumen: calcularResumenPeriodo(movimientosDelPeriodo),
       movimientosDelPeriodo,
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [movimientos, cuentasFiltradas, cuentaFiltroId, rango.inicio, rango.fin]);
 
   const gastosPorCategoria = calcularGastosPorCategoria(datos.movimientosDelPeriodo);
@@ -158,21 +160,23 @@ export default function PantallaReporte() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <View>
-            <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-              {t('pantallas.reporte.titulo')}
-            </Text>
-            <Text style={[estilos.periodo, { color: tema.colores.textoSecundario }]}>{etiquetaPeriodo}</Text>
-          </View>
-          <Pressable onPress={() => volverOIrA(router, '/(principal)/inicio')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
-            <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
-          </Pressable>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <View>
+                      <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                        {t('pantallas.reporte.titulo')}
+                      </Text>
+                      <Text style={[estilos.periodo, { color: tema.colores.textoSecundario }]}>{etiquetaPeriodo}</Text>
+                    </View>
+                    <Pressable onPress={() => volverOIrA(router, '/(principal)/inicio')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
+                      <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
+                    </Pressable>
+                  </BlurView>
+        </Animated.View>
 
         <View style={estilos.filaChips}>
           <ChipCategoria
@@ -209,7 +213,7 @@ export default function PantallaReporte() {
           {filasResumen.map((fila) => (
             <View key={fila.etiqueta} style={estilos.filaResumen}>
               <Text style={{ color: tema.colores.textoSecundario, fontSize: 13 }}>{fila.etiqueta}</Text>
-              <Text style={{ color: tema.colores.textoPrincipal, fontSize: 13, fontWeight: '700' }}>{fila.valor}</Text>
+              <Text style={{ color: tema.colores.textoPrincipal, fontSize: 13, fontFamily: FUENTES.negrita }}>{fila.valor}</Text>
             </View>
           ))}
         </TarjetaCristal>
@@ -293,14 +297,14 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   periodo: {
     fontSize: 13,
@@ -321,7 +325,7 @@ const estilos = StyleSheet.create({
   },
   tituloSeccion: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   listaMovimientos: {
     gap: 8,

@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import Svg, { Circle, G } from 'react-native-svg';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { useTema } from '@/src/contextos/ContextoTema';
 
@@ -25,7 +27,7 @@ export function GraficaCategorias({ segmentos, etiquetaCentral }: PropiedadesGra
   let acumulado = 0;
 
   return (
-    <View style={estilos.contenedor}>
+    <Animated.View entering={FadeIn.duration(500)} style={estilos.contenedor}>
       <View style={estilos.envoltorioDona}>
         <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
         <Svg width={TAMANO_SVG} height={TAMANO_SVG}>
@@ -82,7 +84,7 @@ export function GraficaCategorias({ segmentos, etiquetaCentral }: PropiedadesGra
           </View>
         ))}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
@@ -107,7 +109,7 @@ const estilos = StyleSheet.create({
   },
   textoCentro: {
     fontSize: 13,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
     textAlign: 'center',
   },
   leyenda: {

@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
@@ -25,16 +28,35 @@ export function ModalConfirmacion({
   onCancelar,
 }: PropiedadesModalConfirmacion) {
   const { tema } = useTema();
+  const opacidadFondo = useSharedValue(0);
+  const escalaDialogo = useSharedValue(0.92);
+
+  useEffect(() => {
+    if (visible) {
+      opacidadFondo.value = withTiming(1, { duration: 200, easing: Easing.out(Easing.cubic) });
+      escalaDialogo.value = withTiming(1, { duration: 280, easing: Easing.out(Easing.cubic) });
+    } else {
+      opacidadFondo.value = withTiming(0, { duration: 150 });
+      escalaDialogo.value = withTiming(0.92, { duration: 150 });
+    }
+  }, [visible, opacidadFondo, escalaDialogo]);
+
+  const estiloFondo = useAnimatedStyle(() => ({ opacity: opacidadFondo.value }));
+  const estiloDialogo = useAnimatedStyle(() => ({
+    opacity: opacidadFondo.value,
+    transform: [{ scale: escalaDialogo.value }],
+  }));
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onCancelar}>
-      <View style={estilos.fondo}>
-        <View
+    <Modal visible={visible} transparent animationType="none" onRequestClose={onCancelar}>
+      <Animated.View style={[estilos.fondo, estiloFondo]}>
+        <Animated.View
           accessibilityViewIsModal
           accessibilityRole="alert"
           style={[
             estilos.contenedor,
             { backgroundColor: tema.colores.tarjetaElevada, borderRadius: tema.radios.tarjeta, borderColor: tema.colores.borde },
+            estiloDialogo,
           ]}
         >
           <Text
@@ -52,8 +74,8 @@ export function ModalConfirmacion({
             <BotonSecundario titulo={textoCancelar} onPress={onCancelar} />
             <BotonPrincipal titulo={textoConfirmar} onPress={onConfirmar} />
           </View>
-        </View>
-      </View>
+        </Animated.View>
+      </Animated.View>
     </Modal>
   );
 }
@@ -75,7 +97,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 18,
-    fontWeight: '700',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   descripcion: {
     fontSize: 14,

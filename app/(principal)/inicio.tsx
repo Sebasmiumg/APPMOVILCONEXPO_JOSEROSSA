@@ -4,10 +4,12 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { obtenerPerfilDemo } from '@/src/almacenamiento/perfilDemo';
 import { BotonSecundario } from '@/src/componentes/comunes/BotonSecundario';
 import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
+import { EntradaEscalonada } from '@/src/componentes/comunes/EntradaEscalonada';
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
 import { TarjetaMetrica } from '@/src/componentes/comunes/TarjetaMetrica';
@@ -30,6 +32,7 @@ import {
 } from '@/src/utilidades/calculosFinancieros';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
 import { nombreCategoria } from '@/src/utilidades/nombreCategoria';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaInicio() {
   const { tema } = useTema();
@@ -90,15 +93,17 @@ export default function PantallaInicio() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.tarjetaSaludo}
-        >
-          <Text style={[estilos.saludo, { color: tema.colores.textoPrincipal }]}>
-            {t('pantallas.inicio.saludo', { nombre: nombre ?? '👋' })}
-          </Text>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.tarjetaSaludo}
+                  >
+                    <Text style={[estilos.saludo, { color: tema.colores.textoPrincipal }]}>
+                      {nombre ? t('pantallas.inicio.saludo', { nombre }) : t('pantallas.inicio.saludoGenerico')}
+                    </Text>
+                  </BlurView>
+        </Animated.View>
 
         {cuentas.length > 1 ? (
           <View style={estilos.filaChips}>
@@ -169,15 +174,16 @@ export default function PantallaInicio() {
             <EstadoVacio titulo={t('pantallas.movimientos.sinMovimientos')} icono="receipt-long" />
           ) : (
             <View style={estilos.listaMovimientos}>
-              {movimientosRecientes.map((movimiento) => (
-                <TarjetaMovimiento
-                  key={movimiento.id}
-                  movimiento={movimiento}
-                  categoria={categorias.find((c) => c.id === movimiento.categoriaId)}
-                  cuenta={cuentas.find((c) => c.id === movimiento.cuentaId)}
-                  cuentaDestino={cuentas.find((c) => c.id === movimiento.cuentaDestinoId)}
-                  onPress={() => router.push(`/movimiento/${movimiento.id}`)}
-                />
+              {movimientosRecientes.map((movimiento, indice) => (
+                <EntradaEscalonada key={movimiento.id} indice={indice}>
+                  <TarjetaMovimiento
+                    movimiento={movimiento}
+                    categoria={categorias.find((c) => c.id === movimiento.categoriaId)}
+                    cuenta={cuentas.find((c) => c.id === movimiento.cuentaId)}
+                    cuentaDestino={cuentas.find((c) => c.id === movimiento.cuentaDestinoId)}
+                    onPress={() => router.push(`/movimiento/${movimiento.id}`)}
+                  />
+                </EntradaEscalonada>
               ))}
             </View>
           )}
@@ -191,15 +197,16 @@ export default function PantallaInicio() {
             <EstadoVacio titulo={t('pantallas.metas.sinMetas')} icono="flag" />
           ) : (
             <View style={estilos.listaMovimientos}>
-              {metasActivas.map((meta) => {
+              {metasActivas.map((meta, indice) => {
                 const cuentaMeta = cuentas.find((c) => c.id === meta.cuentaId);
                 return (
-                  <TarjetaMeta
-                    key={meta.id}
-                    meta={meta}
-                    moneda={cuentaMeta?.moneda ?? moneda}
-                    onPress={() => router.push(`/meta/${meta.id}`)}
-                  />
+                  <EntradaEscalonada key={meta.id} indice={indice}>
+                    <TarjetaMeta
+                      meta={meta}
+                      moneda={cuentaMeta?.moneda ?? moneda}
+                      onPress={() => router.push(`/meta/${meta.id}`)}
+                    />
+                  </EntradaEscalonada>
                 );
               })}
             </View>
@@ -222,7 +229,7 @@ const estilos = StyleSheet.create({
     paddingBottom: 32,
   },
   tarjetaSaludo: {
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
     overflow: 'hidden',
@@ -230,7 +237,7 @@ const estilos = StyleSheet.create({
   },
   saludo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.italica,
   },
   filaChips: {
     flexDirection: 'row',
@@ -247,7 +254,7 @@ const estilos = StyleSheet.create({
   },
   tituloSeccion: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   listaMovimientos: {
     gap: 8,

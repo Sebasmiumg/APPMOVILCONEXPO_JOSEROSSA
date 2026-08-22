@@ -1,5 +1,6 @@
 import { BlurView } from 'expo-blur';
 import { Platform, StyleSheet, View, ViewStyle } from 'react-native';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 import { useTema } from '@/src/contextos/ContextoTema';
 
@@ -9,9 +10,19 @@ interface PropiedadesTarjetaCristal {
   elevada?: boolean;
   accessible?: boolean;
   accessibilityLabel?: string;
+  retrasoEntrada?: number;
 }
 
-export function TarjetaCristal({ children, estilo, elevada = false, accessible, accessibilityLabel }: PropiedadesTarjetaCristal) {
+const ENTRADA_BASE = FadeInDown.duration(420).easing(Easing.out(Easing.cubic));
+
+export function TarjetaCristal({
+  children,
+  estilo,
+  elevada = false,
+  accessible,
+  accessibilityLabel,
+  retrasoEntrada = 0,
+}: PropiedadesTarjetaCristal) {
   const { tema } = useTema();
   const colorFondo = elevada ? tema.colores.tarjetaElevada : tema.colores.tarjeta;
 
@@ -35,17 +46,22 @@ export function TarjetaCristal({ children, estilo, elevada = false, accessible, 
 
   if (tema.modo === 'oscuro' && Platform.OS !== 'web') {
     return (
-      <BlurView
-        intensity={30}
-        tint="dark"
+      <Animated.View
+        entering={ENTRADA_BASE.delay(retrasoEntrada)}
         style={[estilos.envoltorioBlur, { borderRadius: tema.radios.tarjeta }]}
       >
-        {contenido}
-      </BlurView>
+        <BlurView intensity={30} tint="dark">
+          {contenido}
+        </BlurView>
+      </Animated.View>
     );
   }
 
-  return contenido;
+  return (
+    <Animated.View entering={ENTRADA_BASE.delay(retrasoEntrada)}>
+      {contenido}
+    </Animated.View>
+  );
 }
 
 const estilos = StyleSheet.create({

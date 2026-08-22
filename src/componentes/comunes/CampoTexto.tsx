@@ -7,6 +7,7 @@ import {
   TextInputProps,
   View,
 } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -80,7 +81,7 @@ const estilos = StyleSheet.create({
   },
   etiqueta: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   envoltorioEntrada: {
     flexDirection: 'row',

@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -65,6 +66,6 @@ const estilos = StyleSheet.create({
   },
   nombreNativo: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
 });

@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { TarjetaCristal } from '@/src/componentes/comunes/TarjetaCristal';
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
@@ -41,10 +42,10 @@ const estilos = StyleSheet.create({
   },
   etiqueta: {
     fontSize: 12,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   valor: {
     fontSize: 20,
-    fontWeight: '700',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
 });

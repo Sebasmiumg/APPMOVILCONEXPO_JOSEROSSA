@@ -4,7 +4,9 @@ import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
+import { EntradaEscalonada } from '@/src/componentes/comunes/EntradaEscalonada';
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
@@ -36,6 +38,7 @@ import {
 import { calcularConsumoPresupuesto } from '@/src/utilidades/calculosPlanificacion';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
 import { nombreCategoria } from '@/src/utilidades/nombreCategoria';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 const ICONO_SALUD: Record<'verde' | 'amarillo' | 'rojo', NombreIcono> = {
   verde: 'check-circle',
@@ -105,13 +108,15 @@ export default function PantallaAnalisis() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.tarjetaTitulo}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>{t('pantallas.analisis.titulo')}</Text>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.tarjetaTitulo}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>{t('pantallas.analisis.titulo')}</Text>
+                  </BlurView>
+        </Animated.View>
 
         <TarjetaCristal>
           <View style={estilos.filaSalud}>
@@ -184,7 +189,12 @@ export default function PantallaAnalisis() {
             <Text style={[estilos.tituloSeccion, { color: tema.colores.textoPrincipal }]}>
               {t('pantallas.analisis.presupuestos')}
             </Text>
-            <Pressable onPress={irANuevoPresupuesto} accessibilityRole="button" accessibilityLabel={t('pantallas.analisis.nuevoPresupuesto')}>
+            <Pressable
+              onPress={irANuevoPresupuesto}
+              accessibilityRole="button"
+              accessibilityLabel={t('pantallas.analisis.nuevoPresupuesto')}
+              hitSlop={12}
+            >
               <Icono nombre="add-circle-outline" tamano={22} color={tema.colores.violeta} />
             </Pressable>
           </View>
@@ -192,12 +202,14 @@ export default function PantallaAnalisis() {
             <EstadoVacio titulo={t('pantallas.analisis.sinPresupuestos')} icono="account-balance-wallet" />
           ) : (
             <View style={estilos.listaPresupuestos}>
-              {presupuestosDelMes.map((presupuesto) => {
+              {presupuestosDelMes.map((presupuesto, indice) => {
                 const categoria = categorias.find((c) => c.id === presupuesto.categoriaId);
                 const movimientosCategoria = movimientosMesActual.filter((m) => m.categoriaId === presupuesto.categoriaId);
                 const consumo = calcularConsumoPresupuesto(presupuesto, movimientosCategoria);
                 return (
-                  <TarjetaPresupuesto key={presupuesto.id} categoria={categoria} consumo={consumo} moneda={moneda} />
+                  <EntradaEscalonada key={presupuesto.id} indice={indice}>
+                    <TarjetaPresupuesto categoria={categoria} consumo={consumo} moneda={moneda} />
+                  </EntradaEscalonada>
                 );
               })}
             </View>
@@ -255,7 +267,7 @@ const estilos = StyleSheet.create({
     paddingBottom: 32,
   },
   tarjetaTitulo: {
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 8,
     overflow: 'hidden',
@@ -263,7 +275,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   filaSalud: {
     flexDirection: 'row',
@@ -273,7 +285,7 @@ const estilos = StyleSheet.create({
   iconoSalud: {
     width: 44,
     height: 44,
-    borderRadius: 14,
+    borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -283,7 +295,7 @@ const estilos = StyleSheet.create({
   },
   tituloSalud: {
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   descripcionSalud: {
     fontSize: 13,
@@ -299,7 +311,7 @@ const estilos = StyleSheet.create({
   },
   tituloSeccion: {
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   filaMetricas: {
     flexDirection: 'row',

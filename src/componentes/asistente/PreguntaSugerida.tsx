@@ -1,6 +1,9 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
+import { PressableAnimado } from '@/src/componentes/comunes/PressableAnimado';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { useEscalaPresion } from '@/src/hooks/useEscalaPresion';
 
 interface PropiedadesPreguntaSugerida {
   texto: string;
@@ -9,21 +12,25 @@ interface PropiedadesPreguntaSugerida {
 
 export function PreguntaSugerida({ texto, onPress }: PropiedadesPreguntaSugerida) {
   const { tema } = useTema();
+  const { estiloAnimado, onPressIn, onPressOut } = useEscalaPresion();
 
   return (
-    <Pressable
+    <PressableAnimado
       onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       accessibilityRole="button"
       accessibilityLabel={texto}
       style={[
+        estiloAnimado,
         estilos.contenedor,
         { borderRadius: tema.radios.chip, borderColor: tema.colores.borde, backgroundColor: tema.colores.tarjeta },
       ]}
     >
-      <Text style={{ color: tema.colores.textoPrincipal, fontSize: 13, fontWeight: '600' }} numberOfLines={1}>
+      <Text style={{ color: tema.colores.textoPrincipal, fontSize: 13, fontFamily: FUENTES.seminegrita }} numberOfLines={1}>
         {texto}
       </Text>
-    </Pressable>
+    </PressableAnimado>
   );
 }
 

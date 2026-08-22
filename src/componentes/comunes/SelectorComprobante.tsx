@@ -2,6 +2,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -44,6 +45,7 @@ export function SelectorComprobante({ uri, onCambiar }: PropiedadesSelectorCompr
               onPress={elegirFoto}
               accessibilityRole="button"
               accessibilityLabel={t('pantallas.movimientoNuevo.cambiarFoto')}
+              hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
               style={[estilos.botonAccion, { borderColor: tema.colores.borde }]}
             >
               <Icono nombre="photo-camera" tamano={16} color={tema.colores.textoPrincipal} />
@@ -55,6 +57,7 @@ export function SelectorComprobante({ uri, onCambiar }: PropiedadesSelectorCompr
               onPress={() => onCambiar(null)}
               accessibilityRole="button"
               accessibilityLabel={t('pantallas.movimientoNuevo.quitarFoto')}
+              hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
               style={[estilos.botonAccion, { borderColor: tema.colores.gasto }]}
             >
               <Icono nombre="delete-outline" tamano={16} color={tema.colores.gasto} />
@@ -87,7 +90,7 @@ const estilos = StyleSheet.create({
   },
   etiqueta: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   botonAgregar: {
     flexDirection: 'row',
@@ -100,7 +103,7 @@ const estilos = StyleSheet.create({
   },
   textoAgregar: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   filaPrevia: {
     flexDirection: 'row',
@@ -121,13 +124,13 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
+    borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 8,
     alignSelf: 'flex-start',
   },
   textoAccion: {
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
 });

@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { useTema } from '@/src/contextos/ContextoTema';
 
@@ -11,6 +13,15 @@ interface PropiedadesBarraProgreso {
 export function BarraProgreso({ progreso, color, etiquetaAccesibilidad }: PropiedadesBarraProgreso) {
   const { tema } = useTema();
   const porcentaje = Math.max(0, Math.min(1, progreso));
+  const anchoAnimado = useSharedValue(0);
+
+  useEffect(() => {
+    anchoAnimado.value = withTiming(porcentaje * 100, { duration: 700, easing: Easing.out(Easing.cubic) });
+  }, [porcentaje, anchoAnimado]);
+
+  const estiloRelleno = useAnimatedStyle(() => ({
+    width: `${anchoAnimado.value}%`,
+  }));
 
   return (
     <View
@@ -19,11 +30,8 @@ export function BarraProgreso({ progreso, color, etiquetaAccesibilidad }: Propie
       accessibilityLabel={etiquetaAccesibilidad}
       accessibilityValue={{ min: 0, max: 100, now: Math.round(porcentaje * 100) }}
     >
-      <View
-        style={[
-          estilos.relleno,
-          { width: `${porcentaje * 100}%`, backgroundColor: color ?? tema.colores.violeta },
-        ]}
+      <Animated.View
+        style={[estilos.relleno, estiloRelleno, { backgroundColor: color ?? tema.colores.violeta }]}
       />
     </View>
   );

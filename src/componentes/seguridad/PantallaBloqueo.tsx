@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { Icono } from '@/src/componentes/comunes/Icono';
@@ -50,7 +51,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
     textAlign: 'center',
   },
   descripcion: {

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { TarjetaCristal } from '@/src/componentes/comunes/TarjetaCristal';
@@ -107,16 +108,16 @@ const estilos = StyleSheet.create({
   nombre: {
     flex: 1,
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   chipRiesgo: {
-    borderRadius: 999,
+    borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 4,
   },
   textoChip: {
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   descripcion: {
     fontSize: 13,
@@ -137,7 +138,7 @@ const estilos = StyleSheet.create({
   },
   valorCampo: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   bloqueTexto: {
     marginTop: 8,
@@ -145,7 +146,7 @@ const estilos = StyleSheet.create({
   },
   etiquetaBloque: {
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   textoBloque: {
     fontSize: 13,

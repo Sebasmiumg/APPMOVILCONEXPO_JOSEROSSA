@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -49,7 +50,7 @@ const estilos = StyleSheet.create({
   icono: {
     width: 36,
     height: 36,
-    borderRadius: 10,
+    borderRadius: 6,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -59,7 +60,7 @@ const estilos = StyleSheet.create({
   },
   tipo: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   dominio: {
     fontSize: 12,

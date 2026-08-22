@@ -1,7 +1,7 @@
 import type { NombreIcono } from '@/src/componentes/comunes/Icono';
 
 export interface DestinoNavegacion {
-  clave: 'inicio' | 'movimientos' | 'asistente' | 'analisis' | 'metas' | 'reinversion' | 'perfil';
+  clave: 'inicio' | 'movimientos' | 'asistente' | 'analisis' | 'metas' | 'reinversion' | 'nasa' | 'perfil';
   ruta: string;
   icono: NombreIcono;
   claveTraduccion: string;
@@ -45,5 +45,6 @@ export const DESTINOS_NAVEGACION: readonly DestinoNavegacion[] = [
     claveTraduccion: 'navegacion.reinversion',
     enDockMovil: false,
   },
+  { clave: 'nasa', ruta: 'nasa', icono: 'rocket-launch', claveTraduccion: 'navegacion.nasa', enDockMovil: true },
   { clave: 'perfil', ruta: 'perfil', icono: 'person', claveTraduccion: 'navegacion.perfil', enDockMovil: true },
 ] as const;

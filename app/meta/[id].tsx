@@ -4,6 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BarraProgreso } from '@/src/componentes/comunes/BarraProgreso';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -22,6 +23,7 @@ import type { AporteMeta } from '@/src/tipos/meta';
 import { calcularAhorroSugeridoMeta, calcularProgresoMeta } from '@/src/utilidades/calculosPlanificacion';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaDetalleMeta() {
   const { tema } = useTema();
@@ -83,18 +85,20 @@ export default function PantallaDetalleMeta() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]} numberOfLines={1}>
-            {meta.nombre}
-          </Text>
-          <Pressable onPress={() => volverOIrA(router, '/(principal)/metas')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
-            <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
-          </Pressable>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]} numberOfLines={1}>
+                      {meta.nombre}
+                    </Text>
+                    <Pressable onPress={() => volverOIrA(router, '/(principal)/metas')} accessibilityRole="button" accessibilityLabel={t('comun.cerrar')} hitSlop={12}>
+                      <Icono nombre="close" tamano={22} color={tema.colores.textoSecundario} />
+                    </Pressable>
+                  </BlurView>
+        </Animated.View>
 
         <TarjetaCristal>
           <BarraProgreso
@@ -164,7 +168,7 @@ export default function PantallaDetalleMeta() {
             aportes.map((aporte) => (
               <View key={aporte.id} style={[estilos.filaAporte, { borderColor: tema.colores.borde }]}>
                 <View>
-                  <Text style={{ color: tema.colores.textoPrincipal, fontWeight: '600' }}>
+                  <Text style={{ color: tema.colores.textoPrincipal, fontFamily: FUENTES.seminegrita }}>
                     {formatearMoneda(aporte.monto, moneda, idioma)}
                   </Text>
                   {aporte.nota ? (
@@ -195,14 +199,14 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 10,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
     flex: 1,
     marginRight: 12,
   },
@@ -213,7 +217,7 @@ const estilos = StyleSheet.create({
   },
   montoActual: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   montoObjetivo: {
     fontSize: 14,
@@ -221,7 +225,7 @@ const estilos = StyleSheet.create({
   completada: {
     marginTop: 8,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   fecha: {
     marginTop: 8,
@@ -230,21 +234,21 @@ const estilos = StyleSheet.create({
   sugerido: {
     marginTop: 4,
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   grupo: {
     gap: 10,
   },
   tituloSeccion: {
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   filaAporte: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 12,
+    borderRadius: 6,
     padding: 12,
   },
 });

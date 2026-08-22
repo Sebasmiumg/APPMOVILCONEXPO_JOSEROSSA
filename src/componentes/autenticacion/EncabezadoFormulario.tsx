@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
@@ -41,7 +42,7 @@ const estilos = StyleSheet.create({
   botonAtras: {
     width: 44,
     height: 44,
-    borderRadius: 14,
+    borderRadius: 4,
     borderWidth: StyleSheet.hairlineWidth,
     alignItems: 'center',
     justifyContent: 'center',
@@ -49,7 +50,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 26,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   subtitulo: {
     fontSize: 15,

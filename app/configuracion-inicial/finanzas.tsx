@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { guardarConfiguracionFinancieraInicial } from '@/src/almacenamiento/configuracionFinancieraInicial';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -23,6 +24,7 @@ import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
 import { useTema } from '@/src/contextos/ContextoTema';
 import type { CodigoMoneda, TipoCuenta } from '@/src/tipos/finanzas';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaConfiguracionFinanciera() {
   const { tema } = useTema();
@@ -89,18 +91,20 @@ export default function PantallaConfiguracionFinanciera() {
     <LayoutResponsive>
       <View style={estilos.contenedor}>
         <IndicadorPasos totalPasos={3} pasoActual={3} />
-        <BlurView
-          intensity={30}
-          tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
-          style={estilos.encabezado}
-        >
-          <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
-            {t('configuracionInicial.finanzas.titulo')}
-          </Text>
-          <Text style={[estilos.subtitulo, { color: tema.colores.textoSecundario }]}>
-            {t('configuracionInicial.finanzas.subtitulo')}
-          </Text>
-        </BlurView>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+          <BlurView
+                    intensity={30}
+                    tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
+                    style={estilos.encabezado}
+                  >
+                    <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
+                      {t('configuracionInicial.finanzas.titulo')}
+                    </Text>
+                    <Text style={[estilos.subtitulo, { color: tema.colores.textoSecundario }]}>
+                      {t('configuracionInicial.finanzas.subtitulo')}
+                    </Text>
+                  </BlurView>
+        </Animated.View>
 
         <View style={estilos.grupo}>
           <Text style={[estilos.etiquetaGrupo, { color: tema.colores.textoSecundario }]}>
@@ -181,13 +185,13 @@ const estilos = StyleSheet.create({
   },
   encabezado: {
     gap: 6,
-    borderRadius: 16,
+    borderRadius: 6,
     padding: 12,
     overflow: 'hidden',
   },
   titulo: {
     fontSize: 24,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   subtitulo: {
     fontSize: 14,
@@ -197,7 +201,7 @@ const estilos = StyleSheet.create({
   },
   etiquetaGrupo: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   filaChips: {
     flexDirection: 'row',

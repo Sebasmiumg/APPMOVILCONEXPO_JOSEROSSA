@@ -1,4 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { useTema } from '@/src/contextos/ContextoTema';
 
@@ -70,7 +71,7 @@ const estilos = StyleSheet.create({
   },
   etiqueta: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   envoltorioEntrada: {
     flexDirection: 'row',
@@ -81,7 +82,7 @@ const estilos = StyleSheet.create({
   },
   simbolo: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
   },
   entrada: {
     flex: 1,

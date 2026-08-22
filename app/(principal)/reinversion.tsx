@@ -4,9 +4,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { CampoMoneda } from '@/src/componentes/comunes/CampoMoneda';
 import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
+import { EntradaEscalonada } from '@/src/componentes/comunes/EntradaEscalonada';
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
@@ -16,6 +18,7 @@ import { useTema } from '@/src/contextos/ContextoTema';
 import { ALTERNATIVAS_REINVERSION_SEMILLA } from '@/src/servicios/reinversion/alternativasSemilla';
 import { SIMBOLOS_MONEDA } from '@/src/constantes/finanzas';
 import type { InteresReinversion } from '@/src/tipos/reinversion';
+import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 const INTERESES: { valor: InteresReinversion; icono: NombreIcono }[] = [
   { valor: 'ahorro', icono: 'savings' },
@@ -48,16 +51,19 @@ export default function PantallaReinversion() {
   return (
     <LayoutResponsive>
       <View style={estilos.contenedor}>
-        <LinearGradient colors={tema.gradientePrincipal} style={estilos.bannerTitulo}>
-          <Text style={[estilos.titulo, { color: tema.colores.sobrePrimario }]}>
-            {t('pantallas.reinversion.titulo')}
-          </Text>
-          <Text style={[estilos.descripcion, { color: tema.colores.sobrePrimario }]}>
-            {t('pantallas.reinversion.descripcion')}
-          </Text>
-        </LinearGradient>
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+                    <LinearGradient colors={tema.gradientePrincipal} style={estilos.bannerTitulo}>
+                      <Text style={[estilos.titulo, { color: tema.colores.sobrePrimario }]}>
+                        {t('pantallas.reinversion.titulo')}
+                      </Text>
+                      <Text style={[estilos.descripcion, { color: tema.colores.sobrePrimario }]}>
+                        {t('pantallas.reinversion.descripcion')}
+                      </Text>
+                    </LinearGradient>
+        </Animated.View>
 
-        <BlurView
+        <Animated.View entering={FadeInDown.duration(420).easing(Easing.out(Easing.cubic))}>
+<BlurView
           intensity={30}
           tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
           style={[
@@ -70,6 +76,7 @@ export default function PantallaReinversion() {
             {t('pantallas.reinversion.aviso')}
           </Text>
         </BlurView>
+      </Animated.View>
 
         <CampoMoneda
           etiqueta={t('pantallas.reinversion.montoAConsiderar')}
@@ -100,8 +107,10 @@ export default function PantallaReinversion() {
             <EstadoVacio titulo={t('pantallas.reinversion.sinResultados')} icono="search-off" />
           ) : (
             <View style={estilos.listaAlternativas}>
-              {alternativas.map((alternativa) => (
-                <TarjetaAlternativa key={alternativa.id} alternativa={alternativa} />
+              {alternativas.map((alternativa, indice) => (
+                <EntradaEscalonada key={alternativa.id} indice={indice}>
+                  <TarjetaAlternativa alternativa={alternativa} />
+                </EntradaEscalonada>
               ))}
             </View>
           )
@@ -120,13 +129,13 @@ const estilos = StyleSheet.create({
     paddingBottom: 32,
   },
   bannerTitulo: {
-    borderRadius: 18,
+    borderRadius: 6,
     padding: 16,
     gap: 6,
   },
   titulo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: FUENTE_DISPLAY.negrita,
   },
   descripcion: {
     fontSize: 14,
@@ -149,7 +158,7 @@ const estilos = StyleSheet.create({
   },
   etiquetaGrupo: {
     fontSize: 13,
-    fontWeight: '500',
+    fontFamily: FUENTES.medio,
   },
   filaChips: {
     flexDirection: 'row',

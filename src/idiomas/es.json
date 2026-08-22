@@ -130,11 +130,13 @@
     "perfil": "Perfil",
     "analisis": "Análisis",
     "metas": "Metas",
-    "reinversion": "Reinversión"
+    "reinversion": "Reinversión",
+    "nasa": "NASA"
   },
   "pantallas": {
     "inicio": {
       "saludo": "Hola, {{nombre}}",
+      "saludoGenerico": "¡Hola!",
       "saldoDisponible": "Saldo disponible",
       "ingresosDelMes": "Ingresos del mes",
       "gastosDelMes": "Gastos del mes",
@@ -462,6 +464,33 @@
   "estadoVacio": {
     "tituloGenerico": "Nada por aquí todavía",
     "descripcionGenerica": "Cuando agregues información, aparecerá en esta pantalla"
+  },
+  "nasa": {
+    "cargando": "Consultando NASA…",
+    "fuente": "Fuente: NASA Open APIs · Los textos científicos se muestran como los publica NASA.",
+    "apod": {
+      "titulo": "El universo de hoy",
+      "descripcion": "Descubre la imagen astronómica seleccionada por NASA y su explicación científica.",
+      "verVideo": "Abrir video de NASA",
+      "verAsteroides": "Explorar asteroides cercanos"
+    },
+    "asteroides": {
+      "titulo": "Asteroides cercanos",
+      "descripcion": "Objetos cercanos a la Tierra detectados para hoy por NASA JPL.",
+      "detectados": "Objetos detectados",
+      "potencialmentePeligrosos": "Potencialmente peligrosos",
+      "peligroso": "Potencialmente peligroso",
+      "noPeligroso": "Sin peligro potencial",
+      "diametro": "Diámetro estimado",
+      "distancia": "Distancia a la Tierra",
+      "velocidad": "Velocidad relativa",
+      "verFicha": "Ver ficha de NASA JPL"
+    },
+    "errores": {
+      "sin_clave": "Falta configurar EXPO_PUBLIC_NASA_API_KEY en el archivo .env.",
+      "limite": "El token de NASA alcanzó su límite de solicitudes. Inténtalo más tarde.",
+      "respuesta": "No se pudieron obtener datos de NASA. Comprueba tu conexión y vuelve a intentarlo."
+    }
   },
   "errores": {
     "generico": "Algo salió mal. Inténtalo de nuevo.",

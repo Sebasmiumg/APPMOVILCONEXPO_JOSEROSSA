@@ -1,8 +1,12 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import { ActivityIndicator, Platform, Pressable, StyleSheet, Text } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { useTema } from '@/src/contextos/ContextoTema';
+
+const PressableAnimado = Animated.createAnimatedComponent(Pressable);
 
 interface PropiedadesBotonPrincipal {
   titulo: string;
@@ -21,6 +25,11 @@ export function BotonPrincipal({
 }: PropiedadesBotonPrincipal) {
   const { tema } = useTema();
   const inactivo = deshabilitado || cargando;
+  const escala = useSharedValue(1);
+
+  const estiloAnimado = useAnimatedStyle(() => ({
+    transform: [{ scale: escala.value }],
+  }));
 
   const manejarPress = () => {
     if (inactivo) return;
@@ -31,13 +40,19 @@ export function BotonPrincipal({
   };
 
   return (
-    <Pressable
+    <PressableAnimado
       onPress={manejarPress}
+      onPressIn={() => {
+        escala.value = withTiming(0.97, { duration: 120 });
+      }}
+      onPressOut={() => {
+        escala.value = withTiming(1, { duration: 200 });
+      }}
       disabled={inactivo}
       accessibilityRole="button"
       accessibilityLabel={etiquetaAccesibilidad ?? titulo}
       accessibilityState={{ disabled: inactivo, busy: cargando }}
-      style={({ pressed }) => [{ opacity: inactivo ? 0.5 : pressed ? 0.85 : 1 }]}
+      style={[estiloAnimado, { opacity: inactivo ? 0.5 : 1 }]}
     >
       <LinearGradient
         colors={tema.gradientePrincipal}
@@ -56,7 +71,7 @@ export function BotonPrincipal({
           </Text>
         )}
       </LinearGradient>
-    </Pressable>
+    </PressableAnimado>
   );
 }
 
@@ -69,7 +84,7 @@ const estilos = StyleSheet.create({
   },
   texto: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: FUENTES.seminegrita,
     textAlign: 'center',
   },
 });

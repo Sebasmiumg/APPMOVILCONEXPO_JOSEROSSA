@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { FUENTES } from '@/src/temas/tipografia';
 
 import { BarraProgreso } from '@/src/componentes/comunes/BarraProgreso';
 import { Icono, type NombreIcono } from '@/src/componentes/comunes/Icono';
@@ -80,7 +81,7 @@ const estilos = StyleSheet.create({
   },
   nombre: {
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
   pie: {
     flexDirection: 'row',
@@ -92,6 +93,6 @@ const estilos = StyleSheet.create({
   },
   porcentaje: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: FUENTES.negrita,
   },
 });
