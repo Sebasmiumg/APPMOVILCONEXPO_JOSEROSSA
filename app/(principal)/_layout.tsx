@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router';
+import { Tabs } from 'expo-router/js-tabs';
 
 import { BarraNavegacionPrincipal } from '@/src/componentes/comunes/BarraNavegacionPrincipal';
 import { useAnchoVentana } from '@/src/hooks/useAnchoVentana';

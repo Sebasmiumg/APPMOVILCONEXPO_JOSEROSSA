@@ -1,4 +1,3 @@
-import { DarkTheme, DefaultTheme, ThemeProvider as ThemeProviderNavegacion } from '@react-navigation/native';
 import {
   IBMPlexSans_400Regular,
   IBMPlexSans_500Medium,
@@ -13,7 +12,7 @@ import {
   Fraunces_700Bold,
   useFonts as useFuentesDisplay,
 } from '@expo-google-fonts/fraunces';
-import { Stack } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider as ThemeProviderNavegacion } from 'expo-router';
 import Head from 'expo-router/head';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
