@@ -130,8 +130,7 @@
     "perfil": "الملف الشخصي",
     "analisis": "التحليل",
     "metas": "الأهداف",
-    "reinversion": "إعادة الاستثمار",
-    "nasa": "NASA"
+    "reinversion": "إعادة الاستثمار"
   },
   "pantallas": {
     "inicio": {
@@ -464,33 +463,6 @@
   "estadoVacio": {
     "tituloGenerico": "لا يوجد شيء هنا بعد",
     "descripcionGenerica": "عند إضافة معلومات، ستظهر في هذه الشاشة"
-  },
-  "nasa": {
-    "cargando": "جارٍ الاتصال بـ NASA…",
-    "fuente": "المصدر: NASA Open APIs · يُعرض النص العلمي كما تنشره NASA.",
-    "apod": {
-      "titulo": "كون اليوم",
-      "descripcion": "اكتشف صورة NASA الفلكية اليومية وشرحها العلمي.",
-      "verVideo": "فتح فيديو NASA",
-      "verAsteroides": "استكشاف الكويكبات القريبة"
-    },
-    "asteroides": {
-      "titulo": "الكويكبات القريبة",
-      "descripcion": "أجسام قريبة من الأرض رصدها NASA JPL لهذا اليوم.",
-      "detectados": "الأجسام المرصودة",
-      "potencialmentePeligrosos": "خطرة محتملة",
-      "peligroso": "خطر محتمل",
-      "noPeligroso": "لا يوجد خطر محتمل",
-      "diametro": "القطر التقديري",
-      "distancia": "المسافة عن الأرض",
-      "velocidad": "السرعة النسبية",
-      "verFicha": "عرض سجل NASA JPL"
-    },
-    "errores": {
-      "sin_clave": "المتغير EXPO_PUBLIC_NASA_API_KEY غير موجود في ملف .env.",
-      "limite": "بلغ رمز NASA حد الطلبات. حاول لاحقًا.",
-      "respuesta": "تعذر تحميل بيانات NASA. تحقق من الاتصال وحاول مجددًا."
-    }
   },
   "errores": {
     "generico": "حدث خطأ ما. حاول مرة أخرى.",

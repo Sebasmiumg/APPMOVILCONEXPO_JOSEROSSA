@@ -130,8 +130,7 @@
     "perfil": "प्रोफ़ाइल",
     "analisis": "विश्लेषण",
     "metas": "लक्ष्य",
-    "reinversion": "पुनर्निवेश",
-    "nasa": "NASA"
+    "reinversion": "पुनर्निवेश"
   },
   "pantallas": {
     "inicio": {
@@ -464,33 +463,6 @@
   "estadoVacio": {
     "tituloGenerico": "अभी यहां कुछ नहीं है",
     "descripcionGenerica": "जानकारी जोड़ने के बाद यह यहां दिखाई देगी"
-  },
-  "nasa": {
-    "cargando": "NASA से संपर्क हो रहा है…",
-    "fuente": "स्रोत: NASA Open APIs · वैज्ञानिक पाठ NASA द्वारा प्रकाशित रूप में दिखाया गया है।",
-    "apod": {
-      "titulo": "आज का ब्रह्मांड",
-      "descripcion": "NASA की आज की खगोलीय तस्वीर और उसकी वैज्ञानिक व्याख्या देखें।",
-      "verVideo": "NASA वीडियो खोलें",
-      "verAsteroides": "पास के क्षुद्रग्रह देखें"
-    },
-    "asteroides": {
-      "titulo": "निकट-पृथ्वी क्षुद्रग्रह",
-      "descripcion": "NASA JPL द्वारा आज के लिए पहचानी गई निकट-पृथ्वी वस्तुएँ।",
-      "detectados": "पहचानी गई वस्तुएँ",
-      "potencialmentePeligrosos": "संभावित रूप से खतरनाक",
-      "peligroso": "संभावित रूप से खतरनाक",
-      "noPeligroso": "कोई संभावित खतरा नहीं",
-      "diametro": "अनुमानित व्यास",
-      "distancia": "पृथ्वी से दूरी",
-      "velocidad": "सापेक्ष गति",
-      "verFicha": "NASA JPL रिकॉर्ड देखें"
-    },
-    "errores": {
-      "sin_clave": ".env फ़ाइल में EXPO_PUBLIC_NASA_API_KEY मौजूद नहीं है।",
-      "limite": "NASA टोकन की अनुरोध सीमा पूरी हो गई है। बाद में प्रयास करें।",
-      "respuesta": "NASA डेटा लोड नहीं हो सका। कनेक्शन जाँचकर फिर प्रयास करें।"
-    }
   },
   "errores": {
     "generico": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",

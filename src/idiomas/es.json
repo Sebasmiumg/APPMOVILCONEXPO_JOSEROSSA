@@ -131,7 +131,7 @@
     "analisis": "Análisis",
     "metas": "Metas",
     "reinversion": "Reinversión",
-    "nasa": "NASA"
+    "capacitaciones": "Capacitaciones"
   },
   "pantallas": {
     "inicio": {
@@ -465,31 +465,121 @@
     "tituloGenerico": "Nada por aquí todavía",
     "descripcionGenerica": "Cuando agregues información, aparecerá en esta pantalla"
   },
-  "nasa": {
-    "cargando": "Consultando NASA…",
-    "fuente": "Fuente: NASA Open APIs · Los textos científicos se muestran como los publica NASA.",
-    "apod": {
-      "titulo": "El universo de hoy",
-      "descripcion": "Descubre la imagen astronómica seleccionada por NASA y su explicación científica.",
-      "verVideo": "Abrir video de NASA",
-      "verAsteroides": "Explorar asteroides cercanos"
+  "capacitaciones": {
+    "cargando": "Consultando la API de MiPresupuesto…",
+    "fuente": "Fuente: API Laravel local (laravel-api/) · Todo el dominio de la app consumido en vivo.",
+    "login": {
+      "titulo": "Inicia sesión en la API",
+      "descripcion": "Esta sección requiere un token válido emitido por laravel-api/.",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "entrar": "Entrar",
+      "ayuda": "Usuario de ejemplo sembrado por el backend. Contraseña: password",
+      "cerrarSesion": "Cerrar sesión"
     },
-    "asteroides": {
-      "titulo": "Asteroides cercanos",
-      "descripcion": "Objetos cercanos a la Tierra detectados para hoy por NASA JPL.",
-      "detectados": "Objetos detectados",
-      "potencialmentePeligrosos": "Potencialmente peligrosos",
-      "peligroso": "Potencialmente peligroso",
-      "noPeligroso": "Sin peligro potencial",
-      "diametro": "Diámetro estimado",
-      "distancia": "Distancia a la Tierra",
-      "velocidad": "Velocidad relativa",
-      "verFicha": "Ver ficha de NASA JPL"
+    "menu": {
+      "titulo": "Explorar la API",
+      "descripcion": "Cada tarjeta consume un recurso distinto del backend en laravel-api/.",
+      "cuentas": "Cuentas",
+      "categorias": "Categorías",
+      "metas": "Metas de ahorro",
+      "presupuestosCategoria": "Presupuestos por categoría",
+      "presupuestosCapacitacion": "Presupuestos de capacitación"
+    },
+    "reporte": {
+      "titulo": "Reporte de caja por mes",
+      "descripcion": "Movimiento de caja de efectivo consumido en vivo desde la API de Laravel.",
+      "sinDatos": "Aún no hay movimientos registrados en la API.",
+      "ingresos": "Ingresos",
+      "gastos": "Gastos",
+      "saldoNeto": "Saldo neto",
+      "movimientos": "Movimientos",
+      "movimientosRecientesTitulo": "Movimientos recientes (API)",
+      "sinMovimientos": "Aún no hay movimientos en la API."
+    },
+    "cuentas": {
+      "titulo": "Cuentas",
+      "descripcion": "Cuentas registradas en la API (varios usuarios de ejemplo).",
+      "sinDatos": "Aún no hay cuentas registradas en la API.",
+      "nombre": "Nombre de la cuenta",
+      "tipo": "Tipo de cuenta",
+      "moneda": "Moneda",
+      "saldoInicial": "Saldo inicial",
+      "crear": "Crear cuenta",
+      "nuevoTitulo": "Nueva cuenta"
+    },
+    "categorias": {
+      "titulo": "Categorías",
+      "descripcion": "Categorías de ingreso y gasto registradas en la API.",
+      "sinDatos": "Aún no hay categorías registradas en la API.",
+      "nombre": "Nombre de la categoría",
+      "tipo": "Tipo",
+      "ingreso": "Ingreso",
+      "gasto": "Gasto",
+      "icono": "Icono (Material Icons)",
+      "color": "Color (hex)",
+      "crear": "Crear categoría",
+      "nuevoTitulo": "Nueva categoría"
+    },
+    "metas": {
+      "titulo": "Metas de ahorro",
+      "descripcion": "Metas con sus aportes, consumidas en vivo desde la API.",
+      "sinDatos": "Aún no hay metas registradas en la API.",
+      "nombre": "Nombre de la meta",
+      "montoObjetivo": "Monto objetivo",
+      "montoActual": "Monto actual",
+      "fechaObjetivo": "Fecha objetivo",
+      "estado": "Estado",
+      "estados": {
+        "activa": "Activa",
+        "completada": "Completada",
+        "archivada": "Archivada"
+      },
+      "crear": "Crear meta",
+      "nuevoTitulo": "Nueva meta",
+      "aportes": "Aportes",
+      "sinAportes": "Sin aportes todavía",
+      "agregarAporte": "Agregar aporte",
+      "montoAporte": "Monto del aporte"
+    },
+    "presupuestosCategoria": {
+      "titulo": "Presupuestos por categoría",
+      "descripcion": "Límite mensual de gasto por categoría, consumido desde la API.",
+      "sinDatos": "Aún no hay presupuestos por categoría registrados en la API.",
+      "categoria": "Categoría",
+      "periodo": "Periodo (AAAA-MM)",
+      "limite": "Límite",
+      "porcentajeAlerta": "Porcentaje de alerta",
+      "crear": "Crear presupuesto",
+      "nuevoTitulo": "Nuevo presupuesto por categoría"
+    },
+    "presupuestos": {
+      "titulo": "Presupuestos de capacitación",
+      "descripcion": "Registra y consulta los presupuestos asignados a capacitaciones.",
+      "sinDatos": "Aún no has registrado ningún presupuesto de capacitación.",
+      "nombre": "Nombre de la capacitación",
+      "descripcionCampo": "Descripción",
+      "montoAsignado": "Monto asignado",
+      "montoEjecutado": "Monto ejecutado",
+      "fechaInicio": "Fecha de inicio",
+      "fechaFin": "Fecha de fin",
+      "estado": "Estado",
+      "estados": {
+        "planificada": "Planificada",
+        "en_curso": "En curso",
+        "finalizada": "Finalizada",
+        "cancelada": "Cancelada"
+      },
+      "registrar": "Registrar presupuesto",
+      "nuevoTitulo": "Nuevo presupuesto de capacitación"
     },
     "errores": {
-      "sin_clave": "Falta configurar EXPO_PUBLIC_NASA_API_KEY en el archivo .env.",
-      "limite": "El token de NASA alcanzó su límite de solicitudes. Inténtalo más tarde.",
-      "respuesta": "No se pudieron obtener datos de NASA. Comprueba tu conexión y vuelve a intentarlo."
+      "sin_url": "Falta configurar EXPO_PUBLIC_LARAVEL_API_URL en el archivo .env.",
+      "red": "No se pudo conectar con la API de Laravel. Verifica que 'php artisan serve' esté corriendo y que la URL sea accesible desde este dispositivo.",
+      "validacion": "Revisa los datos ingresados.",
+      "no_encontrado": "No se encontró el recurso solicitado.",
+      "no_autorizado": "Tu sesión expiró o no es válida. Inicia sesión de nuevo.",
+      "respuesta": "La API de Laravel respondió con un error. Inténtalo de nuevo."
     }
   },
   "errores": {

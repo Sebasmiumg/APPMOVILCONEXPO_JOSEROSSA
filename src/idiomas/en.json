@@ -131,7 +131,7 @@
     "analisis": "Analysis",
     "metas": "Goals",
     "reinversion": "Reinvestment",
-    "nasa": "NASA"
+    "capacitaciones": "Training"
   },
   "pantallas": {
     "inicio": {
@@ -465,31 +465,121 @@
     "tituloGenerico": "Nothing here yet",
     "descripcionGenerica": "Once you add information, it will show up on this screen"
   },
-  "nasa": {
-    "cargando": "Contacting NASA…",
-    "fuente": "Source: NASA Open APIs · Scientific text is displayed as published by NASA.",
-    "apod": {
-      "titulo": "Today's universe",
-      "descripcion": "Discover NASA's astronomy picture of the day and its scientific explanation.",
-      "verVideo": "Open NASA video",
-      "verAsteroides": "Explore nearby asteroids"
+  "capacitaciones": {
+    "cargando": "Fetching from the MiPresupuesto API…",
+    "fuente": "Source: local Laravel API (laravel-api/) · The whole app domain, consumed live.",
+    "login": {
+      "titulo": "Sign in to the API",
+      "descripcion": "This section requires a valid token issued by laravel-api/.",
+      "email": "Email",
+      "password": "Password",
+      "entrar": "Sign in",
+      "ayuda": "Sample user seeded by the backend. Password: password",
+      "cerrarSesion": "Sign out"
     },
-    "asteroides": {
-      "titulo": "Nearby asteroids",
-      "descripcion": "Near-Earth objects detected for today by NASA JPL.",
-      "detectados": "Objects detected",
-      "potencialmentePeligrosos": "Potentially hazardous",
-      "peligroso": "Potentially hazardous",
-      "noPeligroso": "No potential hazard",
-      "diametro": "Estimated diameter",
-      "distancia": "Distance from Earth",
-      "velocidad": "Relative speed",
-      "verFicha": "View NASA JPL record"
+    "menu": {
+      "titulo": "Explore the API",
+      "descripcion": "Each card consumes a different resource from the laravel-api/ backend.",
+      "cuentas": "Accounts",
+      "categorias": "Categories",
+      "metas": "Savings goals",
+      "presupuestosCategoria": "Budgets by category",
+      "presupuestosCapacitacion": "Training budgets"
+    },
+    "reporte": {
+      "titulo": "Monthly cash report",
+      "descripcion": "Cash movement consumed live from the Laravel API.",
+      "sinDatos": "No movements have been recorded in the API yet.",
+      "ingresos": "Income",
+      "gastos": "Expenses",
+      "saldoNeto": "Net balance",
+      "movimientos": "Movements",
+      "movimientosRecientesTitulo": "Recent movements (API)",
+      "sinMovimientos": "No movements in the API yet."
+    },
+    "cuentas": {
+      "titulo": "Accounts",
+      "descripcion": "Accounts registered in the API (several sample users).",
+      "sinDatos": "No accounts have been registered in the API yet.",
+      "nombre": "Account name",
+      "tipo": "Account type",
+      "moneda": "Currency",
+      "saldoInicial": "Initial balance",
+      "crear": "Create account",
+      "nuevoTitulo": "New account"
+    },
+    "categorias": {
+      "titulo": "Categories",
+      "descripcion": "Income and expense categories registered in the API.",
+      "sinDatos": "No categories have been registered in the API yet.",
+      "nombre": "Category name",
+      "tipo": "Type",
+      "ingreso": "Income",
+      "gasto": "Expense",
+      "icono": "Icon (Material Icons)",
+      "color": "Color (hex)",
+      "crear": "Create category",
+      "nuevoTitulo": "New category"
+    },
+    "metas": {
+      "titulo": "Savings goals",
+      "descripcion": "Goals with their contributions, consumed live from the API.",
+      "sinDatos": "No goals have been registered in the API yet.",
+      "nombre": "Goal name",
+      "montoObjetivo": "Target amount",
+      "montoActual": "Current amount",
+      "fechaObjetivo": "Target date",
+      "estado": "Status",
+      "estados": {
+        "activa": "Active",
+        "completada": "Completed",
+        "archivada": "Archived"
+      },
+      "crear": "Create goal",
+      "nuevoTitulo": "New goal",
+      "aportes": "Contributions",
+      "sinAportes": "No contributions yet",
+      "agregarAporte": "Add contribution",
+      "montoAporte": "Contribution amount"
+    },
+    "presupuestosCategoria": {
+      "titulo": "Budgets by category",
+      "descripcion": "Monthly spending limit by category, consumed from the API.",
+      "sinDatos": "No category budgets have been registered in the API yet.",
+      "categoria": "Category",
+      "periodo": "Period (YYYY-MM)",
+      "limite": "Limit",
+      "porcentajeAlerta": "Alert percentage",
+      "crear": "Create budget",
+      "nuevoTitulo": "New budget by category"
+    },
+    "presupuestos": {
+      "titulo": "Training budgets",
+      "descripcion": "Register and view budgets assigned to trainings.",
+      "sinDatos": "You haven't registered any training budget yet.",
+      "nombre": "Training name",
+      "descripcionCampo": "Description",
+      "montoAsignado": "Assigned amount",
+      "montoEjecutado": "Spent amount",
+      "fechaInicio": "Start date",
+      "fechaFin": "End date",
+      "estado": "Status",
+      "estados": {
+        "planificada": "Planned",
+        "en_curso": "In progress",
+        "finalizada": "Finished",
+        "cancelada": "Cancelled"
+      },
+      "registrar": "Register budget",
+      "nuevoTitulo": "New training budget"
     },
     "errores": {
-      "sin_clave": "EXPO_PUBLIC_NASA_API_KEY is missing from the .env file.",
-      "limite": "The NASA token reached its request limit. Try again later.",
-      "respuesta": "NASA data could not be loaded. Check your connection and try again."
+      "sin_url": "EXPO_PUBLIC_LARAVEL_API_URL is missing from the .env file.",
+      "red": "Could not connect to the Laravel API. Check that 'php artisan serve' is running and reachable from this device.",
+      "validacion": "Check the values you entered.",
+      "no_encontrado": "The requested resource was not found.",
+      "no_autorizado": "Your session expired or is invalid. Please sign in again.",
+      "respuesta": "The Laravel API returned an error. Please try again."
     }
   },
   "errores": {
