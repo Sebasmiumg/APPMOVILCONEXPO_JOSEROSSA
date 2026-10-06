@@ -20,7 +20,7 @@ export default function LayoutPrincipal() {
       <Tabs.Screen name="analisis" />
       <Tabs.Screen name="metas" />
       <Tabs.Screen name="reinversion" />
-      <Tabs.Screen name="nasa" />
+      <Tabs.Screen name="capacitaciones" />
       <Tabs.Screen name="perfil" />
     </Tabs>
   );
