@@ -1,0 +1,1219 @@
+{
+  "info": {
+    "name": "MiPresupuesto API - Dominio completo",
+    "description": "CRUD de Cuentas, Categorías, Movimientos, Metas + Aportes, Presupuestos por categoría, Presupuestos de Capacitación y reporte mensual de caja, expuestos por routes/api.php (Laravel). Cada request incluye asserts (pestaña Tests) para correr toda la colección con el Collection Runner.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "movimiento_id",
+      "value": ""
+    },
+    {
+      "key": "presupuesto_id",
+      "value": ""
+    },
+    {
+      "key": "cuenta_id",
+      "value": ""
+    },
+    {
+      "key": "categoria_id",
+      "value": ""
+    },
+    {
+      "key": "presupuesto_categoria_id",
+      "value": ""
+    },
+    {
+      "key": "meta_id",
+      "value": ""
+    },
+    {
+      "key": "aporte_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Iniciar sesion (POST login)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"ana.lopez@example.com\", \"password\": \"password\"}"
+        },
+        "url": "{{base_url}}/login",
+        "auth": {
+          "type": "noauth"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('Responde con token', () => pm.expect(pm.response.json()).to.have.property('token'));",
+              "pm.collectionVariables.set('token', pm.response.json().token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Listar movimientos (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/movimientos"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('Responde un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Crear movimiento (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descripcion\": \"Compra de supermercado\",\n  \"monto\": 350.75,\n  \"tipo\": \"gasto\",\n  \"categoria\": \"Comida\",\n  \"cuenta\": \"Efectivo\",\n  \"fecha\": \"2026-08-20\"\n}"
+        },
+        "url": "{{base_url}}/movimientos"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('Devuelve el movimiento creado con id', () => pm.expect(body).to.have.property('id'));",
+              "pm.test('Los campos coinciden con lo enviado', () => {",
+              "  pm.expect(body.descripcion).to.eql('Compra de supermercado');",
+              "  pm.expect(body.tipo).to.eql('gasto');",
+              "});",
+              "pm.collectionVariables.set('movimiento_id', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Ver un movimiento (GET by id)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/movimientos/{{movimiento_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El id coincide con el solicitado', () => {",
+              "  pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get('movimiento_id')));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Actualizar movimiento (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"monto\": 400,\n  \"categoria\": \"Transporte\"\n}"
+        },
+        "url": "{{base_url}}/movimientos/{{movimiento_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('El monto se actualizo', () => pm.expect(body.monto).to.eql('400.00'));",
+              "pm.test('La categoria se actualizo', () => pm.expect(body.categoria).to.eql('Transporte'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Eliminar movimiento (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/movimientos/{{movimiento_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Ver movimiento eliminado (GET, espera 404)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/movimientos/{{movimiento_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 404 Not Found tras eliminar', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Crear movimiento invalido (POST, espera 422)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descripcion\": \"\",\n  \"monto\": -50,\n  \"tipo\": \"otro\"\n}"
+        },
+        "url": "{{base_url}}/movimientos"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 422 Unprocessable Entity', () => pm.response.to.have.status(422));",
+              "pm.test('Incluye errores de validacion', () => {",
+              "  const body = pm.response.json();",
+              "  pm.expect(body).to.have.property('errors');",
+              "  pm.expect(body.errors).to.have.property('descripcion');",
+              "  pm.expect(body.errors).to.have.property('monto');",
+              "  pm.expect(body.errors).to.have.property('tipo');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Reporte de movimientos por mes (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/reportes/movimientos-por-mes"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('Responde un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. Crear presupuesto de capacitacion (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Capacitacion de Laravel avanzado\",\n  \"descripcion\": \"Taller interno para el equipo de backend\",\n  \"monto_asignado\": 1500,\n  \"fecha_inicio\": \"2026-10-01\",\n  \"fecha_fin\": \"2026-10-15\",\n  \"estado\": \"planificada\"\n}"
+        },
+        "url": "{{base_url}}/presupuestos-capacitacion"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('Devuelve el presupuesto creado con id', () => pm.expect(body).to.have.property('id'));",
+              "pm.test('Los campos coinciden con lo enviado', () => {",
+              "  pm.expect(body.nombre).to.eql('Capacitacion de Laravel avanzado');",
+              "  pm.expect(body.estado).to.eql('planificada');",
+              "});",
+              "pm.collectionVariables.set('presupuesto_id', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Ver un presupuesto de capacitacion (GET by id)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-capacitacion/{{presupuesto_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El id coincide con el solicitado', () => {",
+              "  pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get('presupuesto_id')));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11. Actualizar presupuesto de capacitacion (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estado\": \"en_curso\",\n  \"monto_ejecutado\": 350\n}"
+        },
+        "url": "{{base_url}}/presupuestos-capacitacion/{{presupuesto_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('El estado se actualizo', () => pm.expect(body.estado).to.eql('en_curso'));",
+              "pm.test('El monto ejecutado se actualizo', () => pm.expect(body.monto_ejecutado).to.eql('350.00'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12. Eliminar presupuesto de capacitacion (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-capacitacion/{{presupuesto_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "13. Ver presupuesto eliminado (GET, espera 404)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-capacitacion/{{presupuesto_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 404 Not Found tras eliminar', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "14. Crear cuenta (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/cuentas",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\": \"Efectivo\", \"tipo\": \"efectivo\", \"moneda\": \"GTQ\", \"saldo_inicial\": 500}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('Devuelve la cuenta creada con id', () => pm.expect(body).to.have.property('id'));",
+              "pm.collectionVariables.set('cuenta_id', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "15. Crear categoria (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/categorias",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tipo\": \"gasto\", \"nombre\": \"Comida\", \"icono\": \"restaurant\", \"color\": \"#FF5733\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('Devuelve la categoria creada con id', () => pm.expect(body).to.have.property('id'));",
+              "pm.collectionVariables.set('categoria_id', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "16. Crear presupuesto de categoria (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-categoria",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"categoria_id\": {{categoria_id}}, \"periodo\": \"2026-09\", \"limite\": 800, \"porcentaje_alerta\": 80}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('Devuelve el presupuesto creado con id', () => pm.expect(body).to.have.property('id'));",
+              "pm.collectionVariables.set('presupuesto_categoria_id', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "17. Crear meta (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/metas",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"cuenta_id\": {{cuenta_id}}, \"nombre\": \"Viaje\", \"monto_objetivo\": 3000}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('Devuelve la meta creada con id', () => pm.expect(body).to.have.property('id'));",
+              "pm.collectionVariables.set('meta_id', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "18. Crear aporte para la meta (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/metas/{{meta_id}}/aportes",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"monto\": 200, \"fecha\": \"2026-09-20\", \"nota\": \"Ahorro quincenal\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 Created', () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test('Devuelve el aporte creado con id', () => pm.expect(body).to.have.property('id'));",
+              "pm.collectionVariables.set('aporte_id', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "19. Listar cuentas (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/cuentas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('Responde un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "20. Listar categorias (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/categorias"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('Responde un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "21. Listar presupuestos de categoria (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-categoria"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('Responde un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "22. Listar metas (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/metas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Responde un arreglo', () => pm.expect(body).to.be.an('array'));",
+              "pm.test('Cada meta incluye su arreglo de aportes', () => pm.expect(body[0]).to.have.property('aportes'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "23. Listar aportes de la meta (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/metas/{{meta_id}}/aportes"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('Responde un arreglo con al menos un aporte', () => pm.expect(pm.response.json().length).to.be.above(0));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "24. Ver una cuenta (GET by id)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/cuentas/{{cuenta_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El id coincide con el solicitado', () => pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get('cuenta_id'))));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "25. Ver una categoria (GET by id)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/categorias/{{categoria_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El id coincide con el solicitado', () => pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get('categoria_id'))));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "26. Ver un presupuesto de categoria (GET by id)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-categoria/{{presupuesto_categoria_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El id coincide con el solicitado', () => pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get('presupuesto_categoria_id'))));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "27. Ver una meta con sus aportes (GET by id)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/metas/{{meta_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('El id coincide con el solicitado', () => pm.expect(String(body.id)).to.eql(String(pm.collectionVariables.get('meta_id'))));",
+              "pm.test('Incluye al menos un aporte', () => pm.expect(body.aportes.length).to.be.above(0));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "28. Ver un aporte (GET by id)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/aportes/{{aporte_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El id coincide con el solicitado', () => pm.expect(String(pm.response.json().id)).to.eql(String(pm.collectionVariables.get('aporte_id'))));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "29. Actualizar cuenta (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/cuentas/{{cuenta_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"activa\": false}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El campo activa se actualizo', () => pm.expect(pm.response.json().activa).to.eql(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "30. Actualizar categoria (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/categorias/{{categoria_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\": \"Restaurantes\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El nombre se actualizo', () => pm.expect(pm.response.json().nombre).to.eql('Restaurantes'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "31. Actualizar presupuesto de categoria (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-categoria/{{presupuesto_categoria_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"limite\": 900}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El limite se actualizo', () => pm.expect(pm.response.json().limite).to.eql('900.00'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "32. Actualizar meta (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/metas/{{meta_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"estado\": \"completada\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El estado se actualizo', () => pm.expect(pm.response.json().estado).to.eql('completada'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "33. Actualizar aporte (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/aportes/{{aporte_id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"monto\": 300}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200 OK', () => pm.response.to.have.status(200));",
+              "pm.test('El monto se actualizo', () => pm.expect(pm.response.json().monto).to.eql('300.00'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "34. Eliminar aporte (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/aportes/{{aporte_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "35. Eliminar meta (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/metas/{{meta_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "36. Eliminar presupuesto de categoria (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/presupuestos-categoria/{{presupuesto_categoria_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "37. Eliminar categoria (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/categorias/{{categoria_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "38. Eliminar cuenta (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/cuentas/{{cuenta_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "39. Cerrar sesion (POST logout)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/logout"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 204 No Content', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  }
+}
