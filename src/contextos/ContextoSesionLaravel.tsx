@@ -49,8 +49,15 @@ export function ProveedorSesionLaravel({ children }: { children: ReactNode }) {
   }, []);
 
   const cerrarSesion = useCallback(async () => {
-    await cerrarSesionLaravel();
-    setUsuario(null);
+    try {
+      await cerrarSesionLaravel();
+    } catch {
+      // El token local ya se borra en el finally de cerrarSesionLaravel; un
+      // fallo al avisarle al backend (p. ej. sin red) no debe dejar a la UI
+      // mostrando la sección como si la sesión siguiera activa.
+    } finally {
+      setUsuario(null);
+    }
   }, []);
 
   const valor = useMemo<ContextoSesionLaravelValor>(
