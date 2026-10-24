@@ -25,6 +25,7 @@ import {
   listarPresupuestosCapacitacion,
 } from '@/src/servicios/laravelApi/presupuestosCapacitacion';
 import { FUENTE_DISPLAY, FUENTES } from '@/src/temas/tipografia';
+import { formatearFechaSoloDia } from '@/src/utilidades/fechas';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
 import type { EstadoPresupuestoCapacitacion, PresupuestoCapacitacionAPI } from '@/src/tipos/laravelApi';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
@@ -32,7 +33,7 @@ import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
 const ESTADOS: EstadoPresupuestoCapacitacion[] = ['planificada', 'en_curso', 'finalizada', 'cancelada'];
 
 function fechaISOHoy(): string {
-  return new Date().toISOString().slice(0, 10);
+  return formatearFechaSoloDia(new Date());
 }
 
 export default function PantallaPresupuestosCapacitacion() {
@@ -96,7 +97,7 @@ export default function PantallaPresupuestosCapacitacion() {
         nombre: nombre.trim(),
         descripcion: descripcion.trim() || undefined,
         monto_asignado: monto,
-        fecha_inicio: fechaInicio.toISOString().slice(0, 10),
+        fecha_inicio: formatearFechaSoloDia(fechaInicio),
         estado,
       });
       setNombre('');
