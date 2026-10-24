@@ -1,4 +1,5 @@
 const mockResend = jest.fn();
+const mockSignUp = jest.fn();
 
 jest.mock('@/src/servicios/supabase/cliente', () => ({
   get supabase() {
@@ -6,16 +7,17 @@ jest.mock('@/src/servicios/supabase/cliente', () => ({
   },
 }));
 
-let mockSupabaseActual: { auth: { resend: typeof mockResend } } | null = {
-  auth: { resend: mockResend },
+let mockSupabaseActual: { auth: { resend: typeof mockResend; signUp: typeof mockSignUp } } | null = {
+  auth: { resend: mockResend, signUp: mockSignUp },
 };
 
-import { reenviarVerificacion } from '@/src/servicios/supabase/autenticacion';
+import { registrarUsuario, reenviarVerificacion } from '@/src/servicios/supabase/autenticacion';
 
 describe('reenviarVerificacion', () => {
   beforeEach(() => {
     mockResend.mockReset();
-    mockSupabaseActual = { auth: { resend: mockResend } };
+    mockSignUp.mockReset();
+    mockSupabaseActual = { auth: { resend: mockResend, signUp: mockSignUp } };
   });
 
   it('reenvía el correo de verificación con el tipo y correo correctos', async () => {
@@ -42,5 +44,29 @@ describe('reenviarVerificacion', () => {
       'Supabase no está configurado'
     );
     expect(mockResend).not.toHaveBeenCalled();
+  });
+});
+
+describe('registrarUsuario', () => {
+  beforeEach(() => {
+    mockSignUp.mockReset();
+    mockSupabaseActual = { auth: { resend: mockResend, signUp: mockSignUp } };
+  });
+
+  it('envía el enlace de confirmación a la pantalla de verificación de producción', async () => {
+    mockSignUp.mockResolvedValue({ error: null });
+
+    const resultado = await registrarUsuario('Ana López', 'ana@example.com', 'UnaClaveDePrueba123!');
+
+    expect(mockSignUp).toHaveBeenCalledWith({
+      email: 'ana@example.com',
+      password: 'UnaClaveDePrueba123!',
+      options: {
+        data: { nombre: 'Ana López' },
+        emailRedirectTo:
+          'https://www.mipresupuestoapp.com/autenticacion/verificar-correo?correo=ana%40example.com',
+      },
+    });
+    expect(resultado).toEqual({ error: null });
   });
 });
