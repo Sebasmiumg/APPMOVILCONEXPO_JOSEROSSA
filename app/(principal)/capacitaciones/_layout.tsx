@@ -1,81 +1,51 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Stack } from 'expo-router';
-import { useState } from 'react';
+import { Stack, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
-import { CampoTexto } from '@/src/componentes/comunes/CampoTexto';
 import { Cargador } from '@/src/componentes/comunes/Cargador';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
-import { MensajeError } from '@/src/componentes/comunes/MensajeError';
 import { ProveedorSesionLaravel, useSesionLaravel } from '@/src/contextos/ContextoSesionLaravel';
 import { useTema } from '@/src/contextos/ContextoTema';
-import { ErrorAPILaravel } from '@/src/servicios/laravelApi/cliente';
 import { FUENTE_DISPLAY, FUENTES } from '@/src/temas/tipografia';
 
-function PantallaLogin() {
+function SolicitarSesionPrincipal({ accesoDenegado }: { accesoDenegado: boolean }) {
   const { tema } = useTema();
   const { t } = useTranslation();
-  const { iniciarSesion } = useSesionLaravel();
-
-  const [email, setEmail] = useState('ana.lopez@example.com');
-  const [password, setPassword] = useState('');
-  const [enviando, setEnviando] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const entrar = async () => {
-    if (!email.trim() || !password.trim()) {
-      setError(t('validaciones.campoRequerido'));
-      return;
-    }
-    setError(null);
-    setEnviando(true);
-    try {
-      await iniciarSesion(email.trim(), password);
-    } catch (fallo) {
-      const codigo = fallo instanceof ErrorAPILaravel ? fallo.codigo : 'respuesta';
-      setError(t(`capacitaciones.errores.${codigo}`));
-    } finally {
-      setEnviando(false);
-    }
-  };
+  const router = useRouter();
 
   return (
     <LayoutResponsive anchoMaximo={520}>
       <LinearGradient colors={['#123024', '#1F5C3F', '#4BB88A']} style={estilos.banner}>
         <Text style={estilos.insignia}>{t('capacitaciones.fuente')}</Text>
-        <Text style={estilos.titulo}>{t('capacitaciones.login.titulo')}</Text>
-        <Text style={estilos.subtitulo}>{t('capacitaciones.login.descripcion')}</Text>
-      </LinearGradient>
-
-      <View style={estilos.formulario}>
-        <CampoTexto
-          etiqueta={t('capacitaciones.login.email')}
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          keyboardType="email-address"
-        />
-        <CampoTexto
-          etiqueta={t('capacitaciones.login.password')}
-          value={password}
-          onChangeText={setPassword}
-          esContrasena
-        />
-        {error ? <MensajeError mensaje={error} /> : null}
-        <BotonPrincipal titulo={t('capacitaciones.login.entrar')} onPress={entrar} cargando={enviando} />
-        <Text style={[estilos.ayuda, { color: tema.colores.textoSecundario }]}>
-          {t('capacitaciones.login.ayuda')}
+        <Text style={estilos.titulo}>
+          {accesoDenegado ? t('capacitaciones.accesoRestringido.titulo') : t('capacitaciones.login.titulo')}
         </Text>
-      </View>
+        <Text style={estilos.subtitulo}>
+          {accesoDenegado
+            ? t('capacitaciones.accesoRestringido.descripcion')
+            : t('capacitaciones.login.requiereSesionPrincipal')}
+        </Text>
+      </LinearGradient>
+      {!accesoDenegado ? (
+        <View style={estilos.formulario}>
+          <BotonPrincipal
+            titulo={t('capacitaciones.login.abrirSesionPrincipal')}
+            onPress={() => router.push('/autenticacion/iniciar-sesion')}
+          />
+          <Text style={[estilos.ayuda, { color: tema.colores.textoSecundario }]}>
+            {t('capacitaciones.login.descripcion')}
+          </Text>
+        </View>
+      ) : null}
     </LayoutResponsive>
   );
 }
 
 function ContenidoCapacitaciones() {
   const { t } = useTranslation();
-  const { autenticado, verificando } = useSesionLaravel();
+  const { autenticado, accesoDenegado, verificando } = useSesionLaravel();
 
   if (verificando) {
     return (
@@ -85,9 +55,7 @@ function ContenidoCapacitaciones() {
     );
   }
 
-  if (!autenticado) {
-    return <PantallaLogin />;
-  }
+  if (!autenticado) return <SolicitarSesionPrincipal accesoDenegado={accesoDenegado} />;
 
   return <Stack screenOptions={{ headerShown: false }} />;
 }
