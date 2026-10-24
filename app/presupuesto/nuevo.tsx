@@ -15,6 +15,7 @@ import { MensajeError } from '@/src/componentes/comunes/MensajeError';
 import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { SIMBOLOS_MONEDA } from '@/src/constantes/finanzas';
 import { nombreCategoria } from '@/src/utilidades/nombreCategoria';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
 import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
@@ -30,10 +31,11 @@ export default function PantallaNuevoPresupuesto() {
   const { tema } = useTema();
   const { t } = useTranslation();
   const router = useRouter();
-  const { categoriasPorTipo } = useFinanzas();
+  const { categoriasPorTipo, cuentas } = useFinanzas();
   const { presupuestos, crearPresupuesto } = usePlanificacion();
 
   const categoriasGasto = categoriasPorTipo('gasto');
+  const simboloMoneda = SIMBOLOS_MONEDA[cuentas[0]?.moneda ?? 'GTQ'];
   const periodo = periodoActualISO();
   const categoriasDisponibles = categoriasGasto.filter(
     (categoria) => !presupuestos.some((p) => p.categoriaId === categoria.id && p.periodo === periodo)
@@ -104,7 +106,7 @@ export default function PantallaNuevoPresupuesto() {
               </View>
             </View>
 
-            <CampoMoneda etiqueta={t('presupuestos.limite')} valor={limite} onCambiarValor={setLimite} />
+            <CampoMoneda etiqueta={t('presupuestos.limite')} valor={limite} onCambiarValor={setLimite} simboloMoneda={simboloMoneda} />
 
             <View style={estilos.grupo}>
               <Text style={[estilos.etiquetaGrupo, { color: tema.colores.textoSecundario }]}>
