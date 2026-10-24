@@ -9,10 +9,10 @@ export function crearMovimientoAPI(datos: DatosMovimientoAPI): Promise<Movimient
   return postLaravel<MovimientoAPI>('/movimientos', datos);
 }
 
-export function actualizarMovimientoAPI(id: number, datos: Partial<DatosMovimientoAPI>): Promise<MovimientoAPI> {
+export function actualizarMovimientoAPI(id: string, datos: Partial<DatosMovimientoAPI>): Promise<MovimientoAPI> {
   return putLaravel<MovimientoAPI>(`/movimientos/${id}`, datos);
 }
 
-export function eliminarMovimientoAPI(id: number): Promise<void> {
+export function eliminarMovimientoAPI(id: string): Promise<void> {
   return eliminarLaravel(`/movimientos/${id}`);
 }

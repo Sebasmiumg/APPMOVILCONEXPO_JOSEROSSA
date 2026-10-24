@@ -13,7 +13,17 @@ export class ErrorAPILaravel extends Error {
 function obtenerURLBase(): string {
   const url = process.env.EXPO_PUBLIC_LARAVEL_API_URL?.trim();
   if (!url) throw new ErrorAPILaravel('sin_url');
-  return url.replace(/\/+$/, '');
+  try {
+    const analizada = new URL(url);
+    if (!['http:', 'https:'].includes(analizada.protocol)
+      || analizada.username || analizada.password || analizada.search || analizada.hash
+      || (process.env.NODE_ENV === 'production' && analizada.protocol !== 'https:')) {
+      throw new Error();
+    }
+    return url.replace(/\/+$/, '');
+  } catch {
+    throw new ErrorAPILaravel('sin_url');
+  }
 }
 
 async function solicitarLaravel<T>(ruta: string, opciones: RequestInit = {}): Promise<T> {
