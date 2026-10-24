@@ -11,6 +11,6 @@ trait ActuaComoUsuarioAutenticado
     {
         parent::setUp();
 
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs(User::factory()->create(['email' => 'ana.lopez@example.com']));
     }
 }
