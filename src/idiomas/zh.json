@@ -68,6 +68,7 @@
       "descripcion": "验证链接已发送至",
       "reenviar": "重新发送邮件",
       "reenviarEn": "{{segundos}} 秒后可重新发送",
+      "continuarInicioSesion": "已验证，前往登录",
       "continuarDemostracion": "以演示模式继续",
       "yaVerifique": "我已完成验证"
     },
@@ -104,6 +105,8 @@
     "finanzas": {
       "titulo": "设置你的财务信息",
       "subtitulo": "创建你的第一个账户以开始使用",
+      "cuentaNecesariaParaMovimientos": "请先创建一个财务账户，然后再记录收入、支出或转账。",
+      "crearCuentaAhora": "创建财务账户",
       "moneda": "主要货币",
       "nombreCuenta": "账户名称",
       "tipoCuenta": "账户类型",
@@ -140,6 +143,7 @@
       "ingresosDelMes": "本月收入",
       "gastosDelMes": "本月支出",
       "ahorroNeto": "净储蓄",
+      "ahorroEnMetas": "目标储蓄",
       "tasaAhorro": "储蓄率",
       "movimientosRecientes": "最近的收支记录",
       "progresoMetas": "目标进度",
@@ -251,6 +255,8 @@
       "nuevaMeta": "新建目标",
       "sinMetas": "你还没有创建任何目标",
       "fechaObjetivo": "目标日期",
+      "eliminar": "删除目标",
+      "confirmarEliminar": "删除这个目标吗？此操作无法撤销。",
       "formulario": {
         "nombre": "目标名称",
         "montoObjetivo": "目标金额",

@@ -68,6 +68,7 @@
       "descripcion": "सत्यापन लिंक भेजा गया",
       "reenviar": "ईमेल पुनः भेजें",
       "reenviarEn": "{{segundos}} सेकंड में पुनः भेजें",
+      "continuarInicioSesion": "सत्यापित कर लिया, साइन इन करें",
       "continuarDemostracion": "डेमो मोड में जारी रखें",
       "yaVerifique": "मैंने अपना ईमेल सत्यापित कर लिया है"
     },
@@ -104,6 +105,8 @@
     "finanzas": {
       "titulo": "अपनी वित्तीय जानकारी सेट करें",
       "subtitulo": "शुरू करने के लिए अपना पहला खाता बनाएं",
+      "cuentaNecesariaParaMovimientos": "आय, खर्च या ट्रांसफर दर्ज करने से पहले एक वित्तीय खाता बनाएं।",
+      "crearCuentaAhora": "वित्तीय खाता बनाएं",
       "moneda": "मुख्य मुद्रा",
       "nombreCuenta": "खाते का नाम",
       "tipoCuenta": "खाते का प्रकार",
@@ -140,6 +143,7 @@
       "ingresosDelMes": "इस महीने की आय",
       "gastosDelMes": "इस महीने का खर्च",
       "ahorroNeto": "शुद्ध बचत",
+      "ahorroEnMetas": "लक्ष्यों में बचत",
       "tasaAhorro": "बचत दर",
       "movimientosRecientes": "हाल के लेन-देन",
       "progresoMetas": "लक्ष्य प्रगति",
@@ -251,6 +255,8 @@
       "nuevaMeta": "नया लक्ष्य",
       "sinMetas": "आपने अभी तक कोई लक्ष्य नहीं बनाया है",
       "fechaObjetivo": "लक्ष्य तिथि",
+      "eliminar": "लक्ष्य हटाएं",
+      "confirmarEliminar": "यह लक्ष्य हटाएं? इसे वापस नहीं लिया जा सकता।",
       "formulario": {
         "nombre": "लक्ष्य का नाम",
         "montoObjetivo": "लक्ष्य राशि",
