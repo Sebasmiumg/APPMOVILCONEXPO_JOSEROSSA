@@ -11,12 +11,11 @@ use App\Models\PresupuestoCategoria;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Genera datos de demostración con volumen y variedad, simulando varios usuarios
- * distintos (cada uno con sus propias cuentas, movimientos y metas). Los recursos
- * de este backend no tienen aún una relación user_id formal (ver README), así que
- * la pertenencia a cada usuario se refleja en el nombre de sus cuentas.
+ * distintos (cada uno con sus propios recursos). Las categorías canónicas son globales.
  */
 class DatosDemoSeeder extends Seeder
 {
@@ -61,16 +60,21 @@ class DatosDemoSeeder extends Seeder
 
     public function run(): void
     {
+        if (app()->environment('production')) {
+            return;
+        }
+
         $categoriasGasto = Categoria::where('tipo', 'gasto')->get();
         $categoriasIngreso = Categoria::where('tipo', 'ingreso')->get();
 
         foreach (self::USUARIOS as $indice => $datosUsuario) {
             $primerNombre = explode(' ', $datosUsuario['nombre'])[0];
 
-            User::factory()->create([
+            $usuario = User::factory()->create([
                 'name' => $datosUsuario['nombre'],
                 'email' => $datosUsuario['email'],
             ]);
+            Auth::login($usuario);
 
             $cuentaEfectivo = Cuenta::create([
                 'nombre' => "Efectivo de {$primerNombre}",
@@ -98,10 +102,10 @@ class DatosDemoSeeder extends Seeder
             }
 
             $this->generarMetas($cuentaSecundaria);
+            $this->generarPresupuestosCategoria($categoriasGasto);
+            $this->generarPresupuestosCapacitacion();
         }
-
-        $this->generarPresupuestosCategoria($categoriasGasto);
-        $this->generarPresupuestosCapacitacion();
+        Auth::logout();
     }
 
     private function generarMovimientos(Cuenta $cuenta, Collection $categoriasGasto, Collection $categoriasIngreso): void
