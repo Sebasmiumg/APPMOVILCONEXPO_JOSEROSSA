@@ -15,6 +15,7 @@ import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { useTema } from '@/src/contextos/ContextoTema';
 import { calcularSaldoCuenta } from '@/src/utilidades/calculosFinancieros';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
+import { volverOIrA } from '@/src/utilidades/navegacionSegura';
 import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaCuentas() {
@@ -38,6 +39,15 @@ export default function PantallaCuentas() {
                     tint={tema.modo === 'oscuro' ? 'dark' : 'light'}
                     style={estilos.encabezado}
                   >
+                    <Pressable
+                      onPress={() => volverOIrA(router, '/inicio')}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('comun.atras')}
+                      hitSlop={8}
+                      style={[estilos.botonAtras, { borderColor: tema.colores.borde }]}
+                    >
+                      <Icono nombre="arrow-back" tamano={20} color={tema.colores.textoPrincipal} />
+                    </Pressable>
                     <Text style={[estilos.titulo, { color: tema.colores.textoPrincipal }]}>
                       {t('pantallas.perfil.cuentas')}
                     </Text>
@@ -96,6 +106,16 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 22,
     fontFamily: FUENTE_DISPLAY.negrita,
+    flex: 1,
+    marginLeft: 12,
+  },
+  botonAtras: {
+    width: 40,
+    height: 40,
+    borderRadius: 4,
+    borderWidth: StyleSheet.hairlineWidth,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   botonAgregar: {
     width: 40,
