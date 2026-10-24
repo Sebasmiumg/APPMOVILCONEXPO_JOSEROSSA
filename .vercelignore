@@ -1,0 +1,10 @@
+android/
+ios/
+artifacts/
+node_modules/
+.expo/
+.git/
+.env
+.env.*
+!.env.example
+laravel-api/vendor/
