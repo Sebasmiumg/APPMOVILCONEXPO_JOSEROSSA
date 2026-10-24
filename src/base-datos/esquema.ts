@@ -1,4 +1,4 @@
-export const VERSION_ESQUEMA_ACTUAL = 3;
+export const VERSION_ESQUEMA_ACTUAL = 4;
 
 // Migración inicial. Los tipos monetarios usan REAL (los montos se manejan en centavos
 // evitados a propósito: para el alcance local-first de esta fase se redondean a 2 decimales
