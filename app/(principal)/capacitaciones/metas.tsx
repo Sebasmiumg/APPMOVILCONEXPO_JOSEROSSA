@@ -24,12 +24,13 @@ import { crearAporteMeta, eliminarAporteMeta } from '@/src/servicios/laravelApi/
 import { ErrorAPILaravel } from '@/src/servicios/laravelApi/cliente';
 import { crearMetaAPI, eliminarMetaAPI, listarMetasAPI } from '@/src/servicios/laravelApi/metas';
 import { FUENTE_DISPLAY, FUENTES } from '@/src/temas/tipografia';
+import { formatearFechaSoloDia } from '@/src/utilidades/fechas';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
 import type { MetaAPI } from '@/src/tipos/laravelApi';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
 
 function fechaISOHoy(): string {
-  return new Date().toISOString().slice(0, 10);
+  return formatearFechaSoloDia(new Date());
 }
 
 interface PropiedadesTarjetaMeta {
@@ -126,7 +127,7 @@ export default function PantallaMetasAPI() {
   const [fechaObjetivo, setFechaObjetivo] = useState<Date | null>(null);
   const [errorFormulario, setErrorFormulario] = useState<string | undefined>();
   const [enviando, setEnviando] = useState(false);
-  const [idAEliminar, setIdAEliminar] = useState<number | null>(null);
+  const [idAEliminar, setIdAEliminar] = useState<string | null>(null);
 
   const cargar = useCallback(async () => {
     setCargando(true);
@@ -165,7 +166,7 @@ export default function PantallaMetasAPI() {
       await crearMetaAPI({
         nombre: nombre.trim(),
         monto_objetivo: monto,
-        fecha_objetivo: fechaObjetivo ? fechaObjetivo.toISOString().slice(0, 10) : undefined,
+        fecha_objetivo: fechaObjetivo ? formatearFechaSoloDia(fechaObjetivo) : undefined,
       });
       setNombre('');
       setMontoObjetivo('');

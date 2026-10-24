@@ -42,7 +42,7 @@ export default function PantallaCuentasAPI() {
   const [saldoInicial, setSaldoInicial] = useState('');
   const [errorFormulario, setErrorFormulario] = useState<string | undefined>();
   const [enviando, setEnviando] = useState(false);
-  const [idAEliminar, setIdAEliminar] = useState<number | null>(null);
+  const [idAEliminar, setIdAEliminar] = useState<string | null>(null);
 
   const cargar = useCallback(async () => {
     setCargando(true);
@@ -122,7 +122,7 @@ export default function PantallaCuentasAPI() {
           etiqueta={t('capacitaciones.cuentas.tipo')}
           value={tipo}
           onChangeText={setTipo}
-          placeholder="efectivo, cuenta_ahorro, tarjeta_credito…"
+          placeholder="efectivo, cuentaBancaria, cuentaAhorro, tarjetaCredito, negocio, billeteraDigital"
         />
 
         <View style={estilos.grupo}>
