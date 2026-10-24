@@ -1,68 +1,41 @@
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, type ReactNode, useCallback, useContext, useMemo } from 'react';
 
-import { cerrarSesionLaravel, iniciarSesionLaravel } from '@/src/servicios/laravelApi/autenticacion';
-import { alExpirarSesionLaravel, obtenerTokenLaravel } from '@/src/servicios/laravelApi/sesion';
-import { obtenerLaravel } from '@/src/servicios/laravelApi/cliente';
+import { useSesion } from '@/src/contextos/ContextoSesion';
+import { cerrarSesionSupabase } from '@/src/servicios/supabase/autenticacion';
 import type { UsuarioAPI } from '@/src/tipos/laravelApi';
+import { tieneAccesoCapacitaciones } from '@/src/utilidades/accesoCapacitaciones';
 
 interface ContextoSesionLaravelValor {
   autenticado: boolean;
+  accesoDenegado: boolean;
   verificando: boolean;
   usuario: UsuarioAPI | null;
-  iniciarSesion: (email: string, password: string) => Promise<void>;
   cerrarSesion: () => Promise<void>;
 }
 
 const ContextoSesionLaravel = createContext<ContextoSesionLaravelValor | undefined>(undefined);
 
 export function ProveedorSesionLaravel({ children }: { children: ReactNode }) {
-  const [verificando, setVerificando] = useState(true);
-  const [usuario, setUsuario] = useState<UsuarioAPI | null>(null);
-
-  useEffect(() => {
-    let activo = true;
-    (async () => {
-      const token = await obtenerTokenLaravel();
-      if (!token) {
-        if (activo) setVerificando(false);
-        return;
-      }
-      try {
-        const usuarioActual = await obtenerLaravel<UsuarioAPI>('/user');
-        if (activo) setUsuario(usuarioActual);
-      } catch {
-        // Token inválido o expirado: el cliente ya lo elimina en un 401.
-      } finally {
-        if (activo) setVerificando(false);
-      }
-    })();
-    return () => {
-      activo = false;
+  const { usuario: usuarioSupabase, cargando: verificando } = useSesion();
+  const metadata = usuarioSupabase?.user_metadata as Record<string, unknown> | undefined;
+  const accesoDenegado = Boolean(usuarioSupabase && !tieneAccesoCapacitaciones(usuarioSupabase.email));
+  const usuario = useMemo<UsuarioAPI | null>(() => {
+    if (!usuarioSupabase?.email || !tieneAccesoCapacitaciones(usuarioSupabase.email)) return null;
+    const nombre = metadata?.nombre ?? metadata?.name ?? metadata?.full_name;
+    return {
+      id: usuarioSupabase.id,
+      name: typeof nombre === 'string' && nombre.trim() ? nombre : usuarioSupabase.email.split('@')[0],
+      email: usuarioSupabase.email,
     };
-  }, []);
-
-  useEffect(() => alExpirarSesionLaravel(() => setUsuario(null)), []);
-
-  const iniciarSesion = useCallback(async (email: string, password: string) => {
-    const usuarioActual = await iniciarSesionLaravel(email, password);
-    setUsuario(usuarioActual);
-  }, []);
+  }, [usuarioSupabase, metadata]);
 
   const cerrarSesion = useCallback(async () => {
-    try {
-      await cerrarSesionLaravel();
-    } catch {
-      // El token local ya se borra en el finally de cerrarSesionLaravel; un
-      // fallo al avisarle al backend (p. ej. sin red) no debe dejar a la UI
-      // mostrando la sección como si la sesión siguiera activa.
-    } finally {
-      setUsuario(null);
-    }
+    await cerrarSesionSupabase();
   }, []);
 
   const valor = useMemo<ContextoSesionLaravelValor>(
-    () => ({ autenticado: usuario !== null, verificando, usuario, iniciarSesion, cerrarSesion }),
-    [usuario, verificando, iniciarSesion, cerrarSesion]
+    () => ({ autenticado: usuario !== null, accesoDenegado, verificando, usuario, cerrarSesion }),
+    [usuario, accesoDenegado, verificando, cerrarSesion]
   );
 
   return <ContextoSesionLaravel.Provider value={valor}>{children}</ContextoSesionLaravel.Provider>;
