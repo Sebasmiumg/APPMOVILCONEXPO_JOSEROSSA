@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\BelongsToAuthenticatedUser;
 
 class PresupuestoCapacitacion extends Model
 {
     use HasFactory;
+    use BelongsToAuthenticatedUser;
 
     protected $table = 'presupuestos_capacitacion';
 
