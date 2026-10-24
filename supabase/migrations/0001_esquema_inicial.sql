@@ -32,7 +32,7 @@ create policy "Los usuarios insertan su propio perfil" on public.perfiles
 create or replace function public.manejar_usuario_nuevo()
 returns trigger
 language plpgsql
-security definer set search_path = public
+security definer set search_path = ''
 as $$
 begin
   insert into public.perfiles (id, correo, nombre)
@@ -120,8 +120,40 @@ create table if not exists public.movimientos (
 );
 
 alter table public.movimientos enable row level security;
+create or replace function public.movimiento_relacionado_es_propio(p_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select exists (
+    select 1 from public.movimientos m
+    where m.id = p_id and m.usuario_id = auth.uid()
+  );
+$$;
+revoke all on function public.movimiento_relacionado_es_propio(uuid) from public, anon;
+grant execute on function public.movimiento_relacionado_es_propio(uuid) to authenticated;
+
 create policy "Movimientos propios" on public.movimientos for all
-  using (auth.uid() = usuario_id) with check (auth.uid() = usuario_id);
+  using (auth.uid() = usuario_id) with check (
+    auth.uid() = usuario_id
+    and exists (
+      select 1 from public.cuentas c
+      where c.id = movimientos.cuenta_id and c.usuario_id = auth.uid()
+    )
+    and (movimientos.cuenta_destino_id is null or exists (
+      select 1 from public.cuentas c
+      where c.id = movimientos.cuenta_destino_id and c.usuario_id = auth.uid()
+    ))
+    and (movimientos.movimiento_relacionado_id is null
+      or public.movimiento_relacionado_es_propio(movimientos.movimiento_relacionado_id))
+    and (movimientos.categoria_id is null or exists (
+      select 1 from public.categorias c
+      where c.id = movimientos.categoria_id
+        and (c.usuario_id is null or c.usuario_id = auth.uid())
+    ))
+  );
 
 create index if not exists idx_movimientos_usuario on public.movimientos(usuario_id);
 create index if not exists idx_movimientos_cuenta on public.movimientos(cuenta_id);
@@ -143,7 +175,14 @@ create table if not exists public.presupuestos (
 
 alter table public.presupuestos enable row level security;
 create policy "Presupuestos propios" on public.presupuestos for all
-  using (auth.uid() = usuario_id) with check (auth.uid() = usuario_id);
+  using (auth.uid() = usuario_id) with check (
+    auth.uid() = usuario_id
+    and exists (
+      select 1 from public.categorias c
+      where c.id = presupuestos.categoria_id
+        and (c.usuario_id is null or c.usuario_id = auth.uid())
+    )
+  );
 
 create index if not exists idx_presupuestos_usuario on public.presupuestos(usuario_id);
 create index if not exists idx_presupuestos_periodo on public.presupuestos(periodo);
@@ -165,7 +204,13 @@ create table if not exists public.metas (
 
 alter table public.metas enable row level security;
 create policy "Metas propias" on public.metas for all
-  using (auth.uid() = usuario_id) with check (auth.uid() = usuario_id);
+  using (auth.uid() = usuario_id) with check (
+    auth.uid() = usuario_id
+    and (metas.cuenta_id is null or exists (
+      select 1 from public.cuentas c
+      where c.id = metas.cuenta_id and c.usuario_id = auth.uid()
+    ))
+  );
 
 create index if not exists idx_metas_usuario on public.metas(usuario_id);
 
