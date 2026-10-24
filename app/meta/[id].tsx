@@ -14,6 +14,7 @@ import { CampoTexto } from '@/src/componentes/comunes/CampoTexto';
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
+import { MensajeError } from '@/src/componentes/comunes/MensajeError';
 import { TarjetaCristal } from '@/src/componentes/comunes/TarjetaCristal';
 import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
@@ -21,7 +22,9 @@ import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { useTema } from '@/src/contextos/ContextoTema';
 import type { AporteMeta } from '@/src/tipos/meta';
 import { calcularAhorroSugeridoMeta, calcularProgresoMeta } from '@/src/utilidades/calculosPlanificacion';
+import { analizarFechaSoloDia } from '@/src/utilidades/fechas';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
+import { SIMBOLOS_MONEDA } from '@/src/constantes/finanzas';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
 import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
@@ -32,7 +35,7 @@ export default function PantallaDetalleMeta() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { cuentas } = useFinanzas();
-  const { metas, agregarAporteMeta, obtenerAportesMeta, archivarMeta } = usePlanificacion();
+  const { metas, agregarAporteMeta, obtenerAportesMeta, actualizarProgresoMeta, archivarMeta } = usePlanificacion();
 
   const meta = metas.find((m) => m.id === id);
   const cuenta = cuentas.find((c) => c.id === meta?.cuentaId);
@@ -42,6 +45,10 @@ export default function PantallaDetalleMeta() {
   const [montoAporte, setMontoAporte] = useState('');
   const [notaAporte, setNotaAporte] = useState('');
   const [enviando, setEnviando] = useState(false);
+  const [errorAporte, setErrorAporte] = useState<string | undefined>();
+  const [editandoProgreso, setEditandoProgreso] = useState(false);
+  const [montoProgreso, setMontoProgreso] = useState('');
+  const [guardandoProgreso, setGuardandoProgreso] = useState(false);
 
   useEffect(() => {
     if (meta) {
@@ -63,8 +70,12 @@ export default function PantallaDetalleMeta() {
 
   const guardarAporte = async () => {
     const montoNumerico = Number.parseFloat(montoAporte);
-    if (!montoNumerico || montoNumerico <= 0) return;
+    if (!montoNumerico || montoNumerico <= 0) {
+      setErrorAporte(t('validaciones.montoInvalido'));
+      return;
+    }
     if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setErrorAporte(undefined);
     setEnviando(true);
     try {
       await agregarAporteMeta(meta.id, montoNumerico, notaAporte.trim() || null);
@@ -80,6 +91,24 @@ export default function PantallaDetalleMeta() {
   const archivar = async () => {
     await archivarMeta(meta.id);
     volverOIrA(router, '/(principal)/metas');
+  };
+
+  const comenzarEdicionProgreso = () => {
+    setMontoProgreso(String(meta.montoActual));
+    setEditandoProgreso(true);
+  };
+
+  const guardarProgreso = async () => {
+    const montoNumerico = Number.parseFloat(montoProgreso);
+    if (Number.isNaN(montoNumerico) || montoNumerico < 0) return;
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setGuardandoProgreso(true);
+    try {
+      await actualizarProgresoMeta(meta.id, montoNumerico);
+      setEditandoProgreso(false);
+    } finally {
+      setGuardandoProgreso(false);
+    }
   };
 
   return (
@@ -105,15 +134,38 @@ export default function PantallaDetalleMeta() {
             progreso={progreso.porcentaje / 100}
             color={completada ? tema.colores.ingreso : tema.colores.violeta}
           />
-          <View style={estilos.filaMontos}>
-            <Text style={[estilos.montoActual, { color: tema.colores.textoPrincipal }]}>
-              {formatearMoneda(meta.montoActual, moneda, idioma)}
-            </Text>
-            <Text style={[estilos.montoObjetivo, { color: tema.colores.textoSecundario }]}>
-              {' '}
-              / {formatearMoneda(meta.montoObjetivo, moneda, idioma)}
-            </Text>
-          </View>
+          {editandoProgreso ? (
+            <View style={estilos.grupoEdicionProgreso}>
+              <CampoMoneda etiqueta={t('pantallas.metas.detalle.montoActual')} valor={montoProgreso} onCambiarValor={setMontoProgreso} simboloMoneda={SIMBOLOS_MONEDA[moneda]} />
+              <View style={estilos.filaBotonesProgreso}>
+                <View style={estilos.botonProgreso}>
+                  <BotonSecundario titulo={t('comun.cancelar')} onPress={() => setEditandoProgreso(false)} />
+                </View>
+                <View style={estilos.botonProgreso}>
+                  <BotonPrincipal titulo={t('comun.guardar')} onPress={guardarProgreso} cargando={guardandoProgreso} />
+                </View>
+              </View>
+            </View>
+          ) : (
+            <View style={estilos.filaMontos}>
+              <Text style={[estilos.montoActual, { color: tema.colores.textoPrincipal }]}>
+                {formatearMoneda(meta.montoActual, moneda, idioma)}
+              </Text>
+              <Text style={[estilos.montoObjetivo, { color: tema.colores.textoSecundario }]}>
+                {' '}
+                / {formatearMoneda(meta.montoObjetivo, moneda, idioma)}
+              </Text>
+              <Pressable
+                onPress={comenzarEdicionProgreso}
+                hitSlop={8}
+                accessibilityRole="button"
+                accessibilityLabel={t('pantallas.metas.detalle.editarProgreso')}
+                style={estilos.botonEditarProgreso}
+              >
+                <Icono nombre="edit" tamano={16} color={tema.colores.textoSecundario} />
+              </Pressable>
+            </View>
+          )}
 
           {completada ? (
             <Text style={[estilos.completada, { color: tema.colores.ingreso }]}>
@@ -123,7 +175,7 @@ export default function PantallaDetalleMeta() {
             <>
               {meta.fechaObjetivo ? (
                 <Text style={[estilos.fecha, { color: tema.colores.textoSecundario }]}>
-                  {t('pantallas.metas.fechaObjetivo')}: {new Date(meta.fechaObjetivo).toLocaleDateString()}
+                  {t('pantallas.metas.fechaObjetivo')}: {analizarFechaSoloDia(meta.fechaObjetivo).toLocaleDateString()}
                 </Text>
               ) : null}
               {sugerido.porSemana !== null ? (
@@ -144,12 +196,14 @@ export default function PantallaDetalleMeta() {
               etiqueta={t('pantallas.metas.detalle.montoAporte')}
               valor={montoAporte}
               onCambiarValor={setMontoAporte}
+              simboloMoneda={SIMBOLOS_MONEDA[moneda]}
             />
             <CampoTexto
               etiqueta={t('pantallas.metas.detalle.notaOpcional')}
               value={notaAporte}
               onChangeText={setNotaAporte}
             />
+            {errorAporte ? <MensajeError mensaje={errorAporte} /> : null}
             <BotonPrincipal
               titulo={t('pantallas.metas.detalle.guardarAporte')}
               onPress={guardarAporte}
@@ -212,8 +266,23 @@ const estilos = StyleSheet.create({
   },
   filaMontos: {
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: 'center',
     marginTop: 10,
+  },
+  botonEditarProgreso: {
+    marginLeft: 8,
+    padding: 4,
+  },
+  grupoEdicionProgreso: {
+    marginTop: 10,
+    gap: 10,
+  },
+  filaBotonesProgreso: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  botonProgreso: {
+    flex: 1,
   },
   montoActual: {
     fontSize: 20,
