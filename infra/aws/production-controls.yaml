@@ -1,0 +1,142 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Auditing and edge protection for MiPresupuesto production.
+
+Parameters:
+  CloudFrontDistributionId:
+    Type: String
+    Default: EQQ9O85TG8Z2V
+  CloudTrailBucketName:
+    Type: String
+    Default: mipresupuesto-cloudtrail-499388132434-us-east-1
+
+Resources:
+  CloudTrailBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref CloudTrailBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpireCloudTrailLogsAfterOneYear
+            Status: Enabled
+            ExpirationInDays: 365
+            NoncurrentVersionExpirationInDays: 365
+      Tags:
+        - Key: Project
+          Value: mipresupuesto
+        - Key: Purpose
+          Value: cloudtrail-logs
+
+  CloudTrailBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref CloudTrailBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: CloudTrailAclCheck
+            Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: s3:GetBucketAcl
+            Resource: !Sub arn:${AWS::Partition}:s3:::${CloudTrailBucket}
+            Condition:
+              StringEquals:
+                aws:SourceArn: !Sub arn:${AWS::Partition}:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/mipresupuesto-management-trail
+          - Sid: CloudTrailWrite
+            Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: s3:PutObject
+            Resource: !Sub arn:${AWS::Partition}:s3:::${CloudTrailBucket}/AWSLogs/${AWS::AccountId}/*
+            Condition:
+              StringEquals:
+                s3:x-amz-acl: bucket-owner-full-control
+                aws:SourceArn: !Sub arn:${AWS::Partition}:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/mipresupuesto-management-trail
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: s3:*
+            Resource:
+              - !Sub arn:${AWS::Partition}:s3:::${CloudTrailBucket}
+              - !Sub arn:${AWS::Partition}:s3:::${CloudTrailBucket}/*
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+
+  ManagementTrail:
+    Type: AWS::CloudTrail::Trail
+    DependsOn: CloudTrailBucketPolicy
+    Properties:
+      TrailName: mipresupuesto-management-trail
+      S3BucketName: !Ref CloudTrailBucket
+      IsLogging: true
+      IsMultiRegionTrail: true
+      IncludeGlobalServiceEvents: true
+      EnableLogFileValidation: true
+      EventSelectors:
+        - IncludeManagementEvents: true
+          ReadWriteType: All
+
+  ApiProtection:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      Name: mipresupuesto-api-protection
+      Scope: CLOUDFRONT
+      Description: Observe common web attacks and rate-limit abusive clients.
+      DefaultAction:
+        Allow: {}
+      VisibilityConfig:
+        CloudWatchMetricsEnabled: true
+        MetricName: mipresupuesto-api-protection
+        SampledRequestsEnabled: true
+      Rules:
+        - Name: AWSCommonRulesObserveOnly
+          Priority: 0
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesCommonRuleSet
+          OverrideAction:
+            Count: {}
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: AWSCommonRulesObserveOnly
+            SampledRequestsEnabled: true
+        - Name: RateLimitPerAddress
+          Priority: 1
+          Statement:
+            RateBasedStatement:
+              Limit: 1000
+              AggregateKeyType: IP
+              EvaluationWindowSec: 300
+          Action:
+            Block: {}
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: RateLimitPerAddress
+            SampledRequestsEnabled: true
+      Tags:
+        - Key: Project
+          Value: mipresupuesto
+
+Outputs:
+  CloudTrailBucket:
+    Value: !Ref CloudTrailBucket
+  TrailArn:
+    Value: !GetAtt ManagementTrail.Arn
+  WebAclArn:
+    Value: !GetAtt ApiProtection.Arn
+  DistributionId:
+    Value: !Ref CloudFrontDistributionId
