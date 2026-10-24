@@ -16,12 +16,8 @@ import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
 import { useTema } from '@/src/contextos/ContextoTema';
-import { consultarAsistenteIA } from '@/src/servicios/asistente/asistenteIA';
 import { detectarIntencion } from '@/src/servicios/asistente/detectorIntencion';
 import { generarRespuesta } from '@/src/servicios/asistente/generadorRespuestas';
-import { calcularResumenPeriodo, obtenerRangoMesActual } from '@/src/utilidades/calculosFinancieros';
-import { calcularCategoriaConMayorGasto } from '@/src/utilidades/calculosAnalisis';
-import { nombreCategoria } from '@/src/utilidades/nombreCategoria';
 import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 interface MensajeChat {
@@ -66,56 +62,23 @@ export default function PantallaAsistente() {
     setTexto('');
     setEscribiendo(true);
 
-    // Nivel 1: la pregunta se responde localmente, sin enviar datos financieros a
-    // ningún servicio externo. Solo si el motor local no reconoce el patrón se
-    // intenta el Nivel 2 (Edge Function con IA) enviando únicamente un resumen
-    // agregado — nunca el detalle de movimientos. Si esa función no está
-    // desplegada o configurada, se cae de vuelta al mensaje local con honestidad.
-    (async () => {
-      const intencion = detectarIntencion(limpio, idioma);
-      const resultado = generarRespuesta(intencion, { movimientos, categorias, cuentas, metas, moneda, idioma }, t);
-      let respuesta = resultado.texto;
-      let datosUtilizados: string | undefined = resultado.datosUtilizados;
+    // La pregunta se responde siempre localmente, sin enviar datos financieros
+    // a ningún servicio externo (no hay Nivel 2 con IA: se decidió no pagar por
+    // esa API).
+    const intencion = detectarIntencion(limpio, idioma);
+    const resultado = generarRespuesta(intencion, { movimientos, categorias, cuentas, metas, moneda, idioma }, t);
 
-      if (intencion.tipo === 'noEntendido') {
-        const rango = obtenerRangoMesActual();
-        const resumenMes = calcularResumenPeriodo(
-          movimientos.filter((m) => m.fechaMovimiento >= rango.inicio && m.fechaMovimiento <= rango.fin)
-        );
-        const mayorGasto = calcularCategoriaConMayorGasto(movimientos, categorias);
-        const respuestaIA = await consultarAsistenteIA(
-          limpio,
-          {
-            periodo: rango.inicio.slice(0, 7),
-            ingresos: resumenMes.ingresos,
-            gastos: resumenMes.gastos,
-            ahorroNeto: resumenMes.ahorroNeto,
-            tasaAhorro: resumenMes.tasaAhorro,
-            moneda,
-            categoriaMayorGasto: mayorGasto ? nombreCategoria(mayorGasto.categoria, t) : undefined,
-          },
-          idioma
-        );
-        if (respuestaIA) {
-          respuesta = respuestaIA;
-          datosUtilizados = t('pantallas.asistente.datosUtilizadosMesActual');
-        } else {
-          datosUtilizados = undefined;
-        }
-      }
-
-      setMensajes((previos) => [
-        ...previos,
-        {
-          id: `a-${Date.now()}`,
-          contenido: respuesta,
-          esUsuario: false,
-          hora: horaActual(),
-          datosUtilizados,
-        },
-      ]);
-      setEscribiendo(false);
-    })();
+    setMensajes((previos) => [
+      ...previos,
+      {
+        id: `a-${Date.now()}`,
+        contenido: resultado.texto,
+        esUsuario: false,
+        hora: horaActual(),
+        datosUtilizados: resultado.datosUtilizados,
+      },
+    ]);
+    setEscribiendo(false);
   };
 
   return (
