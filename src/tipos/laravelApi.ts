@@ -1,5 +1,5 @@
 export interface UsuarioAPI {
-  id: number;
+  id: number | string;
   name: string;
   email: string;
 }
@@ -9,10 +9,10 @@ export interface RespuestaLoginAPI {
   token: string;
 }
 
-export type TipoMovimientoAPI = 'ingreso' | 'gasto';
+export type TipoMovimientoAPI = 'ingreso' | 'gasto' | 'transferencia' | 'ajuste';
 
 export interface MovimientoAPI {
-  id: number;
+  id: string;
   descripcion: string;
   monto: string;
   tipo: TipoMovimientoAPI;
@@ -27,9 +27,14 @@ export interface DatosMovimientoAPI {
   descripcion: string;
   monto: number;
   tipo: TipoMovimientoAPI;
-  categoria: string;
-  cuenta: string;
+  categoria?: string;
+  categoria_id?: string | null;
+  cuenta?: string;
+  cuenta_id?: string;
   fecha: string;
+  fecha_movimiento?: string;
+  notas?: string | null;
+  recurrente?: boolean;
 }
 
 export interface ReporteMensualAPI {
@@ -65,7 +70,7 @@ export interface DatosPresupuestoCapacitacionAPI {
 }
 
 export interface CuentaAPI {
-  id: number;
+  id: string;
   nombre: string;
   tipo: string;
   moneda: string;
@@ -90,7 +95,7 @@ export interface DatosCuentaAPI {
 export type TipoCategoriaAPI = 'ingreso' | 'gasto';
 
 export interface CategoriaAPI {
-  id: number;
+  id: string;
   tipo: TipoCategoriaAPI;
   nombre: string;
   icono: string;
@@ -109,8 +114,8 @@ export interface DatosCategoriaAPI {
 }
 
 export interface AporteMetaAPI {
-  id: number;
-  meta_id: number;
+  id: string;
+  meta_id: string;
   monto: string;
   fecha: string;
   nota: string | null;
@@ -127,8 +132,8 @@ export interface DatosAporteMetaAPI {
 export type EstadoMetaAPI = 'activa' | 'completada' | 'archivada';
 
 export interface MetaAPI {
-  id: number;
-  cuenta_id: number | null;
+  id: string;
+  cuenta_id: string | null;
   nombre: string;
   monto_objetivo: string;
   monto_actual: string;
@@ -140,7 +145,7 @@ export interface MetaAPI {
 }
 
 export interface DatosMetaAPI {
-  cuenta_id?: number;
+  cuenta_id?: string | null;
   nombre: string;
   monto_objetivo: number;
   monto_actual?: number;
@@ -149,8 +154,9 @@ export interface DatosMetaAPI {
 }
 
 export interface PresupuestoCategoriaAPI {
-  id: number;
-  categoria_id: number;
+  id: string;
+  categoria_id: string;
+  categoria?: string;
   periodo: string;
   limite: string;
   porcentaje_alerta: number;
@@ -159,7 +165,7 @@ export interface PresupuestoCategoriaAPI {
 }
 
 export interface DatosPresupuestoCategoriaAPI {
-  categoria_id: number;
+  categoria_id: string;
   periodo: string;
   limite: number;
   porcentaje_alerta?: number;

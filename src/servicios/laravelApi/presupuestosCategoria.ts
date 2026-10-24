@@ -12,12 +12,12 @@ export function crearPresupuestoCategoriaAPI(
 }
 
 export function actualizarPresupuestoCategoriaAPI(
-  id: number,
+  id: string,
   datos: Partial<DatosPresupuestoCategoriaAPI>
 ): Promise<PresupuestoCategoriaAPI> {
   return putLaravel<PresupuestoCategoriaAPI>(`/presupuestos-categoria/${id}`, datos);
 }
 
-export function eliminarPresupuestoCategoriaAPI(id: number): Promise<void> {
+export function eliminarPresupuestoCategoriaAPI(id: string): Promise<void> {
   return eliminarLaravel(`/presupuestos-categoria/${id}`);
 }

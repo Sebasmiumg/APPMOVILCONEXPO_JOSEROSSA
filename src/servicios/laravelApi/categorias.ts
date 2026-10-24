@@ -9,10 +9,10 @@ export function crearCategoriaAPI(datos: DatosCategoriaAPI): Promise<CategoriaAP
   return postLaravel<CategoriaAPI>('/categorias', datos);
 }
 
-export function actualizarCategoriaAPI(id: number, datos: Partial<DatosCategoriaAPI>): Promise<CategoriaAPI> {
+export function actualizarCategoriaAPI(id: string, datos: Partial<DatosCategoriaAPI>): Promise<CategoriaAPI> {
   return putLaravel<CategoriaAPI>(`/categorias/${id}`, datos);
 }
 
-export function eliminarCategoriaAPI(id: number): Promise<void> {
+export function eliminarCategoriaAPI(id: string): Promise<void> {
   return eliminarLaravel(`/categorias/${id}`);
 }
