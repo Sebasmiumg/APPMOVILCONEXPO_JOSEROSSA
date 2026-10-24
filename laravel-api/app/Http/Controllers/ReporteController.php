@@ -2,49 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movimiento;
+use App\Support\SupabaseFinance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ReporteController extends Controller
 {
-    /**
-     * Reporte de movimientos de caja de efectivo agrupados por mes.
-     *
-     * Acepta opcionalmente ?anio=YYYY para filtrar un año específico.
-     */
-    public function movimientosPorMes(Request $request)
+    public function movimientosPorMes(Request $request, SupabaseFinance $store)
     {
-        $validated = $request->validate([
-            'anio' => ['sometimes', 'integer', 'digits:4'],
-        ]);
+        $validated = $request->validate(['anio' => ['sometimes', 'integer', 'digits:4']]);
+        $movimientos = $store->rows('movimientos', ['usuario_id' => 'eq.'.$store->userId()]);
+        $agrupados = [];
 
-        $consulta = Movimiento::query()
-            ->selectRaw("strftime('%Y-%m', fecha) as periodo")
-            ->selectRaw("SUM(CASE WHEN tipo = 'ingreso' THEN monto ELSE 0 END) as total_ingresos")
-            ->selectRaw("SUM(CASE WHEN tipo = 'gasto' THEN monto ELSE 0 END) as total_gastos")
-            ->selectRaw('COUNT(*) as cantidad_movimientos');
-
-        if (isset($validated['anio'])) {
-            $consulta->whereRaw("strftime('%Y', fecha) = ?", [(string) $validated['anio']]);
+        foreach ($movimientos as $movimiento) {
+            if (! in_array($movimiento['tipo'] ?? null, ['ingreso', 'gasto'], true)) {
+                continue;
+            }
+            $periodo = Carbon::parse($movimiento['fecha_movimiento'])->format('Y-m');
+            if (isset($validated['anio']) && ! str_starts_with($periodo, (string) $validated['anio'].'-')) {
+                continue;
+            }
+            $agrupados[$periodo] ??= ['ingresos' => 0.0, 'gastos' => 0.0, 'cantidad' => 0];
+            $tipo = $movimiento['tipo'] === 'ingreso' ? 'ingresos' : 'gastos';
+            $agrupados[$periodo][$tipo] += (float) $movimiento['monto'];
+            $agrupados[$periodo]['cantidad']++;
         }
 
-        $filas = $consulta
-            ->groupBy('periodo')
-            ->orderByDesc('periodo')
-            ->get();
-
-        $reporte = $filas->map(function ($fila) {
-            $ingresos = round((float) $fila->total_ingresos, 2);
-            $gastos = round((float) $fila->total_gastos, 2);
-
-            return [
-                'periodo' => $fila->periodo,
+        krsort($agrupados);
+        $reporte = [];
+        foreach ($agrupados as $periodo => $totales) {
+            $ingresos = round($totales['ingresos'], 2);
+            $gastos = round($totales['gastos'], 2);
+            $reporte[] = [
+                'periodo' => $periodo,
                 'total_ingresos' => $ingresos,
                 'total_gastos' => $gastos,
                 'saldo_neto' => round($ingresos - $gastos, 2),
-                'cantidad_movimientos' => (int) $fila->cantidad_movimientos,
+                'cantidad_movimientos' => $totales['cantidad'],
             ];
-        });
+        }
 
         return response()->json($reporte);
     }
