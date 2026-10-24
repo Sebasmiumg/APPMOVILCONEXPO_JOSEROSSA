@@ -6,6 +6,11 @@ node_modules/
 # Expo
 .expo/
 dist/
+/artifacts/*.apk
+/artifacts/*.idsig
+/artifacts/*.pptx
+/artifacts/*.keystore
+/artifacts/.signing-password
 web-build/
 expo-env.d.ts
 
@@ -48,3 +53,8 @@ app-example
 # generated native folders
 /ios
 /android
+.vercel
+.env*
+
+# Supabase CLI project metadata/cache (may contain project identifiers)
+/supabase/.temp/
