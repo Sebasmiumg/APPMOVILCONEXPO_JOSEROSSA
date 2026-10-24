@@ -16,12 +16,14 @@ import Svg, { Circle, Defs, LinearGradient as SvgLinearGradient, Stop } from 're
 import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { configuracionInicialEstaCompleta } from '@/src/almacenamiento/configuracionFinancieraInicial';
+import { useSesion } from '@/src/contextos/ContextoSesion';
 import { useTema } from '@/src/contextos/ContextoTema';
 
 const DURACION_MINIMA_MS = 1100;
 
 export default function PantallaSplash() {
   const { tema } = useTema();
+  const { configurado, usuario, cargando: sesionCargando } = useSesion();
   const { t } = useTranslation();
   const router = useRouter();
   const rotacion = useSharedValue(0);
@@ -31,6 +33,7 @@ export default function PantallaSplash() {
   }, [rotacion]);
 
   useEffect(() => {
+    if (sesionCargando) return;
     let activo = true;
     const inicio = Date.now();
 
@@ -40,14 +43,19 @@ export default function PantallaSplash() {
       const espera = Math.max(0, DURACION_MINIMA_MS - transcurrido);
       setTimeout(() => {
         if (!activo) return;
-        router.replace(completo ? '/(principal)/inicio' : '/bienvenida');
+        const destino = configurado && !usuario
+          ? '/bienvenida'
+          : completo
+            ? '/(principal)/inicio'
+            : '/bienvenida';
+        router.replace(destino);
       }, espera);
     })();
 
     return () => {
       activo = false;
     };
-  }, [router]);
+  }, [router, configurado, usuario, sesionCargando]);
 
   const estiloAnimado = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotacion.value}deg` }],

@@ -3,10 +3,14 @@ import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
-import { guardarConfiguracionFinancieraInicial } from '@/src/almacenamiento/configuracionFinancieraInicial';
+import {
+  guardarConfiguracionFinancieraInicial,
+  marcarConfiguracionInicialCompleta,
+  omitirConfiguracionFinancieraInicial,
+} from '@/src/almacenamiento/configuracionFinancieraInicial';
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { CampoMoneda } from '@/src/componentes/comunes/CampoMoneda';
 import { CampoTexto } from '@/src/componentes/comunes/CampoTexto';
@@ -24,6 +28,7 @@ import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
 import { useTema } from '@/src/contextos/ContextoTema';
 import type { CodigoMoneda, TipoCuenta } from '@/src/tipos/finanzas';
+import { formatearFechaSoloDia } from '@/src/utilidades/fechas';
 import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
 export default function PantallaConfiguracionFinanciera() {
@@ -64,7 +69,7 @@ export default function PantallaConfiguracionFinanciera() {
       tipoCuenta,
       saldoInicial: saldoInicialNumerico,
       metaAhorro: metaAhorroNumerica,
-      fechaObjetivo: fechaObjetivo ? fechaObjetivo.toISOString().slice(0, 10) : undefined,
+      fechaObjetivo: fechaObjetivo ? formatearFechaSoloDia(fechaObjetivo) : undefined,
     });
 
     const cuenta = await crearCuenta({
@@ -79,11 +84,19 @@ export default function PantallaConfiguracionFinanciera() {
         nombre: t('configuracionInicial.finanzas.metaInicialNombre'),
         montoObjetivo: metaAhorroNumerica,
         cuentaId: cuenta.id,
-        fechaObjetivo: fechaObjetivo ? fechaObjetivo.toISOString().slice(0, 10) : null,
+        fechaObjetivo: fechaObjetivo ? formatearFechaSoloDia(fechaObjetivo) : null,
       });
     }
 
+    await marcarConfiguracionInicialCompleta();
+
     setEnviando(false);
+    router.replace('/(principal)/inicio');
+  };
+
+  const saltar = async () => {
+    if (Platform.OS !== 'web') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    await omitirConfiguracionFinancieraInicial();
     router.replace('/(principal)/inicio');
   };
 
@@ -172,6 +185,12 @@ export default function PantallaConfiguracionFinanciera() {
           onPress={finalizar}
           cargando={enviando}
         />
+
+        <Pressable onPress={saltar} disabled={enviando} hitSlop={8} accessibilityRole="button">
+          <Text style={[estilos.saltar, { color: tema.colores.textoSecundario }]}>
+            {t('configuracionInicial.finanzas.saltar')}
+          </Text>
+        </Pressable>
       </View>
     </LayoutResponsive>
   );
@@ -207,5 +226,11 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
+  },
+  saltar: {
+    fontSize: 14,
+    fontFamily: FUENTES.medio,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
   },
 });
