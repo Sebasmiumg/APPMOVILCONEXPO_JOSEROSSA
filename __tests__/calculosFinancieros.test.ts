@@ -59,6 +59,23 @@ describe('calcularSaldoCuenta', () => {
     const movimientos = [crearMovimiento({ cuentaId: 'cuenta-2', tipo: 'gasto', monto: 900 })];
     expect(calcularSaldoCuenta(cuenta, movimientos)).toBe(1000);
   });
+
+  it('conserva centavos tras acumular varios movimientos pequeños', () => {
+    const cuenta = crearCuenta({ saldoInicial: 0 });
+    const movimientos = [
+      crearMovimiento({ id: 'a', tipo: 'ingreso', monto: 0.1 }),
+      crearMovimiento({ id: 'b', tipo: 'ingreso', monto: 0.2 }),
+      crearMovimiento({ id: 'c', tipo: 'gasto', monto: 0.1 }),
+    ];
+
+    expect(calcularSaldoCuenta(cuenta, movimientos)).toBe(0.2);
+  });
+
+  it('permite que el saldo quede negativo cuando los gastos exceden los fondos', () => {
+    const cuenta = crearCuenta({ saldoInicial: 50 });
+
+    expect(calcularSaldoCuenta(cuenta, [crearMovimiento({ monto: 75 })])).toBe(-25);
+  });
 });
 
 describe('transferencias', () => {
@@ -114,5 +131,20 @@ describe('filtrarMovimientosPorPeriodo', () => {
     const { inicio, fin } = obtenerRangoMesActual(new Date('2026-07-15T12:00:00.000Z'));
     const filtrados = filtrarMovimientosPorPeriodo(movimientos, inicio, fin);
     expect(filtrados.map((m) => m.id)).toEqual(['b']);
+  });
+
+  it('incluye ambos extremos exactos del periodo y excluye el milisegundo exterior', () => {
+    const { inicio, fin } = obtenerRangoMesActual(new Date('2026-07-15T12:00:00.000Z'));
+    const movimientos = [
+      crearMovimiento({ id: 'antes', fechaMovimiento: new Date(Date.parse(inicio) - 1).toISOString() }),
+      crearMovimiento({ id: 'inicio', fechaMovimiento: inicio }),
+      crearMovimiento({ id: 'fin', fechaMovimiento: fin }),
+      crearMovimiento({ id: 'despues', fechaMovimiento: new Date(Date.parse(fin) + 1).toISOString() }),
+    ];
+
+    expect(filtrarMovimientosPorPeriodo(movimientos, inicio, fin).map((movimiento) => movimiento.id)).toEqual([
+      'inicio',
+      'fin',
+    ]);
   });
 });
