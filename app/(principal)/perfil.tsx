@@ -30,7 +30,8 @@ import {
 import { cerrarSesionSupabase } from '@/src/servicios/supabase/autenticacion';
 import { supabaseEstaConfigurado } from '@/src/servicios/supabase/cliente';
 import { eliminarDatosUsuarioEnNube } from '@/src/servicios/supabase/eliminarDatos';
-import { contarPendientes, sincronizarCambiosPendientes } from '@/src/servicios/sincronizacion/sincronizador';
+import { reabrirFallidos } from '@/src/base-datos/repositorios/colaSincronizacionRepositorio';
+import { contarFallidos, contarPendientes, sincronizarCambiosPendientes } from '@/src/servicios/sincronizacion/sincronizador';
 import { clasificarCorreo } from '@/src/utilidades/clasificarCorreo';
 
 export default function PantallaPerfil() {
@@ -48,6 +49,7 @@ export default function PantallaPerfil() {
   const [correo, setCorreo] = useState<string | null>(null);
   const [modalActivo, setModalActivo] = useState<'cerrarSesion' | 'eliminarCuenta' | null>(null);
   const [pendientesSincronizacion, setPendientesSincronizacion] = useState(0);
+  const [fallidosSincronizacion, setFallidosSincronizacion] = useState(0);
   const [sincronizando, setSincronizando] = useState(false);
   const [exportando, setExportando] = useState(false);
   const [bloqueoDisponible, setBloqueoDisponible] = useState(false);
@@ -56,15 +58,27 @@ export default function PantallaPerfil() {
 
   useFocusEffect(
     useCallback(() => {
-      obtenerPerfilDemo().then((perfil) => {
-        setNombre(perfil.nombre);
-        setCorreo(perfil.correo);
-      });
+      // Con sesión real de Supabase, el nombre/correo salen de ahí — la
+      // preferencia local "demo" (nombreUsuarioDemo/correoUsuarioDemo) es de
+      // antes de que existiera backend y solo sirve como respaldo cuando no
+      // hay Supabase configurado (modo sin nube). Antes de este fix, un
+      // usuario con sesión real siempre veía el perfil en blanco, porque esa
+      // preferencia local nunca se llega a escribir en ese flujo.
+      if (usuario) {
+        setNombre(typeof usuario.user_metadata?.nombre === 'string' ? usuario.user_metadata.nombre : null);
+        setCorreo(usuario.email ?? null);
+      } else {
+        obtenerPerfilDemo().then((perfil) => {
+          setNombre(perfil.nombre);
+          setCorreo(perfil.correo);
+        });
+      }
       contarPendientes(db).then(setPendientesSincronizacion);
+      contarFallidos(db).then(setFallidosSincronizacion);
       bloqueoBiometricoDisponible().then(setBloqueoDisponible);
       bloqueoBiometricoActivado().then(setBloqueoActivo);
       permisoNotificacionesConcedido().then(setNotificacionesConcedidas);
-    }, [db])
+    }, [db, usuario])
   );
 
   const alternarBloqueoBiometrico = async () => {
@@ -90,8 +104,10 @@ export default function PantallaPerfil() {
   const sincronizarAhora = async () => {
     if (!usuario) return;
     setSincronizando(true);
+    await reabrirFallidos(db);
     await sincronizarCambiosPendientes(db, usuario.id);
     setPendientesSincronizacion(await contarPendientes(db));
+    setFallidosSincronizacion(await contarFallidos(db));
     setSincronizando(false);
   };
 
@@ -108,7 +124,7 @@ export default function PantallaPerfil() {
     if (Platform.OS !== 'web') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     if (supabaseConfigurado && sesion && usuario) {
       if (modalActivo === 'eliminarCuenta') {
-        await eliminarDatosUsuarioEnNube(usuario.id);
+        await eliminarDatosUsuarioEnNube();
       }
       await cerrarSesionSupabase();
     }
@@ -179,6 +195,11 @@ export default function PantallaPerfil() {
                 ? t('pantallas.perfil.sincronizacion.alDia')
                 : t('pantallas.perfil.sincronizacion.pendientes', { cantidad: pendientesSincronizacion })}
           </Text>
+          {supabaseConfigurado && fallidosSincronizacion > 0 ? (
+            <Text style={{ color: tema.colores.gasto, fontSize: 13, marginTop: 4 }}>
+              {t('pantallas.perfil.sincronizacion.fallidos', { cantidad: fallidosSincronizacion })}
+            </Text>
+          ) : null}
           {supabaseConfigurado && sesion && pendientesSincronizacion > 0 ? (
             <Pressable
               onPress={sincronizarAhora}
