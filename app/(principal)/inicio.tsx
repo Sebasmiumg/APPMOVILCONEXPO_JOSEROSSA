@@ -12,6 +12,7 @@ import { ChipCategoria } from '@/src/componentes/comunes/ChipCategoria';
 import { EntradaEscalonada } from '@/src/componentes/comunes/EntradaEscalonada';
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
+import { ModalConfirmacion } from '@/src/componentes/comunes/ModalConfirmacion';
 import { TarjetaMetrica } from '@/src/componentes/comunes/TarjetaMetrica';
 import { TarjetaSaldo } from '@/src/componentes/comunes/TarjetaSaldo';
 import { GraficaCategorias } from '@/src/componentes/graficas/GraficaCategorias';
@@ -21,6 +22,7 @@ import { TarjetaMovimiento } from '@/src/componentes/movimientos/TarjetaMovimien
 import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { useIdioma } from '@/src/contextos/ContextoIdioma';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
+import { useSesion } from '@/src/contextos/ContextoSesion';
 import { useTema } from '@/src/contextos/ContextoTema';
 import { calcularGastosPorCategoria } from '@/src/utilidades/calculosAnalisis';
 import {
@@ -40,14 +42,23 @@ export default function PantallaInicio() {
   const { idioma } = useIdioma();
   const router = useRouter();
   const { cuentas, categorias, movimientos } = useFinanzas();
-  const { metas } = usePlanificacion();
+  const { metas, archivarMeta } = usePlanificacion();
+  const { usuario } = useSesion();
   const [nombre, setNombre] = useState<string | null>(null);
   const [cuentaSeleccionadaId, setCuentaSeleccionadaId] = useState<string | null>(null);
+  const [metaAEliminar, setMetaAEliminar] = useState<string | null>(null);
 
   useFocusEffect(
     useCallback(() => {
-      obtenerPerfilDemo().then((perfil) => setNombre(perfil.nombre));
-    }, [])
+      // Ver el mismo comentario en app/(principal)/perfil.tsx: con sesión
+      // real de Supabase, el nombre sale de ahí, no de la preferencia local
+      // "demo" (que solo se llena en el dispositivo donde se hizo el registro).
+      if (usuario) {
+        setNombre(typeof usuario.user_metadata?.nombre === 'string' ? usuario.user_metadata.nombre : null);
+      } else {
+        obtenerPerfilDemo().then((perfil) => setNombre(perfil.nombre));
+      }
+    }, [usuario])
   );
 
   const cuentaSeleccionada = cuentas.find((c) => c.id === cuentaSeleccionadaId) ?? null;
@@ -62,6 +73,14 @@ export default function PantallaInicio() {
   }, [movimientos, cuentaSeleccionada, inicio, fin]);
 
   const resumen = useMemo(() => calcularResumenPeriodo(movimientosDelPeriodo), [movimientosDelPeriodo]);
+
+  const ahorroEnMetas = useMemo(
+    () =>
+      metas
+        .filter((meta) => !cuentaSeleccionada || meta.cuentaId === cuentaSeleccionada.id)
+        .reduce((total, meta) => total + meta.montoActual, 0),
+    [metas, cuentaSeleccionada]
+  );
 
   const saldoMostrado = cuentaSeleccionada
     ? calcularSaldoCuenta(cuentaSeleccionada, movimientos)
@@ -128,6 +147,11 @@ export default function PantallaInicio() {
           saldo={formatearMoneda(saldoMostrado, moneda, idioma)}
         />
 
+        <BotonSecundario
+          titulo={t('configuracionInicial.finanzas.crearCuentaAhora')}
+          onPress={() => router.push('/cuenta/nueva')}
+        />
+
         <View style={estilos.filaMetricas}>
           <TarjetaMetrica
             etiqueta={t('pantallas.inicio.ingresosDelMes')}
@@ -149,6 +173,13 @@ export default function PantallaInicio() {
             icono="savings"
           />
           <TarjetaMetrica etiqueta={t('pantallas.inicio.tasaAhorro')} valor={`${resumen.tasaAhorro}%`} icono="percent" />
+        </View>
+        <View style={estilos.filaMetricas}>
+          <TarjetaMetrica
+            etiqueta={t('pantallas.inicio.ahorroEnMetas')}
+            valor={formatearMoneda(ahorroEnMetas, moneda, idioma)}
+            icono="flag"
+          />
         </View>
 
         {resumen.ingresos > 0 || resumen.gastos > 0 ? (
@@ -205,12 +236,17 @@ export default function PantallaInicio() {
                       meta={meta}
                       moneda={cuentaMeta?.moneda ?? moneda}
                       onPress={() => router.push(`/meta/${meta.id}`)}
+                      onEliminar={() => setMetaAEliminar(meta.id)}
                     />
                   </EntradaEscalonada>
                 );
               })}
             </View>
           )}
+          <BotonSecundario
+            titulo={t('pantallas.metas.nuevaMeta')}
+            onPress={() => router.push('/meta/nueva')}
+          />
         </View>
 
         <BotonSecundario
@@ -218,6 +254,20 @@ export default function PantallaInicio() {
           onPress={verReporte}
         />
       </View>
+
+      <ModalConfirmacion
+        visible={metaAEliminar !== null}
+        titulo={t('pantallas.metas.eliminar')}
+        descripcion={t('pantallas.metas.confirmarEliminar')}
+        textoConfirmar={t('pantallas.metas.eliminar')}
+        textoCancelar={t('comun.cancelar')}
+        destructivo
+        onConfirmar={() => {
+          if (metaAEliminar) archivarMeta(metaAEliminar);
+          setMetaAEliminar(null);
+        }}
+        onCancelar={() => setMetaAEliminar(null)}
+      />
     </LayoutResponsive>
   );
 }
