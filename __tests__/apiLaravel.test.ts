@@ -40,6 +40,16 @@ describe('API de Laravel (MiPresupuesto)', () => {
     await expect(listarMovimientosAPI()).rejects.toMatchObject({ codigo: 'sin_url' });
   });
 
+  it('rechaza endpoints HTTP cuando la app está compilada para producción', async () => {
+    process.env.NODE_ENV = 'production';
+    process.env.EXPO_PUBLIC_LARAVEL_API_URL = 'http://api.ejemplo.com/api';
+    global.fetch = jest.fn();
+
+    await expect(listarMovimientosAPI()).rejects.toMatchObject({ codigo: 'sin_url' });
+    expect(global.fetch).not.toHaveBeenCalled();
+    process.env.NODE_ENV = 'test';
+  });
+
   it('lista movimientos con GET a la URL configurada', async () => {
     const movimientos = [{ id: 1, descripcion: 'Venta', monto: '100.00', tipo: 'ingreso' }];
     global.fetch = jest.fn().mockResolvedValue({ ok: true, status: 200, json: async () => movimientos });
