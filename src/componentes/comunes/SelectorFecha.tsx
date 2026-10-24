@@ -5,16 +5,13 @@ import { FUENTES } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { formatearFechaSoloDia } from '@/src/utilidades/fechas';
 
 interface PropiedadesSelectorFecha {
   etiqueta: string;
   valor: Date | null;
   onCambiar: (fecha: Date) => void;
   fechaMinima?: Date;
-}
-
-function formatearFechaISO(fecha: Date): string {
-  return fecha.toISOString().slice(0, 10);
 }
 
 export function SelectorFecha({ etiqueta, valor, onCambiar, fechaMinima }: PropiedadesSelectorFecha) {
@@ -39,7 +36,7 @@ export function SelectorFecha({ etiqueta, valor, onCambiar, fechaMinima }: Propi
         ]}
       >
         <Text style={{ color: valor ? tema.colores.textoPrincipal : tema.colores.textoSecundario, fontSize: 16 }}>
-          {valor ? formatearFechaISO(valor) : 'AAAA-MM-DD'}
+          {valor ? formatearFechaSoloDia(valor) : 'AAAA-MM-DD'}
         </Text>
         <Icono nombre="calendar-today" tamano={18} color={tema.colores.textoSecundario} />
       </Pressable>
