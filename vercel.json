@@ -1,0 +1,25 @@
+{
+  "buildCommand": "npx expo export --platform web && cp 'dist/meta/[id].html' dist/meta/_id.html && cp 'dist/movimiento/[id].html' dist/movimiento/_id.html && cp 'dist/reporte/[periodo].html' dist/reporte/_periodo.html",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/meta/:id", "destination": "/meta/_id" },
+    { "source": "/movimiento/:id", "destination": "/movimiento/_id" },
+    { "source": "/reporte/:periodo", "destination": "/reporte/_periodo" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" },
+        { "key": "X-Permitted-Cross-Domain-Policies", "value": "none" }
+      ]
+    }
+  ]
+}

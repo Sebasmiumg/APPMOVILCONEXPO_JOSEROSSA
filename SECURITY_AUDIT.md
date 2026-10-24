@@ -1,6 +1,6 @@
 # Revisión de seguridad OWASP
 
-Fecha de última comprobación: 2026-10-16  
+Fecha de última comprobación: 2026-10-16
 Alcance: revisión estática del cliente Expo, API Laravel y migraciones/Edge Functions de Supabase, más comprobaciones puntuales del despliegue AWS/Vercel y consultas de solo lectura en Supabase realizadas el 2026-10-16. No es una prueba de penetración completa de producción.
 
 ## Escaneo preventivo antes de publicar cambios en GitHub (2026-10-23)
