@@ -36,7 +36,7 @@ export default function PantallaCategoriasAPI() {
   const [color, setColor] = useState('#7C4DFF');
   const [errorFormulario, setErrorFormulario] = useState<string | undefined>();
   const [enviando, setEnviando] = useState(false);
-  const [idAEliminar, setIdAEliminar] = useState<number | null>(null);
+  const [idAEliminar, setIdAEliminar] = useState<string | null>(null);
 
   const cargar = useCallback(async () => {
     setCargando(true);
