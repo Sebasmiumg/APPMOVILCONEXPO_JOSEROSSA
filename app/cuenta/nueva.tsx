@@ -1,6 +1,6 @@
 import { BlurView } from 'expo-blur';
 import * as Haptics from 'expo-haptics';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -24,6 +24,7 @@ export default function PantallaNuevaCuenta() {
   const { tema } = useTema();
   const { t } = useTranslation();
   const router = useRouter();
+  const { desde } = useLocalSearchParams<{ desde?: string }>();
   const { crearCuenta } = useFinanzas();
 
   const [nombre, setNombre] = useState('');
@@ -48,7 +49,11 @@ export default function PantallaNuevaCuenta() {
         moneda,
         saldoInicial: saldoInicial ? Number.parseFloat(saldoInicial) : 0,
       });
-      volverOIrA(router, '/cuenta');
+      if (desde === 'movimiento' && router.canGoBack()) {
+        router.back();
+      } else {
+        volverOIrA(router, '/cuenta');
+      }
     } finally {
       setEnviando(false);
     }

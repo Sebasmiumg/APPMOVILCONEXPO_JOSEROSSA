@@ -3,7 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
@@ -35,7 +35,7 @@ export default function PantallaNuevoMovimiento() {
   const { t } = useTranslation();
   const router = useRouter();
   const { cuentaId: cuentaIdInicial } = useLocalSearchParams<{ cuentaId?: string }>();
-  const { cuentas, movimientos, categoriasPorTipo, crearMovimiento, crearTransferencia, crearCategoriaPersonalizada } = useFinanzas();
+  const { cuentas, movimientos, categoriasPorTipo, crearMovimiento, crearTransferencia, crearCategoriaPersonalizada, cargando } = useFinanzas();
   const { presupuestos } = usePlanificacion();
 
   const [tipo, setTipo] = useState<TipoMovimientoFormulario>('gasto');
@@ -61,14 +61,31 @@ export default function PantallaNuevoMovimiento() {
     [categoriaTipo, categoriasPorTipo]
   );
 
+  if (cargando) {
+    return (
+      <LayoutResponsive>
+        <View style={estilos.estadoCarga} accessibilityRole="progressbar">
+          <ActivityIndicator color={tema.colores.violeta} />
+          <Text style={[estilos.textoCarga, { color: tema.colores.textoSecundario }]}>{t('comun.cargando')}</Text>
+        </View>
+      </LayoutResponsive>
+    );
+  }
+
   if (cuentas.length === 0) {
     return (
       <LayoutResponsive>
-        <EstadoVacio
-          titulo={t('configuracionInicial.finanzas.titulo')}
-          descripcion={t('comun.proximamente')}
-          icono="account-balance-wallet"
-        />
+        <View style={estilos.sinCuenta}>
+          <EstadoVacio
+            titulo={t('configuracionInicial.finanzas.titulo')}
+            descripcion={t('configuracionInicial.finanzas.cuentaNecesariaParaMovimientos')}
+            icono="account-balance-wallet"
+          />
+          <BotonPrincipal
+            titulo={t('configuracionInicial.finanzas.crearCuentaAhora')}
+            onPress={() => router.push({ pathname: '/cuenta/nueva', params: { desde: 'movimiento' } })}
+          />
+        </View>
       </LayoutResponsive>
     );
   }
@@ -309,6 +326,20 @@ const estilos = StyleSheet.create({
     gap: 16,
     paddingTop: 20,
     paddingBottom: 32,
+  },
+  sinCuenta: {
+    gap: 8,
+  },
+  estadoCarga: {
+    flex: 1,
+    minHeight: 240,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  textoCarga: {
+    fontSize: 14,
+    fontFamily: FUENTES.medio,
   },
   encabezado: {
     flexDirection: 'row',
