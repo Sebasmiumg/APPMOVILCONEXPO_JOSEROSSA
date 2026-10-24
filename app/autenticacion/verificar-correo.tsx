@@ -13,6 +13,8 @@ import { Icono } from '@/src/componentes/comunes/Icono';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
 import { MensajeError } from '@/src/componentes/comunes/MensajeError';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { useSesion } from '@/src/contextos/ContextoSesion';
+import { configuracionInicialEstaCompleta } from '@/src/almacenamiento/configuracionFinancieraInicial';
 import { reenviarVerificacion } from '@/src/servicios/supabase/autenticacion';
 import { supabaseEstaConfigurado } from '@/src/servicios/supabase/cliente';
 import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
@@ -21,11 +23,27 @@ const SEGUNDOS_ESPERA_REENVIO = 30;
 
 export default function PantallaVerificarCorreo() {
   const { tema } = useTema();
+  const { usuario } = useSesion();
   const { t } = useTranslation();
   const router = useRouter();
   const { correo } = useLocalSearchParams<{ correo?: string }>();
   const [segundosRestantes, setSegundosRestantes] = useState(SEGUNDOS_ESPERA_REENVIO);
   const [errorReenvio, setErrorReenvio] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (!usuario?.email_confirmed_at && !usuario?.confirmed_at) return;
+
+    let activo = true;
+    void (async () => {
+      const configuracionCompleta = await configuracionInicialEstaCompleta();
+      if (!activo) return;
+      router.replace(configuracionCompleta ? '/(principal)/inicio' : '/configuracion-inicial/idioma');
+    })();
+
+    return () => {
+      activo = false;
+    };
+  }, [router, usuario]);
 
   useEffect(() => {
     if (segundosRestantes <= 0) return;
@@ -85,14 +103,23 @@ export default function PantallaVerificarCorreo() {
           deshabilitado={segundosRestantes > 0}
         />
 
+        {supabaseEstaConfigurado() ? (
+          <BotonPrincipal
+            titulo={t('autenticacion.verificarCorreo.continuarInicioSesion')}
+            onPress={() => router.replace('/autenticacion/iniciar-sesion')}
+          />
+        ) : null}
+
         {errorReenvio ? <MensajeError mensaje={errorReenvio} /> : null}
 
         <View style={estilos.separador} />
 
-        <BotonPrincipal
-          titulo={t('autenticacion.verificarCorreo.continuarDemostracion')}
-          onPress={continuarComoDemostracion}
-        />
+        {!supabaseEstaConfigurado() ? (
+          <BotonPrincipal
+            titulo={t('autenticacion.verificarCorreo.continuarDemostracion')}
+            onPress={continuarComoDemostracion}
+          />
+        ) : null}
       </View>
     </LayoutResponsive>
   );

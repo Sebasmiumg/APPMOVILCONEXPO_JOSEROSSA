@@ -12,40 +12,55 @@ import {
   Fraunces_700Bold,
   useFonts as useFuentesDisplay,
 } from '@expo-google-fonts/fraunces';
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider as ThemeProviderNavegacion } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider as ThemeProviderNavegacion, useRouter, useSegments } from 'expo-router';
 import Head from 'expo-router/head';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StatusBar } from 'expo-status-bar';
 import { SQLiteProvider } from 'expo-sqlite';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import 'react-native-reanimated';
 
 import { NOMBRE_BASE_DATOS, migrarBaseDatos } from '@/src/base-datos/cliente';
 import { PantallaBloqueo } from '@/src/componentes/seguridad/PantallaBloqueo';
+import { ProveedorSQLiteWeb } from '@/src/componentes/comunes/ProveedorSQLiteWeb';
 import { ProveedorFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { ProveedorIdioma, useIdioma } from '@/src/contextos/ContextoIdioma';
 import { ProveedorPlanificacion } from '@/src/contextos/ContextoPlanificacion';
-import { ProveedorSesion } from '@/src/contextos/ContextoSesion';
+import { ProveedorSesion, useSesion } from '@/src/contextos/ContextoSesion';
 import { ProveedorTema, useTema } from '@/src/contextos/ContextoTema';
 import '@/src/idiomas/configuracionIdioma';
 import { autenticarConBiometria, bloqueoBiometricoActivado } from '@/src/servicios/seguridad/bloqueoBiometrico';
 
 export default function RootLayout() {
+  if (Platform.OS === 'web') {
+    return (
+      <ProveedorSQLiteWeb databaseName={NOMBRE_BASE_DATOS} onInit={migrarBaseDatos}>
+        <ProveedoresAplicacion />
+      </ProveedorSQLiteWeb>
+    );
+  }
+
   return (
     <SQLiteProvider databaseName={NOMBRE_BASE_DATOS} onInit={migrarBaseDatos}>
-      <ProveedorTema>
-        <ProveedorIdioma>
-          <ProveedorSesion>
-            <ProveedorFinanzas>
-              <ProveedorPlanificacion>
-                <NavegacionRaiz />
-              </ProveedorPlanificacion>
-            </ProveedorFinanzas>
-          </ProveedorSesion>
-        </ProveedorIdioma>
-      </ProveedorTema>
+      <ProveedoresAplicacion />
     </SQLiteProvider>
+  );
+}
+
+function ProveedoresAplicacion() {
+  return (
+    <ProveedorTema>
+      <ProveedorIdioma>
+        <ProveedorSesion>
+          <ProveedorFinanzas>
+            <ProveedorPlanificacion>
+              <NavegacionRaiz />
+            </ProveedorPlanificacion>
+          </ProveedorFinanzas>
+        </ProveedorSesion>
+      </ProveedorIdioma>
+    </ProveedorTema>
   );
 }
 
@@ -53,6 +68,12 @@ function NavegacionRaiz() {
   const { tema, listo: temaListo } = useTema();
   const { listo: idiomaListo, esRTL } = useIdioma();
   const { t } = useTranslation();
+  const { configurado, usuario, cargando: sesionCargando } = useSesion();
+  const segmentos = useSegments();
+  const router = useRouter();
+  const primeraRuta = segmentos[0];
+  const rutaPublica = !primeraRuta || ['index', 'bienvenida', 'autenticacion', 'privacidad'].includes(primeraRuta);
+  const rutaPrivadaBloqueada = configurado && (sesionCargando || !usuario) && !rutaPublica;
   const [fuentesListas] = useFonts({
     IBMPlexSans_400Regular,
     IBMPlexSans_500Medium,
@@ -80,6 +101,12 @@ function NavegacionRaiz() {
   }, [t]);
 
   useEffect(() => {
+    if (configurado && !sesionCargando && !usuario && !rutaPublica) {
+      router.replace('/bienvenida');
+    }
+  }, [configurado, sesionCargando, usuario, segmentos, router]);
+
+  useEffect(() => {
     bloqueoBiometricoActivado().then((activado) => {
       setRequiereBloqueo(activado);
       if (activado) {
@@ -97,6 +124,10 @@ function NavegacionRaiz() {
 
   if (requiereBloqueo && !desbloqueado) {
     return <PantallaBloqueo error={errorDesbloqueo} onDesbloquear={intentarDesbloquear} />;
+  }
+
+  if (rutaPrivadaBloqueada) {
+    return <View style={{ flex: 1, backgroundColor: '#070A18' }} />;
   }
 
   return (
