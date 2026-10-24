@@ -9,6 +9,7 @@ export interface DestinoNavegacion {
     | 'metas'
     | 'reinversion'
     | 'capacitaciones'
+    | 'frameworks'
     | 'perfil';
   ruta: string;
   icono: NombreIcono;
@@ -58,6 +59,13 @@ export const DESTINOS_NAVEGACION: readonly DestinoNavegacion[] = [
     ruta: 'capacitaciones',
     icono: 'school',
     claveTraduccion: 'navegacion.capacitaciones',
+    enDockMovil: true,
+  },
+  {
+    clave: 'frameworks',
+    ruta: 'frameworks',
+    icono: 'widgets',
+    claveTraduccion: 'navegacion.frameworks',
     enDockMovil: true,
   },
   { clave: 'perfil', ruta: 'perfil', icono: 'person', claveTraduccion: 'navegacion.perfil', enDockMovil: true },

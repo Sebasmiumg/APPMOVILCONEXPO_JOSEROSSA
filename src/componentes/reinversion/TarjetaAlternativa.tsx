@@ -7,6 +7,7 @@ import { TarjetaCristal } from '@/src/componentes/comunes/TarjetaCristal';
 import { TarjetaFuente } from '@/src/componentes/comunes/TarjetaFuente';
 import { useTema } from '@/src/contextos/ContextoTema';
 import type { AlternativaReinversion } from '@/src/tipos/reinversion';
+import { analizarFechaSoloDia } from '@/src/utilidades/fechas';
 
 interface PropiedadesTarjetaAlternativa {
   alternativa: AlternativaReinversion;
@@ -73,7 +74,7 @@ export function TarjetaAlternativa({ alternativa }: PropiedadesTarjetaAlternativ
         <View style={estilos.filaTransparenciaItem}>
           <Icono nombre="event" tamano={14} color={tema.colores.textoSecundario} />
           <Text style={[estilos.textoTransparencia, { color: tema.colores.textoSecundario }]}>
-            {t('reinversion.camposFicha.fechaConsulta')}: {new Date(alternativa.fechaConsulta).toLocaleDateString()}
+            {t('reinversion.camposFicha.fechaConsulta')}: {analizarFechaSoloDia(alternativa.fechaConsulta).toLocaleDateString()}
           </Text>
         </View>
       </View>
