@@ -2,74 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cuenta;
+use App\Support\SupabaseFinance;
+use App\Support\SupabaseResourceMapper;
+use App\Support\SupabaseRowNotFound;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CuentaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(SupabaseFinance $store)
     {
-        return Cuenta::latest()->get();
+        $rows = $store->rows('cuentas', [
+            'usuario_id' => 'eq.'.$store->userId(),
+            'activa' => 'eq.true',
+            'order' => 'creada_en.desc',
+        ]);
+
+        return response()->json(array_map(SupabaseResourceMapper::cuenta(...), $rows));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, SupabaseFinance $store)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'nombre' => ['required', 'string', 'max:255'],
-            'tipo' => ['required', 'string', 'max:100'],
+            'tipo' => ['required', Rule::in(['efectivo', 'cuentaBancaria', 'cuentaAhorro', 'tarjetaCredito', 'negocio', 'billeteraDigital'])],
             'moneda' => ['sometimes', 'string', 'size:3'],
             'saldo_inicial' => ['sometimes', 'numeric'],
             'color' => ['nullable', 'string', 'max:20'],
             'icono' => ['nullable', 'string', 'max:100'],
             'activa' => ['sometimes', 'boolean'],
         ]);
+        $data['usuario_id'] = $store->userId();
 
-        $cuenta = Cuenta::create($validated);
+        $row = $store->create('cuentas', $data);
 
-        return response()->json($cuenta, 201);
+        return response()->json(SupabaseResourceMapper::cuenta($row), 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Cuenta $cuenta)
+    public function show(string $cuenta, SupabaseFinance $store)
     {
-        return $cuenta;
+        $row = $store->first('cuentas', [
+            'id' => 'eq.'.$cuenta,
+            'usuario_id' => 'eq.'.$store->userId(),
+        ]);
+
+        return $row ? response()->json(SupabaseResourceMapper::cuenta($row)) : response()->json(['message' => 'Not found.'], 404);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cuenta $cuenta)
+    public function update(Request $request, string $cuenta, SupabaseFinance $store)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'nombre' => ['sometimes', 'required', 'string', 'max:255'],
-            'tipo' => ['sometimes', 'required', 'string', 'max:100'],
-            'moneda' => ['sometimes', 'string', 'size:3'],
+            'tipo' => ['sometimes', 'required', Rule::in(['efectivo', 'cuentaBancaria', 'cuentaAhorro', 'tarjetaCredito', 'negocio', 'billeteraDigital'])],
+            'moneda' => ['sometimes', 'required', 'string', 'size:3'],
             'saldo_inicial' => ['sometimes', 'numeric'],
             'color' => ['nullable', 'string', 'max:20'],
             'icono' => ['nullable', 'string', 'max:100'],
             'activa' => ['sometimes', 'boolean'],
         ]);
 
-        $cuenta->update($validated);
-
-        return response()->json($cuenta);
+        try {
+            return response()->json(SupabaseResourceMapper::cuenta($store->update('cuentas', $cuenta, $data)));
+        } catch (SupabaseRowNotFound) {
+            return response()->json(['message' => 'Not found.'], 404);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cuenta $cuenta)
+    public function destroy(string $cuenta, SupabaseFinance $store)
     {
-        $cuenta->delete();
+        try {
+            $store->update('cuentas', $cuenta, ['activa' => false, 'actualizado_en' => now()->toIso8601String()]);
+        } catch (SupabaseRowNotFound) {
+            return response()->json(['message' => 'Not found.'], 404);
+        }
 
-        return response()->json(null, 204);
+        return response()->noContent();
     }
 }

@@ -2,70 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
+use App\Support\SupabaseFinance;
+use App\Support\SupabaseResourceMapper;
+use App\Support\SupabaseRowNotFound;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(SupabaseFinance $store)
     {
-        return Categoria::orderBy('nombre')->get();
+        $rows = $store->rows('categorias', [
+            'or' => '(usuario_id.is.null,usuario_id.eq.'.$store->userId().')',
+            'activa' => 'eq.true',
+            'order' => 'tipo.asc,nombre_clave_traduccion.asc,nombre_personalizado.asc',
+        ]);
+
+        return response()->json(array_map(SupabaseResourceMapper::categoria(...), $rows));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, SupabaseFinance $store)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'tipo' => ['required', 'in:ingreso,gasto'],
             'nombre' => ['required', 'string', 'max:100'],
             'icono' => ['required', 'string', 'max:100'],
             'color' => ['required', 'string', 'max:20'],
             'activa' => ['sometimes', 'boolean'],
         ]);
+        $row = $store->create('categorias', [
+            'usuario_id' => $store->userId(),
+            'tipo' => $data['tipo'],
+            'nombre_clave_traduccion' => null,
+            'nombre_personalizado' => $data['nombre'],
+            'icono' => $data['icono'],
+            'color' => $data['color'],
+            'activa' => $data['activa'] ?? true,
+        ]);
 
-        $categoria = Categoria::create($validated);
-
-        return response()->json($categoria, 201);
+        return response()->json(SupabaseResourceMapper::categoria($row), 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Categoria $categoria)
+    public function show(string $categoria, SupabaseFinance $store)
     {
-        return $categoria;
+        $row = $store->first('categorias', [
+            'id' => 'eq.'.$categoria,
+            'or' => '(usuario_id.is.null,usuario_id.eq.'.$store->userId().')',
+        ]);
+
+        return $row ? response()->json(SupabaseResourceMapper::categoria($row)) : response()->json(['message' => 'Not found.'], 404);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, string $categoria, SupabaseFinance $store)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'tipo' => ['sometimes', 'required', 'in:ingreso,gasto'],
             'nombre' => ['sometimes', 'required', 'string', 'max:100'],
             'icono' => ['sometimes', 'required', 'string', 'max:100'],
             'color' => ['sometimes', 'required', 'string', 'max:20'],
             'activa' => ['sometimes', 'boolean'],
         ]);
+        if (array_key_exists('nombre', $data)) {
+            $data['nombre_personalizado'] = $data['nombre'];
+            $data['nombre_clave_traduccion'] = null;
+            unset($data['nombre']);
+        }
 
-        $categoria->update($validated);
-
-        return response()->json($categoria);
+        try {
+            return response()->json(SupabaseResourceMapper::categoria($store->update('categorias', $categoria, $data)));
+        } catch (SupabaseRowNotFound) {
+            return response()->json(['message' => 'Not found.'], 404);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Categoria $categoria)
+    public function destroy(string $categoria, SupabaseFinance $store)
     {
-        $categoria->delete();
+        try {
+            $store->update('categorias', $categoria, ['activa' => false, 'actualizado_en' => now()->toIso8601String()]);
+        } catch (SupabaseRowNotFound) {
+            return response()->json(['message' => 'Not found.'], 404);
+        }
 
-        return response()->json(null, 204);
+        return response()->noContent();
     }
 }
