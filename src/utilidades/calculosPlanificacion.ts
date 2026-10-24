@@ -1,11 +1,15 @@
 import type { ConsumoPresupuesto, Presupuesto } from '@/src/tipos/presupuesto';
 import type { Meta } from '@/src/tipos/meta';
 import type { Movimiento } from '@/src/tipos/movimiento';
+import { analizarFechaSoloDia } from '@/src/utilidades/fechas';
 
 const MILISEGUNDOS_POR_DIA = 1000 * 60 * 60 * 24;
 
 function redondear(valor: number): number {
-  return Math.round(valor * 100) / 100;
+  // +Number.EPSILON antes de multiplicar: sin esto, valores como 1.005 caen
+  // en 100.49999999999999 por representación binaria de punto flotante y
+  // Math.round los redondea para abajo (1 en vez de 1.01).
+  return Math.round((valor + Number.EPSILON) * 100) / 100;
 }
 
 export function calcularConsumoPresupuesto(
@@ -46,7 +50,7 @@ export function calcularAhorroSugeridoMeta(meta: Meta, fechaActual: Date = new D
     return { porSemana: null, porMes: null };
   }
 
-  const fechaObjetivo = new Date(meta.fechaObjetivo);
+  const fechaObjetivo = analizarFechaSoloDia(meta.fechaObjetivo);
   const diasRestantes = Math.max(1, Math.ceil((fechaObjetivo.getTime() - fechaActual.getTime()) / MILISEGUNDOS_POR_DIA));
   const semanasRestantes = Math.max(1, diasRestantes / 7);
   const mesesRestantes = Math.max(1, diasRestantes / 30);
