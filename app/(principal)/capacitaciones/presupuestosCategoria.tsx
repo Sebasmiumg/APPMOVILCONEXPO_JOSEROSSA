@@ -47,13 +47,13 @@ export default function PantallaPresupuestosCategoriaAPI() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [categoriaId, setCategoriaId] = useState<number | undefined>();
+  const [categoriaId, setCategoriaId] = useState<string | undefined>();
   const [periodo, setPeriodo] = useState(periodoActualISO());
   const [limite, setLimite] = useState('');
   const [porcentajeAlerta, setPorcentajeAlerta] = useState(80);
   const [errorFormulario, setErrorFormulario] = useState<string | undefined>();
   const [enviando, setEnviando] = useState(false);
-  const [idAEliminar, setIdAEliminar] = useState<number | null>(null);
+  const [idAEliminar, setIdAEliminar] = useState<string | null>(null);
 
   const cargar = useCallback(async () => {
     setCargando(true);
@@ -80,7 +80,7 @@ export default function PantallaPresupuestosCategoriaAPI() {
   }, [cargar]);
 
   const dinero = (monto: number) => formatearMoneda(monto, 'GTQ', idioma);
-  const nombreCategoria = (id: number) => categorias.find((categoria) => categoria.id === id)?.nombre ?? `#${id}`;
+  const nombreCategoria = (id: string) => categorias.find((categoria) => categoria.id === id)?.nombre ?? `#${id}`;
 
   const registrar = async () => {
     const montoLimite = Number.parseFloat(limite);
