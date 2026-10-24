@@ -1,7 +1,7 @@
 # Revisión de seguridad OWASP
 
-Fecha de última comprobación: 2026-10-16
-Alcance: revisión estática del cliente Expo, API Laravel y migraciones/Edge Functions de Supabase, más comprobaciones puntuales del despliegue AWS/Vercel y consultas de solo lectura en Supabase realizadas el 2026-10-16. No es una prueba de penetración completa de producción.
+Informe base: 2026-10-16
+Alcance base: revisión estática del cliente Expo, API Laravel y migraciones/Edge Functions de Supabase, además de comprobaciones puntuales de AWS/Vercel y consultas de solo lectura a Supabase. Las actualizaciones posteriores están fechadas por separado. Este documento no es una certificación ni una prueba de penetración completa de producción.
 
 ## Escaneo preventivo antes de publicar cambios en GitHub (2026-10-23)
 
@@ -11,6 +11,19 @@ Alcance: revisión estática del cliente Expo, API Laravel y migraciones/Edge Fu
 - `git diff --check`: sin errores de formato. Se añadieron reglas de exclusión para `supabase/.temp/` y los artefactos de APK, firma y presentación, que no deben entrar en el historial de código.
 
 Este escaneo cubre las dependencias y los archivos locales que se preparan para GitHub; no es una prueba de penetración de la infraestructura desplegada.
+
+## Estado de la APK de Android (2026-10-23)
+
+Se inspeccionó el artefacto local `artifacts/MiPresupuesto.apk` sin instalarlo ni ejecutarlo:
+
+- Paquete: `com.mipresupuesto.app`; versión `1.0.1` (`versionCode` 2).
+- SDK mínimo: 24; SDK objetivo: 36.
+- El archivo mide 57,691,770 bytes, tiene fecha de modificación local 2026-10-17 y su firma JAR pasa `jarsigner -verify`. La firma usa un certificado autofirmado y no tiene sello de tiempo.
+- SHA-256: `c36dd31af74a854774a4e57ed65a7568ecb227370bfa32505434ace167c4362f`.
+
+El código fuente recibió cambios posteriores a la fecha del artefacto. Por ello, esta APK no se considera una compilación actualizada con todas las correcciones recientes. En esta revisión no había una sesión autenticada de EAS ni un dispositivo o emulador Android disponible; no se pudo crear un build nuevo ni comprobar instalación, inicio de sesión y flujos financieros en ejecución. El resultado confirma metadatos y firma del archivo, no su funcionamiento de extremo a extremo.
+
+Para declarar funcional la versión actual en Android, hay que generar una APK nueva con el perfil `preview` de `eas.json`, instalarla en un dispositivo o emulador y recorrer autenticación, navegación, movimientos, metas y sincronización.
 
 ## Comprobación de despliegue (2026-10-15)
 

@@ -1,113 +1,96 @@
 # MiPresupuesto
 
-App de finanzas personales multiplataforma (iOS, Android, Web) construida con Expo SDK 57, React Native 0.86 y TypeScript en modo estricto. Funciona por completo en local (SQLite) sin necesidad de ninguna cuenta ni servicio externo, y de forma opcional puede sincronizarse con un backend propio en Supabase.
+MiPresupuesto es una aplicación multiplataforma para registrar y consultar finanzas personales. El cliente está construido con Expo, React Native y TypeScript; usa SQLite para el almacenamiento local y se integra con Supabase y una API Laravel para autenticación, sincronización y funciones de capacitación.
 
-## Características
+## Capacidades principales
 
-- **Cuentas, movimientos, categorías y presupuestos** con almacenamiento local en `expo-sqlite`, incluyendo foto de comprobante por movimiento (`expo-image-picker`) y movimientos recurrentes que se auto-generan mes a mes.
-- **Alertas de presupuesto y recordatorios** vía notificaciones locales (`expo-notifications`) cuando un gasto cruza el umbral de alerta o el límite de un presupuesto.
-- **Bloqueo biométrico opcional** (Face ID/huella/código del dispositivo, `expo-local-authentication`) para proteger el acceso a la app.
-- **Dashboard, análisis y reportes** con cálculos financieros reales (saldo, gasto por categoría, comparación mensual, proyecciones, salud financiera) y exportación a CSV/PDF.
-- **Metas de ahorro** con progreso, aportes y sugerencia de ahorro semanal/mensual.
-- **Asistente financiero conversacional** que responde preguntas en lenguaje natural sobre tus propios datos, de forma 100% local (sin enviar información a ningún servidor), con una escalada opcional a IA para preguntas que no reconoce.
-- **Reinversión educativa**: alternativas reales (cooperativas, CertiBonos, INTECAP, crédito productivo, etc.) con fuentes oficiales citadas y verificables.
-- **Autenticación y sincronización opcional** vía Supabase (Auth + Postgres con Row Level Security + Storage), con degradación elegante: si no hay proyecto de Supabase configurado, la app sigue funcionando igual en modo local.
-- **Pantalla de Privacidad** que explica qué se guarda localmente, qué se sincroniza (si aplica) y da acceso directo a exportar o eliminar tus datos.
-- **Internacionalización completa**: español, inglés, chino, hindi y árabe (con soporte RTL), usando `i18next` y el API `Intl` del dispositivo para fechas, monedas y nombres de mes.
-- **Capacitaciones**, integrada con la API propia en Laravel ([`laravel-api/`](laravel-api/README.md)): login con token, reporte de caja mensual y CRUD completo de cuentas, categorías, metas, presupuestos por categoría y presupuestos de capacitación, todo consumido en vivo por la app.
-- **Tema claro/oscuro**, diseño responsivo (móvil/tablet/web) y componentes con soporte de accesibilidad (roles, labels y agrupación para lectores de pantalla).
+- Registro de cuentas, categorías y movimientos de ingreso y gasto.
+- Panel financiero, análisis, presupuestos y objetivos de ahorro.
+- Sincronización de datos de usuario con Supabase cuando el entorno está configurado.
+- Sección **Capacitaciones** conectada a la API Laravel. El servidor valida la sesión y controla el acceso a cada recurso.
+- Sección **Frameworks** para consultar los recursos educativos habilitados.
+- Exportación de reportes y preferencias de idioma y tema.
+- Interfaz web instalable como PWA y cliente móvil para Android e iOS.
 
-> Nota: `expo-notifications` y `expo-local-authentication` no funcionan en web (limitación de las librerías, no de la app) — MiPresupuesto lo detecta y lo indica en pantalla en vez de fallar. Pruébalos en un build nativo (iOS/Android) o Expo Go.
+## Tecnologías
 
-## Empezar
+| Área | Tecnología |
+| --- | --- |
+| Cliente móvil y web | Expo SDK 57, React Native 0.86, Expo Router y TypeScript |
+| Almacenamiento local | SQLite mediante `expo-sqlite` |
+| Identidad y datos en nube | Supabase Auth, PostgreSQL, RLS y Storage |
+| API de capacitación | Laravel, con validación de identidad y autorización por recurso |
+| Web | Exportación estática de Expo y despliegue en Vercel |
 
-1. Usa Node.js 22 LTS (el archivo `.nvmrc` permite seleccionarlo con `nvm use`) e instala dependencias:
+## Requisitos de desarrollo
 
-   ```bash
-   nvm use
-   npm install
-   ```
+- Node.js compatible con el rango definido en [`package.json`](package.json).
+- npm y PHP/Composer para trabajar también en la API Laravel.
+- Una cuenta y proyecto Supabase para probar autenticación y sincronización remotas.
 
-2. (Opcional) Configurar Supabase: copia `.env.example` a `.env` y completa las variables con los datos de tu proyecto (ver [Sincronización con Supabase](#sincronización-con-supabase-opcional) más abajo). Si no configuras nada, la app funciona igual en modo local/demostración.
-
-3. Iniciar el servidor de desarrollo:
-
-   ```bash
-   npx expo start
-   ```
-
-   Desde ahí puedes abrir la app en Expo Go, un simulador de iOS/Android, o en el navegador (`npx expo start --web` / tecla `w`).
-
-### Instalar en Android o usar en iPhone
-
-- Android: la APK de lanzamiento firmada para instalación directa está en [`artifacts/MiPresupuesto.apk`](artifacts/MiPresupuesto.apk). Para generar otra APK, usa `eas build --platform android --profile preview` (el perfil `preview` produce una APK interna).
-- iPhone: un APK no se puede instalar en iOS. La web está configurada como PWA; abre `https://www.mipresupuestoapp.com` en Safari y selecciona **Compartir → Añadir a pantalla de inicio** para usarla como app web sin publicarla en App Store.
-
-### API Laravel propia (Capacitaciones)
-
-La pestaña **Capacitaciones** consume la API construida en [`laravel-api/`](laravel-api/README.md) (movimientos, reporte mensual, cuentas, categorías, metas, presupuestos por categoría y de capacitación). Levanta ese backend por separado y apunta la app a su URL en `.env`:
+Instala las dependencias del cliente y crea una configuración local a partir del ejemplo:
 
 ```bash
-EXPO_PUBLIC_LARAVEL_API_URL=http://127.0.0.1:8000/api
+npm ci
+cp .env.example .env
 ```
 
-En un simulador/emulador `127.0.0.1` funciona; en un dispositivo físico con Expo Go hay que usar la IP LAN de la máquina donde corre `php artisan serve` (por ejemplo `http://192.168.1.10:8000/api`).
+Completa solo las variables públicas necesarias en `.env`. Las variables `EXPO_PUBLIC_*` se incluyen en el código del cliente; no pongas claves privadas, contraseñas de servidor ni la clave Supabase `service_role` allí.
 
-Todos los recursos requieren sesión: la pestaña pide email/contraseña (ver credenciales de prueba en [`laravel-api/README.md`](laravel-api/README.md#autenticación)), guarda el token de forma segura en el dispositivo y lo envía en cada petición. Si el token expira o la API responde 401, la app vuelve automáticamente a la pantalla de login.
-
-## Scripts disponibles
-
-| Script                | Descripción                                              |
-| ---------------------- | --------------------------------------------------------- |
-| `npm start`             | Inicia el servidor de desarrollo de Expo                  |
-| `npm run web`           | Inicia la app en el navegador                             |
-| `npm run android`       | Inicia la app en un emulador/dispositivo Android           |
-| `npm run ios`           | Inicia la app en un simulador/dispositivo iOS               |
-| `npm run typecheck`     | Verifica tipos con `tsc --noEmit`                          |
-| `npm test`              | Ejecuta la suite de pruebas unitarias (Jest)                |
-| `npm run doctor`        | Corre `expo-doctor` para validar la configuración del proyecto |
-| `npm run lint`          | Corre el linter de Expo                                    |
-
-## Arquitectura
-
-- **`app/`** — Rutas de la aplicación (Expo Router, enrutamiento por archivos): autenticación, configuración inicial, pantallas principales (inicio, movimientos, análisis, metas, asistente, reinversión, perfil) y pantallas modales (nueva cuenta, nuevo movimiento, nueva meta, etc.).
-- **`src/base-datos/`** — Esquema y repositorios de SQLite (fuente de verdad local).
-- **`src/servicios/supabase/`** — Cliente y helpers de Supabase; `supabaseEstaConfigurado()` controla la degradación elegante cuando no hay backend configurado.
-- **`src/servicios/sincronizacion/`** — Cola de sincronización local → Supabase.
-- **`src/servicios/asistente/`** — Motor local de detección de intención y generación de respuestas del asistente financiero, más el cliente opcional de IA (Edge Function).
-- **`src/servicios/reinversion/`** — Catálogo de alternativas de reinversión con fuentes verificadas.
-- **`src/utilidades/`** — Funciones puras de cálculo financiero (usadas por dashboard, análisis, reportes y el asistente), sin dependencias de React ni de i18n — fáciles de testear de forma aislada.
-- **`src/componentes/`** — Componentes de UI reutilizables, organizados por dominio.
-- **`src/idiomas/`** — Diccionarios de traducción (es, en, zh, hi, ar).
-- **`src/contextos/`** — Contextos de React para tema, idioma, autenticación y datos financieros.
-- **`supabase/`** — Migraciones SQL y Edge Functions (Deno) del backend opcional.
-
-## Sincronización con Supabase (opcional)
-
-MiPresupuesto es **local-first**: todos los datos viven en SQLite en el dispositivo y la app es completamente funcional sin backend. Si quieres habilitar cuenta en la nube, sincronización entre dispositivos, respaldo de comprobantes y el asistente con IA:
-
-1. Crea un proyecto en [Supabase](https://supabase.com).
-2. Aplica las migraciones en `supabase/migrations/` (en orden) a tu proyecto.
-3. Completa `.env` con `EXPO_PUBLIC_SUPABASE_URL` y `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (ambas son públicas a propósito; nunca coloques ahí una clave `service_role`).
-4. Despliega las Edge Functions en `supabase/functions/` con `supabase functions deploy <nombre>` y configura sus secretos (`ANTHROPIC_API_KEY`, `BRAVE_SEARCH_API_KEY`, etc.) con `supabase secrets set`.
-
-**Limitación conocida**: las Edge Functions (`asistente-ia`, `busqueda-recomendaciones`) están escritas siguiendo los patrones oficiales de Supabase/Deno, pero no han sido desplegadas ni probadas en vivo en este entorno de desarrollo por no contar con un proyecto de Supabase real ni credenciales de terceros (Anthropic, Brave Search). Revísalas antes de desplegar a producción.
-
-## Pruebas
+Inicia la aplicación:
 
 ```bash
-npm test
+npx expo start
 ```
 
-Las pruebas cubren la lógica de negocio pura: cálculos financieros, análisis y planificación, formato de moneda, clasificación de correos, validaciones de autenticación, y el motor del asistente (detección de intención, detección de mes en texto libre y generación de respuestas).
+Para abrir la versión web:
 
-## Accesibilidad
+```bash
+npm run web
+```
 
-- Todos los controles interactivos (botones, campos, chips, selectores) exponen `accessibilityRole` y `accessibilityLabel`.
-- Las tarjetas informativas (saldo, métricas, recomendaciones, alternativas de reinversión) se agrupan como un solo elemento accesible para que los lectores de pantalla las anuncien de forma coherente.
-- Las gráficas (dona de categorías, barras de ingresos/gastos) siempre van acompañadas de una leyenda textual equivalente; el dibujo SVG se oculta de la jerarquía de accesibilidad para evitar redundancia.
-- El árabe activa automáticamente el layout RTL del sistema (`I18nManager`).
+Los comandos disponibles para revisión local son `npm run typecheck`, `npm test`, `npm run lint` y `npm run doctor`.
 
-## Estado del proyecto
+## API Laravel
 
-Desarrollado en fases incrementales, cada una verificada con `typecheck`, `jest` y `expo-doctor` antes de continuar: base de la app y navegación → cuentas/movimientos/categorías/dashboard → presupuestos/metas/análisis/reportes → autenticación y sincronización con Supabase → asistente financiero y módulo de reinversión → pruebas, accesibilidad, optimización y documentación.
+La API está en [`laravel-api/`](laravel-api/README.md). Sus endpoints de capacitación y datos financieros reciben tokens de acceso con expiración y aplican validación de identidad y propiedad del usuario. La documentación del backend incluye configuración, autenticación, recursos y ejemplos de solicitudes.
+
+Para desarrollo local, copia `laravel-api/.env.example` a `laravel-api/.env`, configura las variables requeridas y sigue la guía del backend. No reutilices contraseñas reales en datos de demostración ni publiques archivos `.env`.
+
+## Estado de Android e iOS
+
+### Android
+
+El proyecto tiene configurado un perfil EAS de distribución interna que produce un archivo APK. Hay un APK local en `artifacts/MiPresupuesto.apk`, con identificador `com.mipresupuesto.app`, versión `1.0.1` y código de versión `2`. El archivo observado fue modificado el 17 de octubre de 2026 y su firma JAR pasó la verificación estática.
+
+**Este APK no se ha reconstruido con los cambios de código posteriores al 17 de octubre.** En esta revisión no fue posible instalarlo ni ejecutar la versión actual en un dispositivo o emulador Android; por eso no se certifica que incluya ni que funcione con todas las correcciones más recientes. Antes de entregar una APK actualizada, genera un build nuevo y valida instalación, inicio de sesión, navegación y operaciones financieras en Android.
+
+Para generar una APK de prueba con EAS, inicia sesión con una cuenta EAS autorizada y ejecuta:
+
+```bash
+npx eas-cli build --platform android --profile preview
+```
+
+El perfil `preview` está definido en [`eas.json`](eas.json) con `buildType: apk`. El archivo de `artifacts/` se excluye de Git; la APK no forma parte de los commits de código.
+
+### iOS
+
+Un archivo APK no se instala en iOS. El proyecto no contiene un `.ipa` de distribución. En iPhone se puede usar la versión web instalable (PWA) desde Safari; para crear e instalar un `.ipa` se necesita un build iOS firmado y el entorno/cuenta de Apple correspondiente.
+
+## Seguridad y verificación
+
+La revisión de seguridad está documentada en [`SECURITY_AUDIT.md`](SECURITY_AUDIT.md), y el proceso de reporte de vulnerabilidades en [`SECURITY.md`](SECURITY.md). El escaneo de dependencias del 23 de octubre de 2026 reportó cero avisos en npm y Composer. Estos resultados no equivalen a una certificación ni a una prueba de penetración del entorno desplegado.
+
+## Estructura del repositorio
+
+- `app/`: pantallas y rutas Expo Router.
+- `src/base-datos/`: esquema SQLite y repositorios locales.
+- `src/contextos/`: estado de sesión, finanzas y planificación.
+- `src/servicios/`: clientes Supabase y Laravel, sincronización y reportes.
+- `laravel-api/`: backend Laravel y sus pruebas.
+- `supabase/migrations/`: cambios SQL para el esquema remoto.
+- `infra/aws/`: plantillas y documentación de controles AWS.
+
+## Contribuciones y ramas
+
+Las ramas de funcionalidades y la rama `integracion/entrega-80` organizan el trabajo documentado en GitHub. La rama de integración reúne 80 commits posteriores al punto de respaldo local; todavía debe revisarse y fusionarse de acuerdo con el flujo del repositorio antes de considerar esos cambios parte de `main`.
