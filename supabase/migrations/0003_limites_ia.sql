@@ -15,11 +15,35 @@ create policy "Límites propios" on public.limites_solicitudes_ia for all
 
 create index if not exists idx_limites_ia_usuario_fecha on public.limites_solicitudes_ia(usuario_id, creado_en);
 
+-- Límite atómico: evita que solicitudes concurrentes superen el cupo y falla
+-- cerrado en caso de errores de base de datos. La identidad viene del JWT.
+create or replace function public.registrar_solicitud_ia()
+returns boolean
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  usuario uuid := auth.uid();
+  cantidad bigint;
+begin
+  if usuario is null then return false; end if;
+  perform pg_advisory_xact_lock(hashtextextended(usuario::text || ':ia', 0));
+  select count(*) into cantidad from public.limites_solicitudes_ia
+    where usuario_id = usuario and creado_en >= now() - interval '1 hour';
+  if cantidad >= 15 then return false; end if;
+  insert into public.limites_solicitudes_ia(usuario_id) values (usuario);
+  return true;
+end;
+$$;
+revoke all on function public.registrar_solicitud_ia() from public, anon;
+grant execute on function public.registrar_solicitud_ia() to authenticated;
+
 -- Housekeeping: elimina registros de más de 24 horas para no acumular filas indefinidamente.
 create or replace function public.limpiar_limites_ia_antiguos()
 returns void
 language sql
-security definer set search_path = public
+security definer set search_path = ''
 as $$
   delete from public.limites_solicitudes_ia where creado_en < now() - interval '1 day';
 $$;
