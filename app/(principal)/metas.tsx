@@ -1,6 +1,7 @@
 import { BlurView } from 'expo-blur';
 import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { FUENTE_DISPLAY } from '@/src/temas/tipografia';
@@ -9,6 +10,7 @@ import { BotonPrincipal } from '@/src/componentes/comunes/BotonPrincipal';
 import { EstadoVacio } from '@/src/componentes/comunes/EstadoVacio';
 import { EntradaEscalonada } from '@/src/componentes/comunes/EntradaEscalonada';
 import { LayoutResponsive } from '@/src/componentes/comunes/LayoutResponsive';
+import { ModalConfirmacion } from '@/src/componentes/comunes/ModalConfirmacion';
 import { TarjetaMeta } from '@/src/componentes/metas/TarjetaMeta';
 import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
@@ -20,7 +22,8 @@ export default function PantallaMetas() {
   const { t } = useTranslation();
   const router = useRouter();
   const { cuentas } = useFinanzas();
-  const { metas } = usePlanificacion();
+  const { metas, archivarMeta } = usePlanificacion();
+  const [metaAEliminar, setMetaAEliminar] = useState<string | null>(null);
 
   const monedaPorDefecto = cuentas[0]?.moneda ?? 'GTQ';
 
@@ -54,6 +57,7 @@ export default function PantallaMetas() {
                     meta={meta}
                     moneda={cuenta?.moneda ?? monedaPorDefecto}
                     onPress={() => router.push(`/meta/${meta.id}`)}
+                    onEliminar={() => setMetaAEliminar(meta.id)}
                   />
                 </EntradaEscalonada>
               );
@@ -63,6 +67,20 @@ export default function PantallaMetas() {
 
         <BotonPrincipal titulo={t('pantallas.metas.nuevaMeta')} onPress={irANuevaMeta} />
       </View>
+
+      <ModalConfirmacion
+        visible={metaAEliminar !== null}
+        titulo={t('pantallas.metas.eliminar')}
+        descripcion={t('pantallas.metas.confirmarEliminar')}
+        textoConfirmar={t('pantallas.metas.eliminar')}
+        textoCancelar={t('comun.cancelar')}
+        destructivo
+        onConfirmar={() => {
+          if (metaAEliminar) archivarMeta(metaAEliminar);
+          setMetaAEliminar(null);
+        }}
+        onCancelar={() => setMetaAEliminar(null)}
+      />
     </LayoutResponsive>
   );
 }
