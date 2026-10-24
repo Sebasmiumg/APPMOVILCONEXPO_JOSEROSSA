@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Daily encrypted EBS snapshots of the MiPresupuesto production volume with bounded retention.
+Parameters:
+  VolumeId:
+    Type: String
+    Default: vol-08c7997b2eb6650a6
+  RetentionCount:
+    Type: Number
+    Default: 7
+    MinValue: 2
+    MaxValue: 7
+Resources:
+  BackupFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CreateAndRotateEncryptedSnapshots
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: [ec2:CreateSnapshot]
+                Resource: !Sub arn:${AWS::Partition}:ec2:${AWS::Region}::snapshot/*
+              - Effect: Allow
+                Action: [ec2:CreateSnapshot]
+                Resource: !Sub arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:volume/${VolumeId}
+              - Effect: Allow
+                Action: [ec2:CopySnapshot]
+                Resource: !Sub arn:${AWS::Partition}:ec2:${AWS::Region}::snapshot/*
+              - Effect: Allow
+                Action: [ec2:DescribeSnapshots]
+                Resource: '*'
+              - Effect: Allow
+                Action: [ec2:DeleteSnapshot]
+                Resource: !Sub arn:${AWS::Partition}:ec2:${AWS::Region}::snapshot/*
+              - Effect: Allow
+                Action: [logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/mipresupuesto-encrypted-ebs-backup:*
+  BackupFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: mipresupuesto-encrypted-ebs-backup
+      Runtime: python3.13
+      Handler: index.handler
+      Role: !GetAtt BackupFunctionRole.Arn
+      Timeout: 900
+      MemorySize: 128
+      Environment:
+        Variables:
+          VOLUME_ID: !Ref VolumeId
+          RETENTION_COUNT: !Ref RetentionCount
+      Code:
+        ZipFile: |
+          import boto3, datetime, os, time
+          ec2 = boto3.client('ec2')
+          volume = os.environ['VOLUME_ID']
+          keep = int(os.environ['RETENTION_COUNT'])
+          prefix = 'mipresupuesto-daily-encrypted-backup-'
+          def wait_snapshot(snapshot_id):
+              for _ in range(150):
+                  s = ec2.describe_snapshots(SnapshotIds=[snapshot_id])['Snapshots'][0]
+                  if s['State'] == 'completed': return s
+                  if s['State'] == 'error': raise RuntimeError('Snapshot operation failed: ' + snapshot_id)
+                  time.sleep(6)
+              raise TimeoutError('Snapshot operation timed out: ' + snapshot_id)
+          def handler(event, context):
+              date = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+              today_prefix = prefix + datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d')
+              existing = ec2.describe_snapshots(OwnerIds=['self'], Filters=[{'Name':'description','Values':[today_prefix+'*']}])['Snapshots']
+              complete = [s for s in existing if s['Encrypted'] and s['State'] == 'completed']
+              if complete:
+                  return {'created': complete[0]['SnapshotId'], 'encrypted': True, 'skipped': 'already backed up today'}
+              source = ec2.create_snapshot(VolumeId=volume, Description=prefix + date + '-temporary')
+              source_id = source['SnapshotId']
+              try:
+                  wait_snapshot(source_id)
+                  copied = ec2.copy_snapshot(SourceRegion=os.environ.get('AWS_REGION','us-east-1'), SourceSnapshotId=source_id, Description=prefix + date, Encrypted=True)
+                  encrypted_id = copied['SnapshotId']
+                  wait_snapshot(encrypted_id)
+              finally:
+                  try: ec2.delete_snapshot(SnapshotId=source_id)
+                  except Exception: pass
+              snapshots = ec2.describe_snapshots(OwnerIds=['self'], Filters=[{'Name':'description','Values':[prefix+'*']}])['Snapshots']
+              snapshots = [s for s in snapshots if s['Encrypted'] and s['State'] == 'completed']
+              snapshots = sorted(snapshots, key=lambda x:x['StartTime'], reverse=True)
+              removed=[]
+              for s in snapshots[keep:]:
+                  if s['Encrypted'] and s['State'] == 'completed':
+                      ec2.delete_snapshot(SnapshotId=s['SnapshotId']); removed.append(s['SnapshotId'])
+              return {'created': encrypted_id, 'encrypted': True, 'retained': min(len(snapshots), keep), 'deleted': removed}
+  BackupLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/mipresupuesto-encrypted-ebs-backup
+      RetentionInDays: 14
+  BackupSchedule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: mipresupuesto-encrypted-ebs-backup-daily
+      Description: Creates daily encrypted EBS recovery points and keeps seven.
+      ScheduleExpression: cron(15 8 * * ? *)
+      State: ENABLED
+      Targets:
+        - Id: EncryptedEbsBackup
+          Arn: !GetAtt BackupFunction.Arn
+  AllowSchedulerInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref BackupFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt BackupSchedule.Arn
+Outputs:
+  FunctionName: { Value: !Ref BackupFunction }
+  RetentionCount: { Value: !Ref RetentionCount }
