@@ -6,6 +6,7 @@ import { PressableAnimado } from '@/src/componentes/comunes/PressableAnimado';
 import { useTema } from '@/src/contextos/ContextoTema';
 import { useEscalaPresion } from '@/src/hooks/useEscalaPresion';
 import type { FuenteReinversion } from '@/src/tipos/reinversion';
+import { analizarFechaSoloDia } from '@/src/utilidades/fechas';
 
 const ICONO_POR_TIPO: Record<FuenteReinversion['tipoFuente'], 'account-balance' | 'gavel' | 'business' | 'school'> = {
   bancoCentral: 'account-balance',
@@ -33,7 +34,7 @@ export function TarjetaFuente({ titulo, entidad, url, fechaConsulta, tipoFuente 
           {titulo}
         </Text>
         <Text style={[estilos.meta, { color: tema.colores.textoSecundario }]} numberOfLines={1}>
-          {entidad} · {new Date(fechaConsulta).toLocaleDateString()}
+          {entidad} · {analizarFechaSoloDia(fechaConsulta).toLocaleDateString()}
         </Text>
       </View>
       <Icono nombre="open-in-new" tamano={14} color={tema.colores.textoSecundario} />
