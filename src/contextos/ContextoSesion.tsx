@@ -20,16 +20,29 @@ export function ProveedorSesion({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!supabase) return;
 
+    let desmontado = false;
+    let recibioEvento = false;
+
     supabase.auth.getSession().then(({ data }) => {
+      if (desmontado || recibioEvento) return;
       setSesion(data.session);
+      setCargando(false);
+    }).catch(() => {
+      if (desmontado || recibioEvento) return;
+      setSesion(null);
       setCargando(false);
     });
 
     const { data: suscripcion } = supabase.auth.onAuthStateChange((_evento, nuevaSesion) => {
+      recibioEvento = true;
       setSesion(nuevaSesion);
+      setCargando(false);
     });
 
-    return () => suscripcion.subscription.unsubscribe();
+    return () => {
+      desmontado = true;
+      suscripcion.subscription.unsubscribe();
+    };
   }, []);
 
   const valor = useMemo<ValorContextoSesion>(
