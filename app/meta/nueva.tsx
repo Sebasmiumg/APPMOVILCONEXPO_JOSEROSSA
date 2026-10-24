@@ -17,6 +17,8 @@ import { SelectorFecha } from '@/src/componentes/comunes/SelectorFecha';
 import { useFinanzas } from '@/src/contextos/ContextoFinanzas';
 import { usePlanificacion } from '@/src/contextos/ContextoPlanificacion';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { SIMBOLOS_MONEDA } from '@/src/constantes/finanzas';
+import { formatearFechaSoloDia } from '@/src/utilidades/fechas';
 import { volverOIrA } from '@/src/utilidades/navegacionSegura';
 import Animated, { Easing, FadeInDown } from 'react-native-reanimated';
 
@@ -34,6 +36,7 @@ export default function PantallaNuevaMeta() {
   const [fechaObjetivo, setFechaObjetivo] = useState<Date | null>(null);
   const [error, setError] = useState<string | undefined>();
   const [enviando, setEnviando] = useState(false);
+  const simboloMoneda = SIMBOLOS_MONEDA[cuentas.find((cuenta) => cuenta.id === cuentaId)?.moneda ?? cuentas[0]?.moneda ?? 'GTQ'];
 
   const guardar = async () => {
     const objetivoNumerico = Number.parseFloat(montoObjetivo);
@@ -54,7 +57,7 @@ export default function PantallaNuevaMeta() {
         montoObjetivo: objetivoNumerico,
         montoActual: montoActual ? Number.parseFloat(montoActual) : 0,
         cuentaId: cuentaId ?? null,
-        fechaObjetivo: fechaObjetivo ? fechaObjetivo.toISOString().slice(0, 10) : null,
+        fechaObjetivo: fechaObjetivo ? formatearFechaSoloDia(fechaObjetivo) : null,
       });
       volverOIrA(router, '/(principal)/metas');
     } finally {
@@ -86,12 +89,14 @@ export default function PantallaNuevaMeta() {
           etiqueta={t('pantallas.metas.formulario.montoObjetivo')}
           valor={montoObjetivo}
           onCambiarValor={setMontoObjetivo}
+          simboloMoneda={simboloMoneda}
         />
 
         <CampoMoneda
           etiqueta={t('pantallas.metas.formulario.montoActualOpcional')}
           valor={montoActual}
           onCambiarValor={setMontoActual}
+          simboloMoneda={simboloMoneda}
         />
 
         {cuentas.length > 0 ? (
