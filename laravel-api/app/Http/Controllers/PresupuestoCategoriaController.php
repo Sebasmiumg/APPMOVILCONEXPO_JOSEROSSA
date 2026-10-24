@@ -2,68 +2,100 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PresupuestoCategoria;
+use App\Support\SupabaseFinance;
+use App\Support\SupabaseResourceMapper;
+use App\Support\SupabaseRowNotFound;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PresupuestoCategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(SupabaseFinance $store)
     {
-        return PresupuestoCategoria::latest('periodo')->get();
+        $rows = $store->rows('presupuestos', [
+            'usuario_id' => 'eq.'.$store->userId(),
+            'order' => 'periodo.desc',
+        ]);
+        $categorias = $store->rows('categorias', ['or' => '(usuario_id.is.null,usuario_id.eq.'.$store->userId().')']);
+        $mapa = [];
+        foreach ($categorias as $categoria) {
+            $normalizada = SupabaseResourceMapper::categoria($categoria);
+            $mapa[$normalizada['id']] = $normalizada;
+        }
+
+        return response()->json(array_map(static fn (array $row): array => SupabaseResourceMapper::presupuesto($row, $mapa), $rows));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, SupabaseFinance $store)
     {
-        $validated = $request->validate([
-            'categoria_id' => ['required', 'exists:categorias,id'],
+        $data = $request->validate([
+            'categoria_id' => ['required', 'uuid'],
             'periodo' => ['required', 'date_format:Y-m'],
             'limite' => ['required', 'numeric', 'min:0'],
             'porcentaje_alerta' => ['sometimes', 'integer', 'min:1', 'max:100'],
         ]);
+        $this->validarCategoria($data['categoria_id'], $store);
+        $row = $store->create('presupuestos', ['usuario_id' => $store->userId(), ...$data]);
 
-        $presupuesto = PresupuestoCategoria::create($validated);
-
-        return response()->json($presupuesto, 201);
+        return response()->json($this->mapear($row, $store), 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PresupuestoCategoria $presupuesto_categoria)
+    public function show(string $presupuesto_categoria, SupabaseFinance $store)
     {
-        return $presupuesto_categoria;
+        $row = $store->first('presupuestos', [
+            'id' => 'eq.'.$presupuesto_categoria,
+            'usuario_id' => 'eq.'.$store->userId(),
+        ]);
+
+        return $row ? response()->json($this->mapear($row, $store)) : response()->json(['message' => 'Not found.'], 404);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PresupuestoCategoria $presupuesto_categoria)
+    public function update(Request $request, string $presupuesto_categoria, SupabaseFinance $store)
     {
-        $validated = $request->validate([
-            'categoria_id' => ['sometimes', 'required', 'exists:categorias,id'],
+        $data = $request->validate([
+            'categoria_id' => ['sometimes', 'required', 'uuid'],
             'periodo' => ['sometimes', 'required', 'date_format:Y-m'],
             'limite' => ['sometimes', 'required', 'numeric', 'min:0'],
             'porcentaje_alerta' => ['sometimes', 'integer', 'min:1', 'max:100'],
         ]);
-
-        $presupuesto_categoria->update($validated);
-
-        return response()->json($presupuesto_categoria);
+        if (isset($data['categoria_id'])) {
+            $this->validarCategoria($data['categoria_id'], $store);
+        }
+        try {
+            return response()->json($this->mapear($store->update('presupuestos', $presupuesto_categoria, $data), $store));
+        } catch (SupabaseRowNotFound) {
+            return response()->json(['message' => 'Not found.'], 404);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PresupuestoCategoria $presupuesto_categoria)
+    public function destroy(string $presupuesto_categoria, SupabaseFinance $store)
     {
-        $presupuesto_categoria->delete();
+        $store->delete('presupuestos', $presupuesto_categoria);
 
-        return response()->json(null, 204);
+        return response()->noContent();
+    }
+
+    private function validarCategoria(string $id, SupabaseFinance $store): void
+    {
+        $categoria = $store->first('categorias', [
+            'id' => 'eq.'.$id,
+            'or' => '(usuario_id.is.null,usuario_id.eq.'.$store->userId().')',
+            'activa' => 'eq.true',
+        ], 'id');
+        if (! $categoria) {
+            throw ValidationException::withMessages(['categoria_id' => ['Selecciona una categoría activa y disponible para tu cuenta.']]);
+        }
+    }
+
+    private function mapear(array $row, SupabaseFinance $store): array
+    {
+        $categorias = $store->rows('categorias', ['or' => '(usuario_id.is.null,usuario_id.eq.'.$store->userId().')']);
+        $mapa = [];
+        foreach ($categorias as $categoria) {
+            $normalizada = SupabaseResourceMapper::categoria($categoria);
+            $mapa[$normalizada['id']] = $normalizada;
+        }
+
+        return SupabaseResourceMapper::presupuesto($row, $mapa);
     }
 }
