@@ -38,6 +38,11 @@ App de finanzas personales multiplataforma (iOS, Android, Web) construida con Ex
 
    Desde ahí puedes abrir la app en Expo Go, un simulador de iOS/Android, o en el navegador (`npx expo start --web` / tecla `w`).
 
+### Instalar en Android o usar en iPhone
+
+- Android: la APK de lanzamiento firmada para instalación directa está en [`artifacts/MiPresupuesto.apk`](artifacts/MiPresupuesto.apk). Para generar otra APK, usa `eas build --platform android --profile preview` (el perfil `preview` produce una APK interna).
+- iPhone: un APK no se puede instalar en iOS. La web está configurada como PWA; abre `https://www.mipresupuestoapp.com` en Safari y selecciona **Compartir → Añadir a pantalla de inicio** para usarla como app web sin publicarla en App Store.
+
 ### API Laravel propia (Capacitaciones)
 
 La pestaña **Capacitaciones** consume la API construida en [`laravel-api/`](laravel-api/README.md) (movimientos, reporte mensual, cuentas, categorías, metas, presupuestos por categoría y de capacitación). Levanta ese backend por separado y apunta la app a su URL en `.env`:
