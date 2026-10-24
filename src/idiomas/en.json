@@ -68,6 +68,7 @@
       "descripcion": "We sent a verification link to",
       "reenviar": "Resend email",
       "reenviarEn": "Resend in {{segundos}}s",
+      "continuarInicioSesion": "I confirmed, sign in",
       "continuarDemostracion": "Continue in demo mode",
       "yaVerifique": "I already verified my email"
     },
@@ -104,6 +105,8 @@
     "finanzas": {
       "titulo": "Set up your finances",
       "subtitulo": "Create your first account to get started",
+      "cuentaNecesariaParaMovimientos": "Create a financial account before recording income, expenses, or transfers.",
+      "crearCuentaAhora": "Create financial account",
       "moneda": "Main currency",
       "nombreCuenta": "Account name",
       "tipoCuenta": "Account type",
@@ -112,6 +115,7 @@
       "fechaObjetivoOpcional": "Target date (optional)",
       "metaInicialNombre": "My first goal",
       "finalizar": "Finish setup",
+      "saltar": "Skip for now, go to the main screen",
       "tiposCuenta": {
         "efectivo": "Cash",
         "cuentaBancaria": "Bank account",
@@ -131,7 +135,8 @@
     "analisis": "Analysis",
     "metas": "Goals",
     "reinversion": "Reinvestment",
-    "capacitaciones": "Training"
+    "capacitaciones": "Training",
+    "frameworks": "Frameworks"
   },
   "pantallas": {
     "inicio": {
@@ -141,6 +146,7 @@
       "ingresosDelMes": "Income this month",
       "gastosDelMes": "Expenses this month",
       "ahorroNeto": "Net savings",
+      "ahorroEnMetas": "Savings goals",
       "tasaAhorro": "Savings rate",
       "movimientosRecientes": "Recent transactions",
       "progresoMetas": "Goal progress",
@@ -252,6 +258,8 @@
       "nuevaMeta": "New goal",
       "sinMetas": "You haven't created any goals yet",
       "fechaObjetivo": "Target date",
+      "eliminar": "Delete goal",
+      "confirmarEliminar": "Delete this goal? This can't be undone.",
       "formulario": {
         "nombre": "Goal name",
         "montoObjetivo": "Target amount",
@@ -270,7 +278,9 @@
         "ahorroPorSemana": "Save {{monto}} per week to reach it on time",
         "ahorroPorMes": "Save {{monto}} per month to reach it on time",
         "completada": "Goal completed!",
-        "archivar": "Archive goal"
+        "archivar": "Archive goal",
+        "montoActual": "Current amount",
+        "editarProgreso": "Edit progress"
       }
     },
     "reinversion": {
@@ -298,6 +308,7 @@
         "titulo": "Cloud sync",
         "alDia": "Everything is synced",
         "pendientes": "{{cantidad}} changes pending sync",
+        "fallidos": "{{cantidad}} changes failed; use Sync now to retry them",
         "sincronizar": "Sync now",
         "sincronizando": "Syncing…",
         "sinConfigurar": "Connect Supabase to sync your data across devices"
@@ -467,14 +478,16 @@
   },
   "capacitaciones": {
     "cargando": "Fetching from the MiPresupuesto API…",
-    "fuente": "Source: local Laravel API (laravel-api/) · The whole app domain, consumed live.",
+    "fuente": "Training data fetched live from the MiPresupuesto API.",
+    "accesoRestringido": {
+      "titulo": "Access restricted",
+      "descripcion": "Capacitaciones is available only to authorized accounts."
+    },
     "login": {
-      "titulo": "Sign in to the API",
-      "descripcion": "This section requires a valid token issued by laravel-api/.",
-      "email": "Email",
-      "password": "Password",
-      "entrar": "Sign in",
-      "ayuda": "Sample user seeded by the backend. Password: password",
+      "titulo": "Training",
+      "descripcion": "The API validates your MiPresupuesto session to access your data.",
+      "requiereSesionPrincipal": "Sign in with your regular MiPresupuesto account to use this section.",
+      "abrirSesionPrincipal": "Sign in to MiPresupuesto",
       "cerrarSesion": "Sign out"
     },
     "menu": {
@@ -580,6 +593,49 @@
       "no_encontrado": "The requested resource was not found.",
       "no_autorizado": "Your session expired or is invalid. Please sign in again.",
       "respuesta": "The Laravel API returned an error. Please try again."
+    }
+  },
+  "frameworks": {
+    "fuente": "Source: a teammate's Supabase project · frameworks/languages tables.",
+    "titulo": "Frameworks",
+    "descripcion": "Framework catalog consumed live from a teammate's Supabase.",
+    "cargando": "Querying Supabase…",
+    "sinDatos": "No frameworks for this filter.",
+    "cerrarSesion": "Sign out",
+    "login": {
+      "titulo": "Sign in",
+      "descripcion": "This section requires an account on your teammate's Supabase project.",
+      "email": "Email",
+      "password": "Password",
+      "entrar": "Sign in"
+    },
+    "filtro": {
+      "titulo": "Filter by language",
+      "todos": "All"
+    },
+    "registrar": {
+      "titulo": "Register framework",
+      "descripcion": "Add a new framework with its characteristics.",
+      "crear": "Register framework"
+    },
+    "campos": {
+      "name": "Name",
+      "lenguaje": "Language",
+      "tagline": "Tagline",
+      "description": "Description",
+      "year": "Year",
+      "creator": "Creator(s)",
+      "docsUrl": "Docs URL",
+      "curiosity": "Fun fact",
+      "keyFeatures": "Key features",
+      "useCases": "Use cases",
+      "unaPorLinea": "One per line"
+    },
+    "errores": {
+      "sin_configurar": "EXPO_PUBLIC_FRAMEWORKS_SUPABASE_URL and EXPO_PUBLIC_FRAMEWORKS_SUPABASE_ANON_KEY are missing from the .env file.",
+      "sin_permiso": "Your teammate hasn't enabled framework registration on their Supabase yet (missing INSERT policy).",
+      "error": "Supabase returned an error. Please try again.",
+      "login": "Could not sign in. Check the email and password."
     }
   },
   "errores": {

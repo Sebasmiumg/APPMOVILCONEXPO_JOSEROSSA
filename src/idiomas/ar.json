@@ -68,6 +68,7 @@
       "descripcion": "تم إرسال رابط التحقق إلى",
       "reenviar": "إعادة إرسال البريد",
       "reenviarEn": "إعادة الإرسال خلال {{segundos}} ثانية",
+      "continuarInicioSesion": "تحققت من البريد، تسجيل الدخول",
       "continuarDemostracion": "المتابعة في وضع العرض التوضيحي",
       "yaVerifique": "لقد تحققت من بريدي الإلكتروني"
     },
@@ -104,6 +105,8 @@
     "finanzas": {
       "titulo": "أعدّ بياناتك المالية",
       "subtitulo": "أنشئ حسابك الأول للبدء",
+      "cuentaNecesariaParaMovimientos": "أنشئ حسابًا ماليًا قبل تسجيل الدخل أو المصروفات أو التحويلات.",
+      "crearCuentaAhora": "إنشاء حساب مالي",
       "moneda": "العملة الرئيسية",
       "nombreCuenta": "اسم الحساب",
       "tipoCuenta": "نوع الحساب",
@@ -140,6 +143,7 @@
       "ingresosDelMes": "دخل هذا الشهر",
       "gastosDelMes": "مصروفات هذا الشهر",
       "ahorroNeto": "صافي الادخار",
+      "ahorroEnMetas": "المدخرات في الأهداف",
       "tasaAhorro": "معدل الادخار",
       "movimientosRecientes": "الحركات الأخيرة",
       "progresoMetas": "تقدم الأهداف",
@@ -251,6 +255,8 @@
       "nuevaMeta": "هدف جديد",
       "sinMetas": "لم تنشئ أي هدف بعد",
       "fechaObjetivo": "التاريخ المستهدف",
+      "eliminar": "حذف الهدف",
+      "confirmarEliminar": "هل تريد حذف هذا الهدف؟ لا يمكن التراجع عن هذا الإجراء.",
       "formulario": {
         "nombre": "اسم الهدف",
         "montoObjetivo": "المبلغ المستهدف",

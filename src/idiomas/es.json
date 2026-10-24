@@ -68,6 +68,7 @@
       "descripcion": "Enviamos un enlace de verificación a",
       "reenviar": "Reenviar correo",
       "reenviarEn": "Reenviar en {{segundos}}s",
+      "continuarInicioSesion": "Ya confirmé, iniciar sesión",
       "continuarDemostracion": "Continuar en modo demostración",
       "yaVerifique": "Ya verifiqué mi correo"
     },
@@ -104,6 +105,8 @@
     "finanzas": {
       "titulo": "Configura tus finanzas",
       "subtitulo": "Crea tu primera cuenta para comenzar",
+      "cuentaNecesariaParaMovimientos": "Para registrar ingresos, gastos o transferencias, primero crea una cuenta financiera.",
+      "crearCuentaAhora": "Crear cuenta financiera",
       "moneda": "Moneda principal",
       "nombreCuenta": "Nombre de la cuenta",
       "tipoCuenta": "Tipo de cuenta",
@@ -112,6 +115,7 @@
       "fechaObjetivoOpcional": "Fecha objetivo (opcional)",
       "metaInicialNombre": "Mi primera meta",
       "finalizar": "Finalizar configuración",
+      "saltar": "Saltar por ahora, ir a la pantalla principal",
       "tiposCuenta": {
         "efectivo": "Efectivo",
         "cuentaBancaria": "Cuenta bancaria",
@@ -131,7 +135,8 @@
     "analisis": "Análisis",
     "metas": "Metas",
     "reinversion": "Reinversión",
-    "capacitaciones": "Capacitaciones"
+    "capacitaciones": "Capacitaciones",
+    "frameworks": "Frameworks"
   },
   "pantallas": {
     "inicio": {
@@ -141,6 +146,7 @@
       "ingresosDelMes": "Ingresos del mes",
       "gastosDelMes": "Gastos del mes",
       "ahorroNeto": "Ahorro neto",
+      "ahorroEnMetas": "Ahorro en metas",
       "tasaAhorro": "Tasa de ahorro",
       "movimientosRecientes": "Movimientos recientes",
       "progresoMetas": "Progreso de metas",
@@ -252,6 +258,8 @@
       "nuevaMeta": "Nueva meta",
       "sinMetas": "Aún no has creado ninguna meta",
       "fechaObjetivo": "Fecha objetivo",
+      "eliminar": "Eliminar meta",
+      "confirmarEliminar": "¿Eliminar esta meta? No vas a poder deshacerlo.",
       "formulario": {
         "nombre": "Nombre de la meta",
         "montoObjetivo": "Monto objetivo",
@@ -270,7 +278,9 @@
         "ahorroPorSemana": "Ahorra {{monto}} por semana para lograrlo a tiempo",
         "ahorroPorMes": "Ahorra {{monto}} por mes para lograrlo a tiempo",
         "completada": "¡Meta completada!",
-        "archivar": "Archivar meta"
+        "archivar": "Archivar meta",
+        "montoActual": "Monto actual",
+        "editarProgreso": "Editar progreso"
       }
     },
     "reinversion": {
@@ -298,6 +308,7 @@
         "titulo": "Sincronización con la nube",
         "alDia": "Todo sincronizado",
         "pendientes": "{{cantidad}} cambios pendientes de sincronizar",
+        "fallidos": "{{cantidad}} cambios fallaron; usa Sincronizar ahora para reintentarlos",
         "sincronizar": "Sincronizar ahora",
         "sincronizando": "Sincronizando…",
         "sinConfigurar": "Conecta Supabase para sincronizar tus datos entre dispositivos"
@@ -467,14 +478,16 @@
   },
   "capacitaciones": {
     "cargando": "Consultando la API de MiPresupuesto…",
-    "fuente": "Fuente: API Laravel local (laravel-api/) · Todo el dominio de la app consumido en vivo.",
+    "fuente": "Datos de Capacitación consultados en vivo desde la API de MiPresupuesto.",
+    "accesoRestringido": {
+      "titulo": "Acceso restringido",
+      "descripcion": "Capacitaciones está disponible únicamente para las cuentas autorizadas."
+    },
     "login": {
-      "titulo": "Inicia sesión en la API",
-      "descripcion": "Esta sección requiere un token válido emitido por laravel-api/.",
-      "email": "Correo electrónico",
-      "password": "Contraseña",
-      "entrar": "Entrar",
-      "ayuda": "Usuario de ejemplo sembrado por el backend. Contraseña: password",
+      "titulo": "Capacitaciones",
+      "descripcion": "La API valida tu sesión de MiPresupuesto para acceder a tus datos.",
+      "requiereSesionPrincipal": "Inicia sesión con tu cuenta normal de MiPresupuesto para usar esta sección.",
+      "abrirSesionPrincipal": "Iniciar sesión en MiPresupuesto",
       "cerrarSesion": "Cerrar sesión"
     },
     "menu": {
@@ -580,6 +593,49 @@
       "no_encontrado": "No se encontró el recurso solicitado.",
       "no_autorizado": "Tu sesión expiró o no es válida. Inicia sesión de nuevo.",
       "respuesta": "La API de Laravel respondió con un error. Inténtalo de nuevo."
+    }
+  },
+  "frameworks": {
+    "fuente": "Fuente: Supabase de un compañero de equipo · Tabla frameworks/languages.",
+    "titulo": "Frameworks",
+    "descripcion": "Catálogo de frameworks consumido en vivo desde el Supabase de un compañero.",
+    "cargando": "Consultando Supabase…",
+    "sinDatos": "No hay frameworks para este filtro.",
+    "cerrarSesion": "Cerrar sesión",
+    "login": {
+      "titulo": "Inicia sesión",
+      "descripcion": "Esta sección requiere una cuenta del proyecto de Supabase de tu compañero.",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "entrar": "Entrar"
+    },
+    "filtro": {
+      "titulo": "Filtrar por lenguaje",
+      "todos": "Todos"
+    },
+    "registrar": {
+      "titulo": "Registrar framework",
+      "descripcion": "Agrega un framework nuevo con sus características.",
+      "crear": "Registrar framework"
+    },
+    "campos": {
+      "name": "Nombre",
+      "lenguaje": "Lenguaje",
+      "tagline": "Frase corta",
+      "description": "Descripción",
+      "year": "Año",
+      "creator": "Creador(es)",
+      "docsUrl": "URL de documentación",
+      "curiosity": "Dato curioso",
+      "keyFeatures": "Características clave",
+      "useCases": "Casos de uso",
+      "unaPorLinea": "Una por línea"
+    },
+    "errores": {
+      "sin_configurar": "Falta configurar EXPO_PUBLIC_FRAMEWORKS_SUPABASE_URL y EXPO_PUBLIC_FRAMEWORKS_SUPABASE_ANON_KEY en el archivo .env.",
+      "sin_permiso": "Tu compañero aún no habilitó el registro de frameworks en su Supabase (falta la política de INSERT).",
+      "error": "Supabase respondió con un error. Inténtalo de nuevo.",
+      "login": "No se pudo iniciar sesión. Revisa el correo y la contraseña."
     }
   },
   "errores": {
