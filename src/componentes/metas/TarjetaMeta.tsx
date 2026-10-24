@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { FUENTES } from '@/src/temas/tipografia';
 
 import { BarraProgreso } from '@/src/componentes/comunes/BarraProgreso';
@@ -12,15 +12,17 @@ import { useEscalaPresion } from '@/src/hooks/useEscalaPresion';
 import type { CodigoMoneda } from '@/src/tipos/finanzas';
 import type { Meta } from '@/src/tipos/meta';
 import { calcularProgresoMeta } from '@/src/utilidades/calculosPlanificacion';
+import { analizarFechaSoloDia } from '@/src/utilidades/fechas';
 import { formatearMoneda } from '@/src/utilidades/formatoMoneda';
 
 interface PropiedadesTarjetaMeta {
   meta: Meta;
   moneda: CodigoMoneda;
   onPress?: () => void;
+  onEliminar?: () => void;
 }
 
-export function TarjetaMeta({ meta, moneda, onPress }: PropiedadesTarjetaMeta) {
+export function TarjetaMeta({ meta, moneda, onPress, onEliminar }: PropiedadesTarjetaMeta) {
   const { tema } = useTema();
   const { t } = useTranslation();
   const { idioma } = useIdioma();
@@ -50,6 +52,17 @@ export function TarjetaMeta({ meta, moneda, onPress }: PropiedadesTarjetaMeta) {
               <Text style={{ color: tema.colores.ingreso, fontSize: 11, fontFamily: FUENTES.negrita }}>✓</Text>
             </View>
           ) : null}
+          {onEliminar ? (
+            <Pressable
+              onPress={onEliminar}
+              hitSlop={8}
+              accessibilityRole="button"
+              accessibilityLabel={t('pantallas.metas.eliminar')}
+              style={estilos.botonEliminar}
+            >
+              <Icono nombre="delete-outline" tamano={18} color={tema.colores.textoSecundario} />
+            </Pressable>
+          ) : null}
         </View>
 
         <BarraProgreso
@@ -66,7 +79,7 @@ export function TarjetaMeta({ meta, moneda, onPress }: PropiedadesTarjetaMeta) {
         </View>
         {meta.fechaObjetivo ? (
           <Text style={[estilos.fecha, { color: tema.colores.textoSecundario }]}>
-            {t('pantallas.metas.fechaObjetivo')}: {new Date(meta.fechaObjetivo).toLocaleDateString()}
+            {t('pantallas.metas.fechaObjetivo')}: {analizarFechaSoloDia(meta.fechaObjetivo).toLocaleDateString()}
           </Text>
         ) : null}
       </TarjetaCristal>
@@ -97,6 +110,10 @@ const estilos = StyleSheet.create({
     borderRadius: 11,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  botonEliminar: {
+    marginLeft: 8,
+    padding: 2,
   },
   pie: {
     flexDirection: 'row',
