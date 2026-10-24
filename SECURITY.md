@@ -10,6 +10,11 @@ No publiques credenciales ni detalles explotables en un issue público. Usa la f
 - Las variables `EXPO_PUBLIC_*` quedan incluidas en el bundle y no deben contener secretos de servidor.
 - Las claves privadas de IA, búsqueda o Supabase deben vivir en secretos de Supabase Edge Functions.
 - Antes de publicar, ejecuta `git check-ignore .env` y revisa los archivos preparados con `git diff --cached`.
+- En AWS, entrega credenciales al workload mediante un IAM role temporal con permisos mínimos. No guardes claves de IAM en variables del bundle, imágenes Docker ni archivos `.env` desplegados.
+- Guarda secretos de aplicación en Secrets Manager o el almacén de secretos del servicio AWS elegido; entrega solo los secretos necesarios a cada servicio.
+- Configura HTTPS y HSTS en CloudFront o el balanceador una vez conocido el dominio. El API añade `no-store` y encabezados defensivos para respuestas.
+- Mantén la base de datos privada, limita los Security Groups a los orígenes necesarios y activa cifrado y copias de seguridad con protección contra borrado.
+- Habilita CloudTrail y alertas de cambios de IAM, políticas de bucket, grupos de seguridad y acceso público.
 
 ## Dependencias y compilación
 
