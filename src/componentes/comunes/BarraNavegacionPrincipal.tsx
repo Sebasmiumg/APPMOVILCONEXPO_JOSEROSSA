@@ -9,8 +9,10 @@ import { FUENTES, FUENTE_DISPLAY } from '@/src/temas/tipografia';
 
 import { Icono } from '@/src/componentes/comunes/Icono';
 import { useTema } from '@/src/contextos/ContextoTema';
+import { useSesion } from '@/src/contextos/ContextoSesion';
 import { useAnchoVentana } from '@/src/hooks/useAnchoVentana';
 import { DESTINOS_NAVEGACION } from '@/src/constantes/navegacion';
+import { tieneAccesoCapacitaciones } from '@/src/utilidades/accesoCapacitaciones';
 
 export function BarraNavegacionPrincipal({ state, navigation }: BottomTabBarProps) {
   const { tema } = useTema();
@@ -18,6 +20,10 @@ export function BarraNavegacionPrincipal({ state, navigation }: BottomTabBarProp
   const router = useRouter();
   const { puntoQuiebre } = useAnchoVentana();
   const insets = useSafeAreaInsets();
+  const { usuario, cargando } = useSesion();
+  const destinosDisponibles = DESTINOS_NAVEGACION.filter(
+    (destino) => destino.clave !== 'capacitaciones' || (!cargando && tieneAccesoCapacitaciones(usuario?.email))
+  );
 
   const rutaActiva = state.routes[state.index]?.name;
 
@@ -55,7 +61,7 @@ export function BarraNavegacionPrincipal({ state, navigation }: BottomTabBarProp
           </LinearGradient>
         </Pressable>
 
-        {DESTINOS_NAVEGACION.map((destino) => {
+        {destinosDisponibles.map((destino) => {
           const activo = rutaActiva === destino.ruta;
           return (
             <Pressable
@@ -89,7 +95,7 @@ export function BarraNavegacionPrincipal({ state, navigation }: BottomTabBarProp
     );
   }
 
-  const destinosDock = DESTINOS_NAVEGACION.filter((destino) => destino.enDockMovil);
+  const destinosDock = destinosDisponibles.filter((destino) => destino.enDockMovil);
   const mitad = Math.ceil(destinosDock.length / 2);
   const izquierda = destinosDock.slice(0, mitad);
   const derecha = destinosDock.slice(mitad);
