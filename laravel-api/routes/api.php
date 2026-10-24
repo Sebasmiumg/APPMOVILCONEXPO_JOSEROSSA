@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login'])
     ->middleware('throttle:5,1');
 
-Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
+Route::middleware(['throttle:60,1', 'auth.hibrida'])->group(function () {
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        return response()->json($request->user());
     });
     Route::post('/logout', [AuthController::class, 'logout']);
 

@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+    // Sin WithoutModelEvents: DatosDemoSeeder depende del evento `creating`
+    // de Eloquent (vía BelongsToAuthenticatedUser(OrGlobal)) para asignar
+    // user_id automáticamente a cada registro sembrado.
 
     /**
      * Seed the application's database.
