@@ -81,6 +81,8 @@ Un archivo APK no se instala en iOS. El proyecto no contiene un `.ipa` de distri
 
 La revisión de seguridad está documentada en [`SECURITY_AUDIT.md`](SECURITY_AUDIT.md), y el proceso de reporte de vulnerabilidades en [`SECURITY.md`](SECURITY.md). El escaneo de dependencias del 23 de octubre de 2026 reportó cero avisos en npm y Composer. Estos resultados no equivalen a una certificación ni a una prueba de penetración del entorno desplegado.
 
+La secuencia de construcción, las decisiones principales y el estado de los entregables se describen en [`docs/FASES_DEL_PROYECTO.md`](docs/FASES_DEL_PROYECTO.md).
+
 ## Estructura del repositorio
 
 - `app/`: pantallas y rutas Expo Router.
