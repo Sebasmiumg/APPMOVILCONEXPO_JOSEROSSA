@@ -12,11 +12,19 @@ export interface FilaMovimientoReporte {
   monto: string;
 }
 
+function neutralizarFormulaCSV(valor: string): string {
+  // Excel y otros lectores pueden ejecutar fórmulas aunque la celda esté
+  // entrecomillada. Los campos de usuario que empiezan con estos caracteres
+  // se fuerzan a texto antes de aplicar el escapado CSV normal.
+  return /^[\u0000-\u0020\uFEFF\u00A0]*[=+\-@]/.test(valor) ? `'${valor}` : valor;
+}
+
 function escaparCeldaCSV(valor: string): string {
-  if (/[",\n]/.test(valor)) {
-    return `"${valor.replace(/"/g, '""')}"`;
+  const seguro = neutralizarFormulaCSV(valor);
+  if (/[",\r\n]/.test(seguro)) {
+    return `"${seguro.replace(/"/g, '""')}"`;
   }
-  return valor;
+  return seguro;
 }
 
 export function generarCSV(encabezados: string[], filas: FilaMovimientoReporte[]): string {
@@ -43,7 +51,9 @@ export async function compartirArchivoTexto(contenido: string, nombreArchivo: st
     document.body.appendChild(enlace);
     enlace.click();
     document.body.removeChild(enlace);
-    URL.revokeObjectURL(url);
+    // Deja que el navegador inicie la lectura/descarga del Blob antes de
+    // invalidar su URL (evita carreras en navegadores móviles y lentos).
+    setTimeout(() => URL.revokeObjectURL(url), 0);
     return;
   }
 
@@ -75,14 +85,26 @@ export function generarHTMLReporte(opciones: {
   encabezadosTabla: string[];
   filas: FilaMovimientoReporte[];
 }): string {
+  const escaparHTML = (valor: string): string =>
+    valor.replace(/[&<>"']/g, (caracter) => {
+      switch (caracter) {
+        case '&': return '&amp;';
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '"': return '&quot;';
+        case "'": return '&#39;';
+        default: return caracter;
+      }
+    });
+
   const filasResumenHTML = opciones.filasResumen
-    .map((fila) => `<tr><td>${fila.etiqueta}</td><td style="text-align:right">${fila.valor}</td></tr>`)
+    .map((fila) => `<tr><td>${escaparHTML(fila.etiqueta)}</td><td style="text-align:right">${escaparHTML(fila.valor)}</td></tr>`)
     .join('');
 
   const filasTablaHTML = opciones.filas
     .map(
       (fila) =>
-        `<tr><td>${fila.fecha}</td><td>${fila.tipo}</td><td>${fila.categoria}</td><td>${fila.cuenta}</td><td>${fila.descripcion}</td><td style="text-align:right">${fila.monto}</td></tr>`
+        `<tr><td>${escaparHTML(fila.fecha)}</td><td>${escaparHTML(fila.tipo)}</td><td>${escaparHTML(fila.categoria)}</td><td>${escaparHTML(fila.cuenta)}</td><td>${escaparHTML(fila.descripcion)}</td><td style="text-align:right">${escaparHTML(fila.monto)}</td></tr>`
     )
     .join('');
 
@@ -100,11 +122,11 @@ export function generarHTMLReporte(opciones: {
 </style>
 </head>
 <body>
-  <h1>${opciones.titulo}</h1>
-  <h2>${opciones.periodo}</h2>
+  <h1>${escaparHTML(opciones.titulo)}</h1>
+  <h2>${escaparHTML(opciones.periodo)}</h2>
   <table>${filasResumenHTML}</table>
   <table>
-    <thead><tr>${opciones.encabezadosTabla.map((e) => `<th>${e}</th>`).join('')}</tr></thead>
+    <thead><tr>${opciones.encabezadosTabla.map((e) => `<th>${escaparHTML(e)}</th>`).join('')}</tr></thead>
     <tbody>${filasTablaHTML}</tbody>
   </table>
 </body>
